@@ -90,77 +90,60 @@ function createVolumeChart(canvasId, sessions) {
   ]}, options: opt });
 }
 
-/* ========== 新版资金流向：折线趋势图 + 融资融券 ========== */
-function createFundFlowChart(canvasId, sessions) {
+/* ========== 资金流向：折线趋势 + 多维度勾选 ========== */
+var FUND_DIMENSIONS = {
+  main:     { key:'main_net',    label:'主力净额',    color:'#e1e4ea', w:2.5, dash:null, visible:true,  axis:'y', order:1, unit:10000 },
+  super:    { key:'super_large_net', label:'超大单',  color:'#06b6d4', w:1.5, dash:[4,2], visible:true, axis:'y', order:2, unit:10000 },
+  large:    { key:'large_net',   label:'大单净',    color:'#3b82f6', w:1.5, dash:[4,2], visible:false, axis:'y', order:3, unit:10000 },
+  medium:   { key:'medium_net',  label:'中单净',    color:'#f59e0b', w:1.5, dash:null, visible:false, axis:'y', order:4, unit:10000 },
+  small:    { key:'small_net',   label:'小单净',    color:'#ef4444', w:1.5, dash:null, visible:false, axis:'y', order:5, unit:10000 },
+  margin:   { key:'margin_balance', label:'融资余额', color:'#f59e0b', w:1.5, dash:null, visible:false, axis:'y1', order:6, unit:100000000, suffix:'亿' },
+  short:    { key:'short_balance',  label:'融券余额', color:'#8b5cf6', w:1.5, dash:[3,3], visible:false, axis:'y1', order:7, unit:10000, suffix:'万' }
+};
+
+function createFundFlowChart(canvasId, sessions, visibleDims) {
   destroyChart('fundflow');
   var canvas = document.getElementById(canvasId); if(!canvas) return;
   var ctx = canvas.getContext('2d');
   var dates = sessions.map(function(s){return s.date.slice(5);});
-
-  // Store for tooltip click
   currentFundData = sessions;
 
-  // main_net = super_large + large (already in fund_flow)
-  var mainNet = sessions.map(function(s){
-    return parseFloat((s.fund_flow.main_net / 10000).toFixed(0)); // 万元
-  });
-  var superLarge = sessions.map(function(s){
-    return parseFloat((s.fund_flow.super_large_net / 10000).toFixed(0));
-  });
-  var largeNet = sessions.map(function(s){
-    return parseFloat((s.fund_flow.large_net / 10000).toFixed(0));
-  });
-
-  // margin balance if available
-  var marginBal = sessions.map(function(s){
-    if (s.fund_flow.margin_balance) return parseFloat((s.fund_flow.margin_balance / 100000000).toFixed(2));
-    return null;
-  });
-  var shortBal = sessions.map(function(s){
-    if (s.fund_flow.short_balance) return parseFloat((s.fund_flow.short_balance / 10000).toFixed(1));
-    return null;
-  });
-
-  var datasets = [
-    {
-      label: '主力净额', data: mainNet,
-      borderColor: DARK_THEME.white, backgroundColor: 'transparent',
-      borderWidth: 2.5, pointRadius: 4, pointBg: DARK_THEME.white,
-      tension: 0.3, yAxisID: 'y', order: 1
-    },
-    {
-      label: '超大单', data: superLarge,
-      borderColor: DARK_THEME.cyan, backgroundColor: 'transparent',
-      borderWidth: 1.5, borderDash: [4, 2], pointRadius: 2, pointBg: DARK_THEME.cyan,
-      tension: 0.3, yAxisID: 'y', order: 2
-    },
-    {
-      label: '大单', data: largeNet,
-      borderColor: DARK_THEME.blue, backgroundColor: 'transparent',
-      borderWidth: 1.5, borderDash: [4, 2], pointRadius: 2, pointBg: DARK_THEME.blue,
-      tension: 0.3, yAxisID: 'y', order: 3
+  // Default visible dimensions from checkboxes, or fallback
+  if (!visibleDims) {
+    visibleDims = {};
+    var cbs = document.querySelectorAll('.fund-cb');
+    if (cbs.length > 0) {
+      cbs.forEach(function(cb){ visibleDims[cb.value] = cb.checked; });
+    } else {
+      visibleDims = { main: true, super: true, large: false, medium: false, small: false, margin: false, short: false };
     }
-  ];
-
-  // Add margin balance if available
-  if (marginBal.some(function(v){return v !== null;})) {
-    datasets.push({
-      label: '融资余额(亿)', data: marginBal,
-      borderColor: DARK_THEME.orange, backgroundColor: 'transparent',
-      borderWidth: 1.5, pointRadius: 3, pointBg: DARK_THEME.orange,
-      tension: 0.3, yAxisID: 'y1', order: 4
-    });
-  }
-  if (shortBal.some(function(v){return v !== null;})) {
-    datasets.push({
-      label: '融券余额(万)', data: shortBal,
-      borderColor: DARK_THEME.purple, backgroundColor: 'transparent',
-      borderWidth: 1.5, pointRadius: 2, pointBg: DARK_THEME.purple,
-      borderDash: [3, 3], tension: 0.3, yAxisID: 'y1', order: 5
-    });
   }
 
-  var hasMargin = marginBal.some(function(v){return v !== null;}) || shortBal.some(function(v){return v !== null;});
+  var datasets = [];
+  var hasY1 = false;
+
+  Object.keys(FUND_DIMENSIONS).forEach(function(dimKey){
+    var dim = FUND_DIMENSIONS[dimKey];
+    if (!visibleDims[dimKey] && visibleDims.hasOwnProperty(dimKey)) return;
+    if (!dim.visible && !visibleDims[dimKey]) return;
+
+    var data = sessions.map(function(s){
+      var v = s.fund_flow[dim.key];
+      if (v === undefined || v === null) return null;
+      return parseFloat((v / dim.unit).toFixed(dim.unit >= 100000000 ? 2 : 0));
+    });
+
+    if (dim.axis === 'y1') hasY1 = true;
+
+    datasets.push({
+      label: dim.label + (dim.suffix ? '('+dim.suffix+')' : ''),
+      data: data,
+      borderColor: dim.color, backgroundColor: 'transparent',
+      borderWidth: dim.w, pointRadius: dim.order === 1 ? 4 : 2, pointBg: dim.color,
+      borderDash: dim.dash || undefined,
+      tension: 0.3, yAxisID: dim.axis, order: dim.order
+    });
+  });
 
   var opt = getDefaultOptions();
   opt.scales = {
@@ -170,28 +153,23 @@ function createFundFlowChart(canvasId, sessions) {
       title: { display: true, text: '净额(万元)', color: DARK_THEME.text },
       ticks: { color: DARK_THEME.text, callback: function(v){ if(Math.abs(v)>=10000) return (v/10000).toFixed(1)+'亿'; return v+'万'; } },
       grid: { color: DARK_THEME.grid }
-    },
-    y1: hasMargin ? {
+    }
+  };
+  if (hasY1) {
+    opt.scales.y1 = {
       type: 'linear', position: 'right',
       title: { display: true, text: '余额', color: DARK_THEME.orange },
       ticks: { color: DARK_THEME.orange },
       grid: { drawOnChartArea: false }
-    } : undefined
-  };
-  if (!hasMargin) delete opt.scales.y1;
+    };
+  }
 
-  // Click handler for fund summary
   opt.onClick = function(e, elements) {
-    if (elements.length > 0) {
-      var idx = elements[0].index;
-      showFundSummary(idx, sessions);
-    }
+    if (elements.length > 0) { var idx = elements[0].index; showFundSummary(idx, sessions); }
   };
 
   chartInstances['fundflow'] = new Chart(ctx, {
-    type: 'line',
-    data: { labels: dates, datasets: datasets },
-    options: opt
+    type: 'line', data: { labels: dates, datasets: datasets }, options: opt
   });
 }
 

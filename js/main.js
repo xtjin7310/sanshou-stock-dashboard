@@ -92,12 +92,37 @@
    * 初始化首页
    */
   function initHomepage() {
-    setTodayDate();
-
     // 加载三只股票卡片
     loadStockCard(STOCKS[0], 'stock-card-0');
     loadStockCard(STOCKS[1], 'stock-card-1');
     loadStockCard(STOCKS[2], 'stock-card-2');
+
+    // 启动实时行情轮询
+    if (typeof startQuotePolling === 'function') {
+      startQuotePolling(10000);
+    }
+
+    // 每5秒更新卡片价格
+    setInterval(updateHomeCardPrices, 5000);
+  }
+
+  function updateHomeCardPrices() {
+    if (typeof LIVE_QUOTES === 'undefined') return;
+    var cards = document.querySelectorAll('.stock-card');
+    if (cards.length < 3) return;
+
+    STOCKS.forEach(function(stock, i) {
+      var q = LIVE_QUOTES[stock.key];
+      if (!q || q.price === null) return;
+      var priceEl = cards[i].querySelector('.stock-price');
+      var chgEl = cards[i].querySelector('.stock-change');
+      if (priceEl) priceEl.textContent = q.price.toFixed(2);
+      if (chgEl) {
+        var sign = q.change >= 0 ? '+' : '';
+        chgEl.textContent = sign + q.change.toFixed(2) + '%';
+        chgEl.className = 'stock-change ' + (q.change >= 0 ? 'change-up' : 'change-down');
+      }
+    });
   }
 
   // DOM 加载完成后初始化

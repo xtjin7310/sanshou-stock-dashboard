@@ -139,7 +139,12 @@ function updateAllCharts(stock, startDate, endDate, sessionFilter) {
     createPriceChart('chart-price', filtered);
     createChangeChart('chart-change', filtered);
     createVolumeChart('chart-volume', filtered);
-    createFundFlowChart('chart-fundflow', filtered);
+    // 从复选框读取选中维度
+    var fundDims = {};
+    var cbs = document.querySelectorAll('.fund-cb');
+    if (cbs.length > 0) { cbs.forEach(function(cb){ fundDims[cb.value] = cb.checked; }); }
+    else { fundDims = { main: true, super: true, large: false, medium: false, small: false, margin: false, short: false }; }
+    createFundFlowChart('chart-fundflow', filtered, fundDims);
     createScoreChart('chart-score', filtered);
     createKeyLevelChart('chart-keylevel', filtered);
 

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>华工科技(sz000988) - 三股复盘</title>
+  <title>华工科技(sz000988) - 三寿的股票分析平台</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body data-stock="huagongkeji">
 
 <nav class="nav-bar">
-  <a href="../index.html" class="nav-logo">📊 三股复盘</a>
+  <a href="../index.html" class="nav-logo">三寿的股票分析平台</a>
   <div class="nav-links" id="top-nav-links">
     <a href="xinfengming.html" class="nav-link">新凤鸣</a>
     <a href="huagongkeji.html" class="nav-link active">华工科技</a>
@@ -54,11 +54,14 @@
     <div class="card section-block"><div class="section-title">📦 量能走势</div><div class="chart-container" style="height:320px;"><canvas id="chart-volume"></canvas></div></div>
     <div class="card section-block">
       <div class="section-title">💵 资金流向趋势</div>
-      <div class="fund-flow-legend">
-        <span class="legend-item"><span class="legend-dot" style="background:#e1e4ea;"></span> 主力净额</span>
-        <span class="legend-item"><span class="legend-dot" style="background:#06b6d4;"></span> 超大单</span>
-        <span class="legend-item"><span class="legend-dot" style="background:#3b82f6;"></span> 大单</span>
-        <span class="legend-item"><span class="legend-dot" style="background:#f59e0b;"></span> 融资余额</span>
+      <div class="fund-flow-legend" id="fund-checkboxes">
+        <label class="legend-item"><input type="checkbox" class="fund-cb" value="main" checked onchange="refreshFundChart()"> 主力</label>
+        <label class="legend-item"><input type="checkbox" class="fund-cb" value="super" checked onchange="refreshFundChart()"> 超大单</label>
+        <label class="legend-item"><input type="checkbox" class="fund-cb" value="large" onchange="refreshFundChart()"> 大单</label>
+        <label class="legend-item"><input type="checkbox" class="fund-cb" value="medium" onchange="refreshFundChart()"> 中单</label>
+        <label class="legend-item"><input type="checkbox" class="fund-cb" value="small" onchange="refreshFundChart()"> 小单</label>
+        <label class="legend-item"><input type="checkbox" class="fund-cb" value="margin" onchange="refreshFundChart()"> 融资</label>
+        <label class="legend-item"><input type="checkbox" class="fund-cb" value="short" onchange="refreshFundChart()"> 融券</label>
         <span style="margin-left:auto;font-size:0.7rem;color:var(--text-tertiary);">点击节点查看详情</span>
       </div>
       <div class="chart-container" style="height:320px;"><canvas id="chart-fundflow"></canvas></div>
@@ -110,17 +113,30 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="../js/charts.js"></script>
 <script src="../js/data-loader.js"></script>
+<script src="../js/live-quote.js"></script>
 <script src="../js/stock-detail.js"></script>
 <script>
+function refreshFundChart() {
+  var s = document.getElementById('date-start'), e = document.getElementById('date-end');
+  loadStockData('huagongkeji', s.value, e.value).then(function(data){
+    if (data && data.sessions.length > 0) {
+      var dims = {};
+      document.querySelectorAll('.fund-cb').forEach(function(cb){ dims[cb.value] = cb.checked; });
+      createFundFlowChart('chart-fundflow', data.sessions, dims);
+    }
+  });
+}
 function triggerCatchup(session) {
-  var names = { xinfengming: '新凤鸣', huagongkeji: '华工科技', zhongxing: '中兴通讯' };
   var labels = { morning: '午间复盘', afternoon: '盘后复盘' };
-  var stock = 'huagongkeji';
-  var msg = '请帮我补跑 ' + names[stock] + ' 的' + labels[session];
-  if (confirm('确认对 ' + names[stock] + ' 触发手动' + labels[session] + '？')) {
+  var msg = '请帮我补跑 华工科技 的' + labels[session];
+  if (confirm('确认触发' + labels[session] + '？')) {
     navigator.clipboard.writeText(msg).then(function(){ alert('指令已复制：\n' + msg); }).catch(function(){ alert('请到 WorkBuddy 发送：\n' + msg); });
   }
 }
+document.addEventListener('DOMContentLoaded', function(){
+  startQuotePolling(10000);
+  setInterval(function(){ updateTopBarLive('huagongkeji'); }, 5000);
+});
 </script>
 </body>
 </html>

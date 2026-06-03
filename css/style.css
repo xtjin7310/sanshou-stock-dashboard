@@ -267,9 +267,10 @@ img { max-width: 100%; height: auto; }
 .prediction-table .correct { color: var(--color-fall); font-weight: 700; }
 .prediction-table .incorrect { color: var(--color-rise); font-weight: 700; }
 
-/* ========== Fund Flow Legend ========== */
-.fund-flow-legend { display: flex; gap: var(--spacing-md); flex-wrap: wrap; font-size: 0.72rem; color: var(--text-secondary); margin-bottom: var(--spacing-sm); }
-.fund-flow-legend .legend-item { display: flex; align-items: center; gap: 4px; }
+/* ========== Fund Flow Legend (Checkbox Version) ========== */
+.fund-flow-legend { display: flex; gap: var(--spacing-md); flex-wrap: wrap; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: var(--spacing-sm); align-items: center; }
+.fund-flow-legend .legend-item { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.fund-flow-legend input[type="checkbox"] { accent-color: var(--accent-blue); cursor: pointer; }
 .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
 
 /* ========== Fund Flow Summary (per-date) ========== */

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>三股复盘分析平台</title>
+  <title>三寿的股票分析平台</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <nav class="nav-bar">
-  <a href="index.html" class="nav-logo">📊 三股复盘</a>
+  <a href="index.html" class="nav-logo">三寿的股票分析平台</a>
   <div class="nav-spacer"></div>
   <div class="nav-links">
     <a href="index.html" class="nav-link active">首页</a>
@@ -19,12 +19,7 @@
   </div>
 </nav>
 
-<header class="page-header">
-  <h1>三股复盘分析平台</h1>
-  <div class="date-display" id="today-date">加载中...</div>
-</header>
-
-<main class="container">
+<main class="container" style="margin-top:16px;">
   <div class="grid-3col" id="stock-cards">
     <div class="card card-clickable" id="stock-card-0"><div class="no-data">加载中...</div></div>
     <div class="card card-clickable" id="stock-card-1"><div class="no-data">加载中...</div></div>
@@ -35,6 +30,7 @@
 <footer class="page-footer"><p>数据仅供复盘分析参考，不构成投资建议 &copy; 2026</p></footer>
 
 <script src="js/data-loader.js"></script>
+<script src="js/live-quote.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
