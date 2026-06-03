@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>三股复盘分析平台</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 页面头部 -->
+  <header class="page-header">
+    <h1>📈 三股复盘分析平台</h1>
+    <div class="date-display" id="today-date">加载中...</div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main class="container">
+    <div class="grid-2col" id="stock-cards">
+      <div class="card card-clickable" id="stock-card-0">
+        <div class="no-data" style="min-height:120px;">加载中...</div>
+      </div>
+      <div class="card card-clickable" id="stock-card-1">
+        <div class="no-data" style="min-height:120px;">加载中...</div>
+      </div>
+      <div class="card card-clickable grid-full" id="stock-card-2">
+        <div class="no-data" style="min-height:120px;">加载中...</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 底部说明 -->
+  <footer class="page-footer">
+    <p>数据仅供复盘分析参考，不构成投资建议 &copy; 2026</p>
+  </footer>
+
+  <script src="js/data-loader.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
