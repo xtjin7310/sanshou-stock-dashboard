@@ -8,164 +8,119 @@
 </head>
 <body data-stock="huagongkeji">
 
-  <!-- 顶部栏 -->
-  <div class="top-bar">
-    <div class="stock-info">
-      <span class="stock-name-lg" id="stock-name">华工科技</span>
-      <span class="stock-code-lg" id="stock-code">sz000988</span>
-    </div>
-    <span class="price-display" id="top-price">--</span>
-    <span class="change-display" id="top-change">--</span>
-
-    <div class="controls">
-      <div class="session-toggle">
-        <button class="btn" id="btn-session-all">全部</button>
-        <button class="btn" id="btn-session-morning">午间</button>
-        <button class="btn" id="btn-session-afternoon">盘后</button>
-      </div>
-      <label for="date-start">从</label>
-      <input type="date" id="date-start">
-      <label for="date-end">至</label>
-      <input type="date" id="date-end">
-      <button class="btn btn-primary" id="btn-apply-date">应用</button>
-    </div>
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-logo">📊 三股复盘</a>
+  <div class="nav-links" id="top-nav-links">
+    <a href="xinfengming.html" class="nav-link">新凤鸣</a>
+    <a href="huagongkeji.html" class="nav-link active">华工科技</a>
+    <a href="zhongxing.html" class="nav-link">中兴通讯</a>
   </div>
-
-  <!-- 主内容 -->
-  <main class="container">
-    <div class="grid-2col">
-
-      <!-- 区块1：价格走势 -->
-      <div class="card section-block">
-        <div class="section-title">📉 价格走势</div>
-        <div class="chart-container" style="height:320px;">
-          <canvas id="chart-price"></canvas>
-        </div>
-      </div>
-
-      <!-- 区块2：涨跌幅走势 -->
-      <div class="card section-block">
-        <div class="section-title">📊 涨跌幅走势</div>
-        <div class="chart-container" style="height:320px;">
-          <canvas id="chart-change"></canvas>
-        </div>
-      </div>
-
-      <!-- 区块3：量能走势 -->
-      <div class="card section-block">
-        <div class="section-title">📦 量能走势</div>
-        <div class="chart-container" style="height:320px;">
-          <canvas id="chart-volume"></canvas>
-        </div>
-      </div>
-
-      <!-- 区块4：资金流向 -->
-      <div class="card section-block">
-        <div class="section-title">💵 资金流向</div>
-        <div class="fund-flow-legend">
-          <span class="legend-item"><span class="legend-dot" style="background:#0F6E56;"></span> 超大单净</span>
-          <span class="legend-item"><span class="legend-dot" style="background:#1D9E75;"></span> 大单净</span>
-          <span class="legend-item"><span class="legend-dot" style="background:#F0997B;"></span> 中单净</span>
-          <span class="legend-item"><span class="legend-dot" style="background:#D85A30;"></span> 小单净</span>
-          <span style="margin-left:auto;font-size:0.75rem;color:var(--color-text-tertiary);">左:主力↑ 右:散户↓</span>
-        </div>
-        <div class="chart-container" style="height:320px;">
-          <canvas id="chart-fundflow"></canvas>
-        </div>
-      </div>
-
-      <!-- 区块5：三寿评分趋势 -->
-      <div class="card section-block grid-full">
-        <div class="section-title">🎯 三寿评分趋势</div>
-        <div class="chart-container" style="height:280px;">
-          <canvas id="chart-score"></canvas>
-        </div>
-        <div class="score-bar" style="margin-top:12px;">
-          <span style="position:absolute;left:0;font-size:0.65rem;color:var(--color-text-tertiary);">0 强空</span>
-          <span style="position:absolute;left:25%;font-size:0.65rem;color:var(--color-text-tertiary);">25 偏空</span>
-          <span style="position:absolute;left:40%;font-size:0.65rem;color:var(--color-text-tertiary);">40 中性</span>
-          <span style="position:absolute;left:55%;font-size:0.65rem;color:var(--color-text-tertiary);">55 偏多</span>
-          <span style="position:absolute;left:70%;font-size:0.65rem;color:var(--color-text-tertiary);">70 强多</span>
-          <span style="position:absolute;left:85%;font-size:0.65rem;color:var(--color-text-tertiary);">85 极强</span>
-          <span style="position:absolute;right:0;font-size:0.65rem;color:var(--color-text-tertiary);">100</span>
-        </div>
-        <div class="section-title mt-md">📋 最新7因子评分</div>
-        <div class="factor-bars" id="factor-bars">
-          <div class="no-data">加载中...</div>
-        </div>
-      </div>
-
-      <!-- 区块6：关键价位带 -->
-      <div class="card section-block grid-full">
-        <div class="section-title">🔑 关键价位带</div>
-        <div class="chart-container" style="height:320px;">
-          <canvas id="chart-keylevel"></canvas>
-        </div>
-      </div>
-
-      <!-- 区块7：预测准确度追踪 -->
-      <div class="card section-block grid-full">
-        <div class="section-title">🎯 预测准确度追踪</div>
-        <div class="accuracy-summary">
-          <div class="accuracy-item">
-            <div class="accuracy-value" id="acc-total">0</div>
-            <div class="accuracy-label">累计预测次数</div>
-          </div>
-          <div class="accuracy-item">
-            <div class="accuracy-value" id="acc-direction">0</div>
-            <div class="accuracy-label">方向正确次数</div>
-          </div>
-          <div class="accuracy-item">
-            <div class="accuracy-value" id="acc-composite">0%</div>
-            <div class="accuracy-label">综合准确率</div>
-            <div class="progress-bar">
-              <div class="progress-bar-fill" id="acc-progress" style="width:0%;"></div>
-            </div>
-          </div>
-        </div>
-        <div style="overflow-x:auto;">
-          <table class="prediction-table">
-            <thead>
-              <tr>
-                <th>日期</th>
-                <th>方向预测</th>
-                <th>方向实际</th>
-                <th>结果</th>
-              </tr>
-            </thead>
-            <tbody id="prediction-table-body">
-              <tr><td colspan="4">暂无数据</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- 区块8：复盘卡片画廊 -->
-      <div class="card section-block grid-full">
-        <div class="section-title">🖼️ 复盘卡片画廊</div>
-        <div class="card-gallery" id="card-gallery">
-          <div class="no-data">暂无复盘卡片</div>
-        </div>
-      </div>
-
-    </div>
-  </main>
-
-  <!-- Modal -->
-  <div class="modal-overlay" id="image-modal">
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeImageModal()">✕</button>
-      <img id="modal-image" src="" alt="复盘卡片">
-    </div>
+  <div class="nav-actions">
+    <button class="btn btn-sm btn-success" onclick="triggerCatchup('morning')">午间补漏</button>
+    <button class="btn btn-sm btn-danger" onclick="triggerCatchup('afternoon')">盘后补漏</button>
   </div>
+</nav>
 
-  <!-- 底部导航（仅移动端） -->
-  <nav class="bottom-nav" id="bottom-nav"></nav>
+<div class="top-bar">
+  <div class="stock-info">
+    <span class="stock-name-lg" id="stock-name">华工科技</span>
+    <span class="stock-code-lg" id="stock-code">sz000988</span>
+  </div>
+  <span class="price-display" id="top-price">--</span>
+  <span class="change-display" id="top-change">--</span>
+  <div class="controls">
+    <div class="session-toggle">
+      <button class="btn" id="btn-session-all">全部</button>
+      <button class="btn" id="btn-session-morning">午间</button>
+      <button class="btn" id="btn-session-afternoon">盘后</button>
+    </div>
+    <label for="date-start">从</label>
+    <input type="date" id="date-start">
+    <label for="date-end">至</label>
+    <input type="date" id="date-end">
+    <button class="btn btn-primary" id="btn-apply-date">应用</button>
+  </div>
+</div>
 
-  <!-- 脚本依赖（顺序加载） -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <script src="../js/charts.js"></script>
-  <script src="../js/data-loader.js"></script>
-  <script src="../js/stock-detail.js"></script>
+<div class="catchup-panel" id="catchup-panel">
+  <span class="catchup-label">今日复盘状态：</span>
+  <span class="catchup-status" id="catchup-status">检测中...</span>
+</div>
+
+<main class="container">
+  <div class="grid-2col">
+    <div class="card section-block"><div class="section-title">📉 价格走势</div><div class="chart-container" style="height:320px;"><canvas id="chart-price"></canvas></div></div>
+    <div class="card section-block"><div class="section-title">📊 涨跌幅走势</div><div class="chart-container" style="height:320px;"><canvas id="chart-change"></canvas></div></div>
+    <div class="card section-block"><div class="section-title">📦 量能走势</div><div class="chart-container" style="height:320px;"><canvas id="chart-volume"></canvas></div></div>
+    <div class="card section-block">
+      <div class="section-title">💵 资金流向趋势</div>
+      <div class="fund-flow-legend">
+        <span class="legend-item"><span class="legend-dot" style="background:#e1e4ea;"></span> 主力净额</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#06b6d4;"></span> 超大单</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#3b82f6;"></span> 大单</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#f59e0b;"></span> 融资余额</span>
+        <span style="margin-left:auto;font-size:0.7rem;color:var(--text-tertiary);">点击节点查看详情</span>
+      </div>
+      <div class="chart-container" style="height:320px;"><canvas id="chart-fundflow"></canvas></div>
+      <div class="fund-summary-block" id="fund-summary">
+        <div class="fund-summary-date" id="fs-date">选择日期查看详情</div>
+        <div class="fund-summary-grid">
+          <div class="fund-summary-item"><div class="fs-val" id="fs-main">--</div><div class="fs-label">主力净额</div></div>
+          <div class="fund-summary-item"><div class="fs-val" id="fs-super">--</div><div class="fs-label">超大单</div></div>
+          <div class="fund-summary-item"><div class="fs-val" id="fs-large">--</div><div class="fs-label">大单</div></div>
+          <div class="fund-summary-item"><div class="fs-val" id="fs-med">--</div><div class="fs-label">中单</div></div>
+          <div class="fund-summary-item"><div class="fs-val" id="fs-small">--</div><div class="fs-label">小单</div></div>
+          <div class="fund-summary-item"><div class="fs-val" id="fs-margin">--</div><div class="fs-label">融资余额</div></div>
+          <div class="fund-summary-item"><div class="fs-val" id="fs-short">--</div><div class="fs-label">融券余额</div></div>
+          <div class="fund-summary-item"><div class="fs-val" id="fs-turnover" style="color:var(--text-primary)">--</div><div class="fs-label">换手率</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card section-block grid-full">
+      <div class="section-title">🎯 三寿评分趋势</div>
+      <div class="chart-container" style="height:280px;"><canvas id="chart-score"></canvas></div>
+      <div class="score-bar" style="margin-top:12px;">
+        <span style="position:absolute;left:0;font-size:0.6rem;color:var(--text-tertiary);">0强空</span>
+        <span style="position:absolute;left:25%;font-size:0.6rem;color:var(--text-tertiary);">25偏空</span>
+        <span style="position:absolute;left:40%;font-size:0.6rem;color:var(--text-tertiary);">40中性</span>
+        <span style="position:absolute;left:55%;font-size:0.6rem;color:var(--text-tertiary);">55偏多</span>
+        <span style="position:absolute;left:70%;font-size:0.6rem;color:var(--text-tertiary);">70强多</span>
+        <span style="position:absolute;left:85%;font-size:0.6rem;color:var(--text-tertiary);">85极强</span>
+      </div>
+      <div class="section-title mt-md">最新7因子评分</div>
+      <div class="factor-bars" id="factor-bars"><div class="no-data">加载中...</div></div>
+    </div>
+    <div class="card section-block grid-full"><div class="section-title">🔑 关键价位带</div><div class="chart-container" style="height:320px;"><canvas id="chart-keylevel"></canvas></div></div>
+    <div class="card section-block grid-full">
+      <div class="section-title">🎯 预测准确度追踪</div>
+      <div class="accuracy-summary">
+        <div class="accuracy-item"><div class="accuracy-value" id="acc-total">0</div><div class="accuracy-label">累计预测</div></div>
+        <div class="accuracy-item"><div class="accuracy-value" id="acc-direction">0</div><div class="accuracy-label">方向正确</div></div>
+        <div class="accuracy-item"><div class="accuracy-value" id="acc-composite">0%</div><div class="accuracy-label">综合准确率</div><div class="progress-bar"><div class="progress-bar-fill" id="acc-progress" style="width:0%;"></div></div></div>
+      </div>
+      <div style="overflow-x:auto;"><table class="prediction-table"><thead><tr><th>日期</th><th>方向预测</th><th>方向实际</th><th>结果</th></tr></thead><tbody id="prediction-table-body"><tr><td colspan="4">暂无数据</td></tr></tbody></table></div>
+    </div>
+    <div class="card section-block grid-full"><div class="section-title">🖼️ 复盘卡片画廊</div><div class="card-gallery" id="card-gallery"><div class="no-data">暂无复盘卡片</div></div></div>
+  </div>
+</main>
+
+<div class="modal-overlay" id="image-modal"><div class="modal-content"><button class="modal-close" onclick="closeImageModal()">✕</button><img id="modal-image" src="" alt="复盘卡片"></div></div>
+<nav class="bottom-nav" id="bottom-nav"></nav>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="../js/charts.js"></script>
+<script src="../js/data-loader.js"></script>
+<script src="../js/stock-detail.js"></script>
+<script>
+function triggerCatchup(session) {
+  var names = { xinfengming: '新凤鸣', huagongkeji: '华工科技', zhongxing: '中兴通讯' };
+  var labels = { morning: '午间复盘', afternoon: '盘后复盘' };
+  var stock = 'huagongkeji';
+  var msg = '请帮我补跑 ' + names[stock] + ' 的' + labels[session];
+  if (confirm('确认对 ' + names[stock] + ' 触发手动' + labels[session] + '？')) {
+    navigator.clipboard.writeText(msg).then(function(){ alert('指令已复制：\n' + msg); }).catch(function(){ alert('请到 WorkBuddy 发送：\n' + msg); });
+  }
+}
+</script>
 </body>
 </html>

@@ -128,6 +128,9 @@ function initStockDetail() {
 
   // 底部导航（移动端）
   initBottomNav(stock);
+
+  // 检查今日复盘状态
+  checkCatchupStatus(stock);
 }
 
 /**
@@ -169,3 +172,58 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 暴露 getCurrentStock 到全局
 window.getCurrentStock = getCurrentStock;
+
+/**
+ * 检查今日复盘状态并更新补漏面板
+ */
+function checkCatchupStatus(stock) {
+  var today = new Date();
+  var yyyy = today.getFullYear();
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var dd = String(today.getDate()).padStart(2, '0');
+  var todayStr = yyyy + '-' + mm + '-' + dd;
+  var dayOfWeek = today.getDay();
+
+  var statusEl = document.getElementById('catchup-status');
+  if (!statusEl) return;
+
+  // 周末不显示
+  if (dayOfWeek === 0 || dayOfWeek === 6) {
+    statusEl.innerHTML = '<span class="catchup-dot"></span> 今日非交易日';
+    return;
+  }
+
+  loadStockData(stock, todayStr, todayStr).then(function(data) {
+    if (!data || !data.sessions) {
+      statusEl.innerHTML = '<span class="catchup-dot miss"></span> 今日暂无复盘数据';
+      return;
+    }
+    var hasMorning = data.sessions.some(function(s){ return s.session === 'morning'; });
+    var hasAfternoon = data.sessions.some(function(s){ return s.session === 'afternoon'; });
+    var now = new Date();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var timeOfDay = hour * 60 + minute;
+
+    var parts = [];
+    if (hasMorning) {
+      parts.push('<span class="catchup-dot done"></span> 午间已复盘');
+    } else if (timeOfDay >= 11 * 60 + 30) {
+      parts.push('<span class="catchup-dot miss"></span> 午间遗漏');
+    } else {
+      parts.push('<span class="catchup-dot"></span> 午间待触发');
+    }
+
+    if (hasAfternoon) {
+      parts.push('<span class="catchup-dot done"></span> 盘后已复盘');
+    } else if (timeOfDay >= 15 * 60) {
+      parts.push('<span class="catchup-dot miss"></span> 盘后遗漏');
+    } else {
+      parts.push('<span class="catchup-dot"></span> 盘后待触发');
+    }
+
+    statusEl.innerHTML = parts.join(' &nbsp;');
+  }).catch(function() {
+    statusEl.innerHTML = '<span class="catchup-dot miss"></span> 数据加载失败';
+  });
+}

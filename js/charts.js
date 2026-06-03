@@ -1,519 +1,271 @@
 /* ============================================================
-   charts.js — Chart.js 图表封装工厂
-   依赖: Chart.js v4 (CDN)
+   charts.js — Chart.js v4 金融暗色主题 + 资金走势折线
    ============================================================ */
-
-// 全局图表实例管理
 var chartInstances = {};
+var currentFundData = [];
 
-/**
- * 销毁指定 key 下的旧图表实例
- * @param {string} key - 图表标识
- */
 function destroyChart(key) {
-  if (chartInstances[key]) {
-    chartInstances[key].destroy();
-    delete chartInstances[key];
-  }
+  if (chartInstances[key]) { chartInstances[key].destroy(); delete chartInstances[key]; }
 }
-
-/**
- * 销毁所有图表实例
- */
 function destroyAllCharts() {
-  Object.keys(chartInstances).forEach(function (key) {
-    if (chartInstances[key]) {
-      chartInstances[key].destroy();
-    }
-  });
+  Object.keys(chartInstances).forEach(function(k) { if(chartInstances[k]) chartInstances[k].destroy(); });
   chartInstances = {};
 }
 
-/**
- * 统一默认配置
- */
+var DARK_THEME = {
+  text: '#8890a4', grid: '#1e2430', bg: '#141820',
+  rise: '#f0434a', fall: '#22c55e', blue: '#3b82f6',
+  cyan: '#06b6d4', orange: '#f59e0b', purple: '#8b5cf6',
+  white: '#e1e4ea'
+};
+
 function getDefaultOptions() {
   return {
-    responsive: true,
-    maintainAspectRatio: false,
-    animation: {
-      duration: 400
-    },
+    responsive: true, maintainAspectRatio: false,
+    animation: { duration: 300 },
     plugins: {
-      legend: {
-        labels: {
-          font: { family: getComputedStyle(document.body).fontFamily, size: 12 },
-          usePointStyle: true,
-          pointStyleWidth: 8,
-          padding: 16
-        }
-      },
+      legend: { labels: { color: DARK_THEME.text, font: { size: 11 }, usePointStyle: true, pointStyleWidth: 6, padding: 14 } },
       tooltip: {
-        titleFont: { family: getComputedStyle(document.body).fontFamily, size: 13 },
-        bodyFont: { family: getComputedStyle(document.body).fontFamily, size: 12 },
-        backgroundColor: 'rgba(29, 29, 31, 0.92)',
-        titleColor: '#ffffff',
-        bodyColor: '#e5e5ea',
-        cornerRadius: 8,
-        padding: 12,
-        displayColors: true,
-        usePointStyle: true
+        backgroundColor: 'rgba(20,24,32,0.96)', titleColor: DARK_THEME.white, bodyColor: DARK_THEME.text,
+        borderColor: DARK_THEME.grid, borderWidth: 1, cornerRadius: 6, padding: 10,
+        titleFont: { size: 12 }, bodyFont: { size: 11 }
       }
     },
     scales: {
-      x: {
-        ticks: {
-          font: { family: getComputedStyle(document.body).fontFamily, size: 11 },
-          color: '#6e6e73'
-        },
-        grid: {
-          color: '#f0f0f2',
-          drawBorder: false
-        }
-      },
-      y: {
-        ticks: {
-          font: { family: getComputedStyle(document.body).fontFamily, size: 11 },
-          color: '#6e6e73'
-        },
-        grid: {
-          color: '#f0f0f2',
-          drawBorder: false
-        }
-      }
+      x: { ticks: { color: DARK_THEME.text, font: { size: 10 } }, grid: { color: DARK_THEME.grid, drawBorder: false } },
+      y: { ticks: { color: DARK_THEME.text, font: { size: 10 } }, grid: { color: DARK_THEME.grid, drawBorder: false } }
     },
-    interaction: {
-      mode: 'index',
-      intersect: false
-    }
+    interaction: { mode: 'index', intersect: false }
   };
 }
 
-/**
- * 格式化金额为中文单位
- */
-function formatAmountCN(value) {
-  if (Math.abs(value) >= 100000000) {
-    return (value / 100000000).toFixed(2) + '亿';
-  }
-  if (Math.abs(value) >= 10000) {
-    return (value / 10000).toFixed(0) + '万';
-  }
-  return value.toString();
-}
-
-/**
- * 区块1：价格走势图
- * @param {string} canvasId - canvas 元素 ID
- * @param {Array} sessions - 数据数组
- */
 function createPriceChart(canvasId, sessions) {
   destroyChart('price');
-
-  var canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-
+  var canvas = document.getElementById(canvasId); if(!canvas) return;
   var ctx = canvas.getContext('2d');
-  var dates = sessions.map(function (s) { return s.date.slice(5); }); // MM-DD
-  var afternoonPrices = sessions.map(function (s) { return s.session === 'afternoon' ? s.price.close : null; });
-  var morningPrices = sessions.map(function (s) { return s.session === 'morning' ? s.price.close : null; });
-
-  var datasets = [];
-
-  // 盘后：实线
-  if (afternoonPrices.some(function (v) { return v !== null; })) {
-    datasets.push({
-      label: '盘后收盘价',
-      data: afternoonPrices,
-      borderColor: '#378add',
-      backgroundColor: 'rgba(55, 138, 221, 0.08)',
-      borderWidth: 2,
-      pointRadius: 3,
-      pointBackgroundColor: '#378add',
-      tension: 0.3,
-      fill: false,
-      spanGaps: false
-    });
-  }
-
-  // 午间：虚线
-  if (morningPrices.some(function (v) { return v !== null; })) {
-    datasets.push({
-      label: '午间收盘价',
-      data: morningPrices,
-      borderColor: '#378add',
-      backgroundColor: 'rgba(55, 138, 221, 0.04)',
-      borderWidth: 2,
-      borderDash: [6, 3],
-      pointRadius: 3,
-      pointBackgroundColor: '#378add',
-      tension: 0.3,
-      fill: false,
-      spanGaps: false
-    });
-  }
-
-  var options = getDefaultOptions();
-  options.scales = Object.assign({}, options.scales, {
-    y: {
-      title: { display: true, text: '元', font: { size: 12 } },
-      ticks: { callback: function (v) { return v.toFixed(2); } }
-    }
-  });
-
-  chartInstances['price'] = new Chart(ctx, {
-    type: 'line',
-    data: { labels: dates, datasets: datasets },
-    options: options
-  });
+  var dates = sessions.map(function(s){return s.date.slice(5);});
+  var am = sessions.map(function(s){return s.session==='morning'?s.price.close:null;});
+  var pm = sessions.map(function(s){return s.session==='afternoon'?s.price.close:null;});
+  var ds = [];
+  if(pm.some(function(v){return v!==null;})) ds.push({label:'盘后收盘',data:pm,borderColor:DARK_THEME.blue,borderWidth:2,pointRadius:3,pointBg:DARK_THEME.blue,tension:0.25,fill:false,spanGaps:false});
+  if(am.some(function(v){return v!==null;})) ds.push({label:'午间收盘',data:am,borderColor:DARK_THEME.blue,borderWidth:1.5,borderDash:[5,3],pointRadius:2,pointBg:DARK_THEME.blue,tension:0.25,fill:false,spanGaps:false});
+  var opt = getDefaultOptions();
+  opt.scales.y = { ticks: { color: DARK_THEME.text, callback: function(v){return v.toFixed(2);} }, grid: { color: DARK_THEME.grid }, title: { display: true, text: '元', color: DARK_THEME.text } };
+  chartInstances['price'] = new Chart(ctx, { type: 'line', data: { labels: dates, datasets: ds }, options: opt });
 }
 
-/**
- * 区块2：涨跌幅走势图
- * @param {string} canvasId
- * @param {Array} sessions
- */
 function createChangeChart(canvasId, sessions) {
   destroyChart('change');
-
-  var canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-
+  var canvas = document.getElementById(canvasId); if(!canvas) return;
   var ctx = canvas.getContext('2d');
-  var dates = sessions.map(function (s) { return s.date.slice(5); });
-  var afternoonChanges = sessions.map(function (s) {
-    return s.session === 'afternoon' ? parseFloat(s.price.change_pct.toFixed(2)) : null;
+  var dates = sessions.map(function(s){return s.date.slice(5);});
+  var pm = sessions.map(function(s){return s.session==='afternoon'?parseFloat(s.price.change_pct.toFixed(2)):null;});
+  var am = sessions.map(function(s){return s.session==='morning'?parseFloat(s.price.change_pct.toFixed(2)):null;});
+  function cc(v){if(v===null)return'transparent';return v>=0?DARK_THEME.rise:DARK_THEME.fall;}
+  var ds = [
+    {label:'盘后',data:pm,backgroundColor:pm.map(cc),borderRadius:3,order:2},
+    {label:'午间',data:am,backgroundColor:am.map(cc),borderRadius:3,order:2}
+  ];
+  var opt = getDefaultOptions();
+  opt.scales.y = { ticks: { color: DARK_THEME.text, callback: function(v){return v.toFixed(1)+'%';} }, grid: { color: DARK_THEME.grid }, title: { display: true, text: '%', color: DARK_THEME.text } };
+  chartInstances['change'] = new Chart(ctx, { type: 'bar', data: { labels: dates, datasets: ds }, options: opt });
+}
+
+function createVolumeChart(canvasId, sessions) {
+  destroyChart('volume');
+  var canvas = document.getElementById(canvasId); if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var dates = sessions.map(function(s){return s.date.slice(5);});
+  var vols = sessions.map(function(s){return parseFloat((s.volume.volume_hands/10000).toFixed(1));});
+  var amts = sessions.map(function(s){return parseFloat((s.volume.amount/100000000).toFixed(2));});
+  var opt = getDefaultOptions();
+  opt.scales = {
+    x: { ticks: { color: DARK_THEME.text, font: { size: 10 } }, grid: { color: DARK_THEME.grid } },
+    y: { type: 'linear', position: 'left', title: { display: true, text: '成交量(万手)', color: DARK_THEME.text }, ticks: { color: DARK_THEME.text, callback: function(v){return v.toFixed(0)+'万';} }, grid: { color: DARK_THEME.grid } },
+    y1: { type: 'linear', position: 'right', title: { display: true, text: '成交额(亿元)', color: DARK_THEME.orange }, ticks: { color: DARK_THEME.orange, callback: function(v){return v.toFixed(1)+'亿';} }, grid: { drawOnChartArea: false } }
+  };
+  chartInstances['volume'] = new Chart(ctx, { type: 'bar', data: { labels: dates, datasets: [
+    { label: '成交量(万手)', data: vols, backgroundColor: 'rgba(59,130,246,0.3)', borderColor: 'rgba(59,130,246,0.6)', borderWidth: 1, borderRadius: 3, yAxisID: 'y', order: 2 },
+    { label: '成交额(亿元)', data: amts, type: 'line', borderColor: DARK_THEME.orange, backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, pointBg: DARK_THEME.orange, tension: 0.25, yAxisID: 'y1', order: 1 }
+  ]}, options: opt });
+}
+
+/* ========== 新版资金流向：折线趋势图 + 融资融券 ========== */
+function createFundFlowChart(canvasId, sessions) {
+  destroyChart('fundflow');
+  var canvas = document.getElementById(canvasId); if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var dates = sessions.map(function(s){return s.date.slice(5);});
+
+  // Store for tooltip click
+  currentFundData = sessions;
+
+  // main_net = super_large + large (already in fund_flow)
+  var mainNet = sessions.map(function(s){
+    return parseFloat((s.fund_flow.main_net / 10000).toFixed(0)); // 万元
   });
-  var morningChanges = sessions.map(function (s) {
-    return s.session === 'morning' ? parseFloat(s.price.change_pct.toFixed(2)) : null;
+  var superLarge = sessions.map(function(s){
+    return parseFloat((s.fund_flow.super_large_net / 10000).toFixed(0));
+  });
+  var largeNet = sessions.map(function(s){
+    return parseFloat((s.fund_flow.large_net / 10000).toFixed(0));
   });
 
-  function changeColor(val) {
-    if (val === null) return 'transparent';
-    return val >= 0 ? '#d85a30' : '#1d9e75';
-  }
+  // margin balance if available
+  var marginBal = sessions.map(function(s){
+    if (s.fund_flow.margin_balance) return parseFloat((s.fund_flow.margin_balance / 100000000).toFixed(2));
+    return null;
+  });
+  var shortBal = sessions.map(function(s){
+    if (s.fund_flow.short_balance) return parseFloat((s.fund_flow.short_balance / 10000).toFixed(1));
+    return null;
+  });
 
   var datasets = [
     {
-      label: '盘后涨跌幅',
-      data: afternoonChanges,
-      backgroundColor: afternoonChanges.map(changeColor),
-      borderColor: afternoonChanges.map(changeColor),
-      borderWidth: 0,
-      borderRadius: 4,
-      order: 2
+      label: '主力净额', data: mainNet,
+      borderColor: DARK_THEME.white, backgroundColor: 'transparent',
+      borderWidth: 2.5, pointRadius: 4, pointBg: DARK_THEME.white,
+      tension: 0.3, yAxisID: 'y', order: 1
     },
     {
-      label: '午间涨跌幅',
-      data: morningChanges,
-      backgroundColor: morningChanges.map(changeColor),
-      borderColor: morningChanges.map(changeColor),
-      borderWidth: 0,
-      borderRadius: 4,
-      order: 2
+      label: '超大单', data: superLarge,
+      borderColor: DARK_THEME.cyan, backgroundColor: 'transparent',
+      borderWidth: 1.5, borderDash: [4, 2], pointRadius: 2, pointBg: DARK_THEME.cyan,
+      tension: 0.3, yAxisID: 'y', order: 2
+    },
+    {
+      label: '大单', data: largeNet,
+      borderColor: DARK_THEME.blue, backgroundColor: 'transparent',
+      borderWidth: 1.5, borderDash: [4, 2], pointRadius: 2, pointBg: DARK_THEME.blue,
+      tension: 0.3, yAxisID: 'y', order: 3
     }
   ];
 
-  var options = getDefaultOptions();
-  options.scales = Object.assign({}, options.scales, {
+  // Add margin balance if available
+  if (marginBal.some(function(v){return v !== null;})) {
+    datasets.push({
+      label: '融资余额(亿)', data: marginBal,
+      borderColor: DARK_THEME.orange, backgroundColor: 'transparent',
+      borderWidth: 1.5, pointRadius: 3, pointBg: DARK_THEME.orange,
+      tension: 0.3, yAxisID: 'y1', order: 4
+    });
+  }
+  if (shortBal.some(function(v){return v !== null;})) {
+    datasets.push({
+      label: '融券余额(万)', data: shortBal,
+      borderColor: DARK_THEME.purple, backgroundColor: 'transparent',
+      borderWidth: 1.5, pointRadius: 2, pointBg: DARK_THEME.purple,
+      borderDash: [3, 3], tension: 0.3, yAxisID: 'y1', order: 5
+    });
+  }
+
+  var hasMargin = marginBal.some(function(v){return v !== null;}) || shortBal.some(function(v){return v !== null;});
+
+  var opt = getDefaultOptions();
+  opt.scales = {
+    x: { ticks: { color: DARK_THEME.text, font: { size: 10 } }, grid: { color: DARK_THEME.grid } },
     y: {
-      title: { display: true, text: '%', font: { size: 12 } },
-      ticks: { callback: function (v) { return v.toFixed(1) + '%'; } }
-    }
-  });
-  options.plugins.tooltip.callbacks = {
-    label: function (ctx) {
-      var val = ctx.raw;
-      if (val === null) return ctx.dataset.label + ': 无数据';
-      return ctx.dataset.label + ': ' + (val >= 0 ? '+' : '') + val.toFixed(2) + '%';
-    }
-  };
-
-  chartInstances['change'] = new Chart(ctx, {
-    type: 'bar',
-    data: { labels: dates, datasets: datasets },
-    options: options
-  });
-}
-
-/**
- * 区块3：量能走势图（双Y轴）
- * @param {string} canvasId
- * @param {Array} sessions
- */
-function createVolumeChart(canvasId, sessions) {
-  destroyChart('volume');
-
-  var canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-
-  var ctx = canvas.getContext('2d');
-  var dates = sessions.map(function (s) { return s.date.slice(5); });
-  var volumes = sessions.map(function (s) {
-    return parseFloat((s.volume.volume_hands / 10000).toFixed(1));
-  });
-  var amounts = sessions.map(function (s) {
-    return parseFloat((s.volume.amount / 100000000).toFixed(2));
-  });
-
-  var options = getDefaultOptions();
-  options.scales = {
-    x: {
-      ticks: { font: { size: 11 }, color: '#6e6e73' },
-      grid: { color: '#f0f0f2', drawBorder: false }
+      type: 'linear', position: 'left',
+      title: { display: true, text: '净额(万元)', color: DARK_THEME.text },
+      ticks: { color: DARK_THEME.text, callback: function(v){ if(Math.abs(v)>=10000) return (v/10000).toFixed(1)+'亿'; return v+'万'; } },
+      grid: { color: DARK_THEME.grid }
     },
-    y: {
-      type: 'linear',
-      position: 'left',
-      title: { display: true, text: '成交量(万手)', font: { size: 12 } },
-      ticks: { callback: function (v) { return v.toFixed(0) + '万'; } },
-      grid: { color: '#f0f0f2', drawBorder: false }
-    },
-    y1: {
-      type: 'linear',
-      position: 'right',
-      title: { display: true, text: '成交额(亿元)', font: { size: 12 } },
-      ticks: { callback: function (v) { return v.toFixed(1) + '亿'; } },
+    y1: hasMargin ? {
+      type: 'linear', position: 'right',
+      title: { display: true, text: '余额', color: DARK_THEME.orange },
+      ticks: { color: DARK_THEME.orange },
       grid: { drawOnChartArea: false }
+    } : undefined
+  };
+  if (!hasMargin) delete opt.scales.y1;
+
+  // Click handler for fund summary
+  opt.onClick = function(e, elements) {
+    if (elements.length > 0) {
+      var idx = elements[0].index;
+      showFundSummary(idx, sessions);
     }
   };
-
-  chartInstances['volume'] = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: dates,
-      datasets: [
-        {
-          label: '成交量(万手)',
-          data: volumes,
-          backgroundColor: 'rgba(55, 138, 221, 0.35)',
-          borderColor: 'rgba(55, 138, 221, 0.7)',
-          borderWidth: 1,
-          borderRadius: 4,
-          yAxisID: 'y',
-          order: 2
-        },
-        {
-          label: '成交额(亿元)',
-          data: amounts,
-          type: 'line',
-          borderColor: '#e8923f',
-          backgroundColor: 'transparent',
-          borderWidth: 2,
-          pointRadius: 3,
-          pointBackgroundColor: '#e8923f',
-          tension: 0.3,
-          yAxisID: 'y1',
-          order: 1
-        }
-      ]
-    },
-    options: options
-  });
-}
-
-/**
- * 区块4：资金流向堆叠柱状图
- * @param {string} canvasId
- * @param {Array} sessions
- */
-function createFundFlowChart(canvasId, sessions) {
-  destroyChart('fundflow');
-
-  var canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-
-  var ctx = canvas.getContext('2d');
-  var dates = sessions.map(function (s) { return s.date.slice(5); });
-
-  var superLarge = sessions.map(function (s) { return parseFloat((s.fund_flow.super_large_net / 10000).toFixed(0)); });
-  var large = sessions.map(function (s) { return parseFloat((s.fund_flow.large_net / 10000).toFixed(0)); });
-  var medium = sessions.map(function (s) { return parseFloat((s.fund_flow.medium_net / 10000).toFixed(0)); });
-  var small = sessions.map(function (s) { return parseFloat((s.fund_flow.small_net / 10000).toFixed(0)); });
-
-  var options = getDefaultOptions();
-  options.scales = Object.assign({}, options.scales, {
-    y: {
-      title: { display: true, text: '万元', font: { size: 12 } },
-      stacked: true,
-      ticks: { callback: function (v) { return (v / 10000).toFixed(1) + '亿'; } }
-    },
-    x: { stacked: true }
-  });
 
   chartInstances['fundflow'] = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: dates,
-      datasets: [
-        {
-          label: '超大单净',
-          data: superLarge,
-          backgroundColor: '#0F6E56',
-          borderWidth: 0,
-          borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0 },
-          stack: 'main'
-        },
-        {
-          label: '大单净',
-          data: large,
-          backgroundColor: '#1D9E75',
-          borderWidth: 0,
-          borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0 },
-          stack: 'main'
-        },
-        {
-          label: '中单净',
-          data: medium,
-          backgroundColor: '#F0997B',
-          borderWidth: 0,
-          borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 4, bottomRight: 4 },
-          stack: 'main'
-        },
-        {
-          label: '小单净',
-          data: small,
-          backgroundColor: '#D85A30',
-          borderWidth: 0,
-          borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 4, bottomRight: 4 },
-          stack: 'main'
-        }
-      ]
-    },
-    options: options
-  });
-}
-
-/**
- * 区块5：三寿评分趋势图
- * @param {string} canvasId
- * @param {Array} sessions
- */
-function createScoreChart(canvasId, sessions) {
-  destroyChart('score');
-
-  var canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-
-  var ctx = canvas.getContext('2d');
-  var dates = sessions.map(function (s) { return s.date.slice(5); });
-  var scores = sessions.map(function (s) { return s.sanshou_score.total; });
-
-  var options = getDefaultOptions();
-  options.scales = Object.assign({}, options.scales, {
-    y: {
-      min: 0,
-      max: 100,
-      title: { display: true, text: '评分', font: { size: 12 } },
-      ticks: {
-        stepSize: 10,
-        callback: function (v) { return v; }
-      }
-    }
-  });
-
-  // 添加色带背景（通过 annotation 或自定义插件）
-  options.plugins = Object.assign({}, options.plugins);
-
-  var getScoreColor = function (score) {
-    if (score >= 85) return '#0F6E56';
-    if (score >= 70) return '#1d9e75';
-    if (score >= 55) return '#378add';
-    if (score >= 40) return '#aeaeb2';
-    if (score >= 25) return '#e8923f';
-    return '#d85a30';
-  };
-
-  chartInstances['score'] = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: dates,
-      datasets: [{
-        label: '三寿总分',
-        data: scores,
-        borderColor: '#378add',
-        backgroundColor: 'rgba(55, 138, 221, 0.1)',
-        borderWidth: 2.5,
-        pointRadius: 5,
-        pointBackgroundColor: scores.map(getScoreColor),
-        pointBorderColor: scores.map(getScoreColor),
-        tension: 0.3,
-        fill: true
-      }]
-    },
-    options: options
-  });
-}
-
-/**
- * 区块6：关键价位带
- * @param {string} canvasId
- * @param {Array} sessions
- */
-function createKeyLevelChart(canvasId, sessions) {
-  destroyChart('keylevel');
-
-  var canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-
-  var ctx = canvas.getContext('2d');
-  var dates = sessions.map(function (s) { return s.date.slice(5); });
-  var closes = sessions.map(function (s) { return s.price.close; });
-
-  // 用最新的 key_levels
-  var latest = sessions[sessions.length - 1];
-  var support1 = latest.key_levels.support[0];
-  var resistance1 = latest.key_levels.resistance[0];
-  var costBasis = latest.key_levels.cost_basis;
-
-  var datasets = [{
-    label: '收盘价',
-    data: closes,
-    borderColor: '#1d1d1f',
-    backgroundColor: 'transparent',
-    borderWidth: 2,
-    pointRadius: 3,
-    tension: 0.3
-  }, {
-    label: '支撑位(' + support1 + ')',
-    data: dates.map(function () { return support1; }),
-    borderColor: '#378add',
-    backgroundColor: 'transparent',
-    borderWidth: 1.5,
-    borderDash: [8, 4],
-    pointRadius: 0,
-    fill: false
-  }, {
-    label: '压力位(' + resistance1 + ')',
-    data: dates.map(function () { return resistance1; }),
-    borderColor: '#e8923f',
-    backgroundColor: 'transparent',
-    borderWidth: 1.5,
-    borderDash: [8, 4],
-    pointRadius: 0,
-    fill: false
-  }, {
-    label: '持仓成本(' + costBasis + ')',
-    data: dates.map(function () { return costBasis; }),
-    borderColor: '#aeaeb2',
-    backgroundColor: 'transparent',
-    borderWidth: 1.5,
-    borderDash: [3, 3],
-    pointRadius: 0,
-    fill: false
-  }];
-
-  var options = getDefaultOptions();
-  options.scales = Object.assign({}, options.scales, {
-    y: {
-      title: { display: true, text: '元', font: { size: 12 } },
-      ticks: { callback: function (v) { return v.toFixed(2); } }
-    }
-  });
-
-  chartInstances['keylevel'] = new Chart(ctx, {
     type: 'line',
     data: { labels: dates, datasets: datasets },
-    options: options
+    options: opt
   });
+}
+
+/* Show fund summary for clicked date */
+function showFundSummary(idx, sessions) {
+  if (idx < 0 || idx >= sessions.length) return;
+  var s = sessions[idx];
+  var panel = document.getElementById('fund-summary');
+  if (!panel) return;
+  panel.classList.add('active');
+
+  var ff = s.fund_flow;
+  var main = ff.main_net || 0;
+  var supL = ff.super_large_net || 0;
+  var lrg = ff.large_net || 0;
+  var med = ff.medium_net || 0;
+  var sml = ff.small_net || 0;
+
+  document.getElementById('fs-date').textContent = s.date + ' ' + (s.session === 'morning' ? '午间' : '盘后');
+  document.getElementById('fs-main').textContent = formatAmt(main);
+  document.getElementById('fs-main').className = 'fs-val ' + (main >= 0 ? 'rise' : 'fall');
+  document.getElementById('fs-super').textContent = formatAmt(supL);
+  document.getElementById('fs-super').className = 'fs-val ' + (supL >= 0 ? 'rise' : 'fall');
+  document.getElementById('fs-large').textContent = formatAmt(lrg);
+  document.getElementById('fs-large').className = 'fs-val ' + (lrg >= 0 ? 'rise' : 'fall');
+  document.getElementById('fs-med').textContent = formatAmt(med);
+  document.getElementById('fs-med').className = 'fs-val ' + (med >= 0 ? 'rise' : 'fall');
+  document.getElementById('fs-small').textContent = formatAmt(sml);
+  document.getElementById('fs-small').className = 'fs-val ' + (sml >= 0 ? 'rise' : 'fall');
+  document.getElementById('fs-margin').textContent = ff.margin_balance ? (ff.margin_balance/100000000).toFixed(2)+'亿' : '--';
+  document.getElementById('fs-short').textContent = ff.short_balance ? (ff.short_balance/10000).toFixed(1)+'万' : '--';
+  document.getElementById('fs-turnover').textContent = s.volume.turnover_rate.toFixed(2)+'%';
+  document.getElementById('fs-vratio').textContent = s.volume.volume_ratio.toFixed(2);
+}
+
+function formatAmt(v) {
+  var abs = Math.abs(v);
+  var sign = v >= 0 ? '+' : '-';
+  if (abs >= 100000000) return sign + (abs/100000000).toFixed(2) + '亿';
+  if (abs >= 10000) return sign + (abs/10000).toFixed(0) + '万';
+  return sign + abs.toFixed(0);
+}
+
+function createScoreChart(canvasId, sessions) {
+  destroyChart('score');
+  var canvas = document.getElementById(canvasId); if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var dates = sessions.map(function(s){return s.date.slice(5);});
+  var scores = sessions.map(function(s){return s.sanshou_score.total;});
+  function sc(v){if(v>=85)return'#06b6d4';if(v>=70)return'#22c55e';if(v>=55)return'#3b82f6';if(v>=40)return'#7e8494';if(v>=25)return'#f59e0b';return'#ef4444';}
+  var opt = getDefaultOptions();
+  opt.scales.y = { min: 0, max: 100, title: { display: true, text: '评分', color: DARK_THEME.text }, ticks: { color: DARK_THEME.text, stepSize: 10 }, grid: { color: DARK_THEME.grid } };
+  chartInstances['score'] = new Chart(ctx, { type: 'line', data: { labels: dates, datasets: [{
+    label: '三寿总分', data: scores, borderColor: DARK_THEME.blue, backgroundColor: 'rgba(59,130,246,0.08)',
+    borderWidth: 2.5, pointRadius: 5, pointBg: scores.map(sc), pointBorderColor: scores.map(sc),
+    tension: 0.3, fill: true
+  }]}, options: opt });
+}
+
+function createKeyLevelChart(canvasId, sessions) {
+  destroyChart('keylevel');
+  var canvas = document.getElementById(canvasId); if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var dates = sessions.map(function(s){return s.date.slice(5);});
+  var closes = sessions.map(function(s){return s.price.close;});
+  var latest = sessions[sessions.length-1];
+  var s1 = latest.key_levels.support[0], r1 = latest.key_levels.resistance[0], cb = latest.key_levels.cost_basis;
+  var ds = [
+    { label: '收盘价', data: closes, borderColor: DARK_THEME.white, backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, tension: 0.3 },
+    { label: '支撑('+s1+')', data: dates.map(function(){return s1;}), borderColor: DARK_THEME.blue, borderWidth: 1.5, borderDash: [6,3], pointRadius: 0, fill: false },
+    { label: '压力('+r1+')', data: dates.map(function(){return r1;}), borderColor: DARK_THEME.orange, borderWidth: 1.5, borderDash: [6,3], pointRadius: 0, fill: false },
+    { label: '成本('+cb+')', data: dates.map(function(){return cb;}), borderColor: DARK_THEME.text, borderWidth: 1, borderDash: [2,2], pointRadius: 0, fill: false }
+  ];
+  var opt = getDefaultOptions();
+  opt.scales.y = { title: { display: true, text: '元', color: DARK_THEME.text }, ticks: { color: DARK_THEME.text, callback: function(v){return v.toFixed(2);} }, grid: { color: DARK_THEME.grid } };
+  chartInstances['keylevel'] = new Chart(ctx, { type: 'line', data: { labels: dates, datasets: ds }, options: opt });
 }
