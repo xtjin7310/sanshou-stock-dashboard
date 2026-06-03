@@ -48,6 +48,17 @@
     },
     {
       "date": "2026-06-03",
+      "session": "morning",
+      "price": { "open": 36.80, "high": 38.30, "low": 36.78, "close": 37.82, "prev_close": 36.30, "change_pct": 4.19 },
+      "volume": { "amount": 4980000000, "volume_hands": 1320000, "turnover_rate": 3.28, "volume_ratio": 1.25 },
+      "fund_flow": { "main_net": 281000000, "super_large_net": 180000000, "large_net": 101000000, "medium_net": -95000000, "small_net": -186000000 },
+      "sanshou_score": { "total": 62, "technical": 65, "volume_price": 60, "fund": 68, "news": 55, "chip": 60, "sector": 62, "macro": 50, "signal": "偏多" },
+      "predictions": { "base_scenario": "弱势震荡", "base_range": "37.50-38.00", "bull_trigger": "放量突破38.00→挑战38.30", "bear_trigger": "失守37.50→回踩36.80", "confidence": 60 },
+      "key_levels": { "support": [37.50, 36.80], "resistance": [38.00, 38.30], "cost_basis": 36.12 },
+      "card_screenshot": "cards/2026-06-03-midday.png"
+    },
+    {
+      "date": "2026-06-03",
       "session": "afternoon",
       "price": { "open": 35.15, "high": 35.25, "low": 34.65, "close": 34.80, "prev_close": 35.20, "change_pct": -1.14 },
       "volume": { "amount": 758600000, "volume_hands": 216200, "turnover_rate": 2.42, "volume_ratio": 1.18 },
