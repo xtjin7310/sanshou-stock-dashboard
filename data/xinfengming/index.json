@@ -56,18 +56,29 @@
       "predictions": { "base_scenario": "强势震荡", "base_range": "19.00-19.20", "bull_trigger": "放量突破19.18→挑战19.50+", "bear_trigger": "缩量失守18.80→回落18.50", "confidence": 68 },
       "key_levels": { "support": [18.11, 17.45, 16.01], "resistance": [19.18, 18.89, 19.50], "cost_basis": 19.029 },
       "card_screenshot": "cards/2026-06-03-midday.png"
+    },
+    {
+      "date": "2026-06-03",
+      "session": "afternoon",
+      "price": { "open": 18.80, "high": 19.71, "low": 18.11, "close": 19.53, "prev_close": 18.59, "change_pct": 5.06 },
+      "volume": { "amount": 694538586, "volume_hands": 366966, "turnover_rate": 2.20, "volume_ratio": 1.31 },
+      "fund_flow": { "main_net": 23952525, "super_large_net": 1013721, "large_net": 22938803, "medium_net": 28785488, "small_net": -52738013 },
+      "sanshou_score": { "total": 75, "technical": 20, "volume_price": 16, "fund": 14, "news": 12, "chip": 6, "sector": 6, "macro": 1, "signal": "强多" },
+      "predictions": { "base_scenario": "高位震荡", "base_range": "19.20-19.80", "bull_trigger": "放量突破19.71→20.00+", "bear_trigger": "失守19.00→18.50", "confidence": 72 },
+      "key_levels": { "support": [19.02, 18.80, 18.11], "resistance": [19.71, 20.00, 20.50], "cost_basis": 19.029 },
+      "card_screenshot": "cards/2026-06-03-afternoon.png"
     }
   ],
   "accuracy": {
-    "total": 25,
-    "direction_correct": 18,
-    "composite_rate": 72,
+    "total": 26,
+    "direction_correct": 19,
+    "composite_rate": 74,
     "recent_predictions": [
       { "date": "2026-05-28", "direction_pred": "上涨", "direction_actual": "上涨", "correct": true },
       { "date": "2026-05-29", "direction_pred": "上涨", "direction_actual": "上涨", "correct": true },
       { "date": "2026-06-01", "direction_pred": "震荡", "direction_actual": "下跌", "correct": false },
       { "date": "2026-06-02", "direction_pred": "上涨", "direction_actual": "上涨", "correct": true },
-      { "date": "2026-06-03", "direction_pred": "震荡", "direction_actual": "震荡", "correct": true }
+      { "date": "2026-06-03", "direction_pred": "偏多突破", "direction_actual": "上涨", "correct": true }
     ]
   }
 }
