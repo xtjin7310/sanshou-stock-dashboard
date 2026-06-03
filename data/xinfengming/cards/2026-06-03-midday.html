@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>新凤鸣 午间复盘 2026-06-03</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f5f7;display:flex;justify-content:center;padding:20px}
+.card{width:600px;background:#fff;border-radius:16px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.section-block{border:1px solid #e5e5ea;border-radius:12px;padding:16px;margin-bottom:16px;background:#fff}
+.section-title{font-size:14px;font-weight:600;color:#1d1d1f;margin-bottom:12px}
+.header-row{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.stock-name{font-size:18px;font-weight:700;color:#1d1d1f}.stock-code{font-size:13px;color:#aeaeb2}
+.tag{font-size:11px;padding:2px 8px;border-radius:4px;background:#e6f1fb;color:#378add}
+.price-row{display:flex;align-items:baseline;gap:8px;margin-top:4px}
+.price{font-size:28px;font-weight:700;color:#1d1d1f}
+.change-up{font-size:16px;font-weight:600;color:#d85a30}
+.cost-tag{font-size:12px;color:#aeaeb2;margin-left:8px}
+.grid-8{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
+.grid-item{text-align:center;padding:8px 4px;background:#f5f5f7;border-radius:8px}
+.grid-val{font-size:15px;font-weight:600;color:#1d1d1f}.grid-label{font-size:11px;color:#aeaeb2;margin-top:2px}
+.color-low{color:#378add}.color-high{color:#d85a30}
+.timeline{display:flex;align-items:center;justify-content:space-between;position:relative;padding:8px 0}
+.timeline-dot{display:flex;flex-direction:column;align-items:center;gap:4px}
+.timeline-dot::before{content:'';width:10px;height:10px;border-radius:50%;background:#378add}
+.timeline-dot.red::before{background:#d85a30}
+.timeline-dot.green::before{background:#1d9e75}
+.timeline-dot.gray::before{background:#aeaeb2}
+.timeline-time{font-size:10px;color:#aeaeb2}.timeline-price{font-size:12px;font-weight:600;color:#1d1d1f}
+.timeline-bar{flex:1;height:3px;margin:0 4px;border-radius:2px;position:relative;top:-8px}
+.trend-up{background:linear-gradient(90deg,#1d9e75,#1d9e75)}.trend-down{background:linear-gradient(90deg,#d85a30,#d85a30)}
+.prediction-row{display:flex;flex-direction:column;gap:8px}
+.pred-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;font-size:13px}
+.pred-base{background:#f5f5f7}.pred-bull{background:#e6f1fb}.pred-bear{background:#fcebeb}
+.pred-label{font-weight:600;min-width:60px}.pred-desc{flex:1;color:#6e6e73}
+.factor-bars{display:flex;flex-direction:column;gap:6px}
+.factor-row{display:flex;align-items:center;gap:8px;font-size:12px}
+.factor-label{width:40px;text-align:right;color:#6e6e73}
+.factor-track{flex:1;height:14px;background:#f5f5f7;border-radius:4px;overflow:hidden}
+.factor-fill{height:100%;border-radius:4px}
+.factor-val{width:28px;text-align:left;font-weight:600}
+.level-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.level-item{padding:10px;border-radius:8px;text-align:center}
+.level-support{background:#e6f1fb}.level-resistance{background:#fceb7e20;border:1px solid #e8923f40}
+.level-price{font-size:16px;font-weight:700;color:#378add}
+.level-desc{font-size:11px;color:#6e6e73;margin-top:2px}
+.risk-bar{font-size:11px;color:#aeaeb2;text-align:center;padding:12px 0 0;border-top:1px solid #e5e5ea;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="card">
+
+<!-- ① 头部 -->
+<div class="header-row"><span class="stock-name">新凤鸣</span><span class="stock-code">sh603225</span><span class="tag">午间复盘</span><span class="tag" style="background:#e1f5ee;color:#1d9e75">上海主板</span></div>
+<div style="font-size:12px;color:#aeaeb2;margin-bottom:12px">2026-06-03 星期三 · 午间复盘</div>
+<div class="price-row">
+  <span class="price">19.08</span>
+  <span class="change-up">+2.64%</span>
+  <span class="cost-tag">持仓 19.029</span>
+</div>
+
+<!-- ② 8格指标 -->
+<div class="grid-8">
+  <div class="grid-item"><div class="grid-val">18.80</div><div class="grid-label">开盘</div></div>
+  <div class="grid-item"><div class="grid-val color-high">19.18</div><div class="grid-label">最高</div></div>
+  <div class="grid-item"><div class="grid-val color-low">18.11</div><div class="grid-label">最低</div></div>
+  <div class="grid-item"><div class="grid-val">18.59</div><div class="grid-label">昨收</div></div>
+  <div class="grid-item"><div class="grid-val">21.36万</div><div class="grid-label">成交量(手)</div></div>
+  <div class="grid-item"><div class="grid-val">3.98亿</div><div class="grid-label">成交额</div></div>
+  <div class="grid-item"><div class="grid-val">1.28%</div><div class="grid-label">换手率</div></div>
+  <div class="grid-item"><div class="grid-val" style="color:#d85a30">1.33</div><div class="grid-label">量比</div></div>
+</div>
+
+<!-- ③ 分时节点 -->
+<div class="section-block">
+<div class="section-title">分时关键节点 · 上午走势</div>
+<div class="timeline">
+  <div class="timeline-dot gray"><span class="timeline-time">09:30</span><span class="timeline-price">18.80</span></div>
+  <div class="timeline-bar trend-down"></div>
+  <div class="timeline-dot red"><span class="timeline-time">09:38</span><span class="timeline-price">18.11</span></div>
+  <div class="timeline-bar trend-up"></div>
+  <div class="timeline-dot green"><span class="timeline-time">10:48</span><span class="timeline-price">18.61</span></div>
+  <div class="timeline-bar trend-up"></div>
+  <div class="timeline-dot"><span class="timeline-time">11:15</span><span class="timeline-price">18.67</span></div>
+  <div class="timeline-bar trend-up"></div>
+  <div class="timeline-dot green"><span class="timeline-time">11:30收</span><span class="timeline-price">18.89</span></div>
+</div>
+<div style="font-size:12px;color:#6e6e73;margin-top:8px;line-height:1.6">
+高开 18.80 → 急跌至 18.11（-3.7%）→ 深V反转 → 午间强势收 18.89（+1.6%）<br>
+形态：<b>探底回升·深V反转</b>，早盘诱空后主力快速回补
+</div>
+</div>
+
+<!-- ④ 资金真相 -->
+<div class="section-block">
+<div class="section-title">💰 今日资金真相</div>
+<div style="font-size:12px;color:#6e6e73;line-height:1.8">
+主力净额：<b style="color:#d85a30">-930万</b>（超大单-1793万 + 大单+863万）<br>
+中单净流入：<b>+3,145万</b> | 小单净流出：-2,215万<br>
+5日累计主力：<b style="color:#1d9e75">+1.10亿</b> | 20日累计：<b style="color:#1d9e75">+1.83亿</b><br>
+融资余额：3.36亿（环比-1.87%）<br>
+核心矛盾：当日主力小幅流出 vs 中期持续流入，<b>V反真实性高</b>
+</div>
+</div>
+
+<!-- ⑤ 信息面 -->
+<div class="section-block">
+<div class="section-title">📰 关键信息</div>
+<div style="font-size:12px;color:#6e6e73;line-height:1.8">
+📌 华安证券：26Q1盈利同环比大增，看好后续补库需求<br>
+📌 化纤行业景气修复，新凤鸣涨停（06/01）后连续走强<br>
+📌 近半年21家券商买入评级，机构关注度高<br>
+📌 5日涨幅+8.3%，化工板块整体回暖
+</div>
+</div>
+
+<!-- ⑥ 三寿评分 -->
+<div class="section-block">
+<div class="section-title">📈 三寿股价预测评分 v2.5.1</div>
+<div class="factor-bars">
+  <div class="factor-row"><span class="factor-label">技术</span><div class="factor-track"><div class="factor-fill" style="width:82%;background:#1d9e75"></div></div><span class="factor-val" style="color:#1d9e75">82</span></div>
+  <div class="factor-row"><span class="factor-label">量价</span><div class="factor-track"><div class="factor-fill" style="width:75%;background:#1d9e75"></div></div><span class="factor-val" style="color:#1d9e75">75</span></div>
+  <div class="factor-row"><span class="factor-label">资金</span><div class="factor-track"><div class="factor-fill" style="width:70%;background:#378add"></div></div><span class="factor-val" style="color:#378add">70</span></div>
+  <div class="factor-row"><span class="factor-label">消息</span><div class="factor-track"><div class="factor-fill" style="width:60%;background:#378add"></div></div><span class="factor-val" style="color:#378add">60</span></div>
+  <div class="factor-row"><span class="factor-label">筹码</span><div class="factor-track"><div class="factor-fill" style="width:68%;background:#378add"></div></div><span class="factor-val" style="color:#378add">68</span></div>
+  <div class="factor-row"><span class="factor-label">板块</span><div class="factor-track"><div class="factor-fill" style="width:65%;background:#378add"></div></div><span class="factor-val" style="color:#378add">65</span></div>
+  <div class="factor-row"><span class="factor-label">宏观</span><div class="factor-track"><div class="factor-fill" style="width:50%;background:#aeaeb2"></div></div><span class="factor-val" style="color:#aeaeb2">50</span></div>
+</div>
+<div style="margin-top:12px;text-align:center;font-size:16px;font-weight:700;color:#1d9e75">
+总分: 72 · 信号: 偏多 (55-70偏多 → 70-85强多)
+</div>
+<div style="font-size:11px;color:#aeaeb2;text-align:center;margin-top:4px">
+评分区间: 0-25强空 | 25-40偏空 | 40-55中性 | 55-70偏多 | 70-85强多 | 85-100极强
+</div>
+</div>
+
+<!-- ⑦ 操作建议 -->
+<div class="section-block">
+<div class="section-title">🎯 具体操作建议 · 下午预判</div>
+<div class="prediction-row">
+  <div class="pred-item pred-base"><span class="pred-label">● Base 60%</span><span class="pred-desc">强势震荡 19.00-19.20，午间V反后下午大概率高位横盘</span></div>
+  <div class="pred-item pred-bull"><span class="pred-label">▲ Bull 25%</span><span class="pred-desc">若13:00-13:30放量突破19.18 → 挑战19.50+；加仓信号</span></div>
+  <div class="pred-item pred-bear"><span class="pred-label">▼ Bear 15%</span><span class="pred-desc">若午后缩量失守18.80 → 回落至18.50附近；观望信号</span></div>
+</div>
+<div style="font-size:12px;color:#6e6e73;line-height:1.8;margin-top:8px">
+📌 <b>当前</b>：持仓成本19.029，现价19.08微利，继续持有观察<br>
+📌 <b>加仓</b>：放量突破19.18且板块配合 → 轻仓加至19.50，止损18.80<br>
+📌 <b>观望</b>：若午后缩量横盘在18.90-19.10 → 不动<br>
+📌 <b>减仓</b>：若尾盘放量跌破18.60 → 减半仓，止损18.40
+</div>
+</div>
+
+<!-- ⑧ 关键价位 -->
+<div class="section-block">
+<div class="section-title">📊 关键价位</div>
+<div class="level-grid">
+  <div class="level-item level-support"><div class="level-price">18.11</div><div class="level-desc">支撑1 · 今日低点</div></div>
+  <div class="level-item level-resistance"><div class="level-price">19.18</div><div class="level-desc">压力1 · 今日高点</div></div>
+  <div class="level-item level-support"><div class="level-price">17.45</div><div class="level-desc">支撑2 · BOLL中轨</div></div>
+  <div class="level-item level-resistance"><div class="level-price">18.89</div><div class="level-desc">压力2 · BOLL上轨</div></div>
+  <div class="level-item level-support"><div class="level-price">16.01</div><div class="level-desc">支撑3 · BOLL下轨</div></div>
+  <div class="level-item level-resistance"><div class="level-price">19.50</div><div class="level-desc">压力3 · 心理关口</div></div>
+  <div class="level-item" style="background:#f5f5f7"><div class="level-price" style="color:#aeaeb2">19.03</div><div class="level-desc">持仓成本</div></div>
+  <div class="level-item" style="background:#f5f5f7"><div class="level-price" style="color:#d85a30">18.80</div><div class="level-desc">止损参考</div></div>
+</div>
+</div>
+
+<!-- ⑨ 模型自评 -->
+<div class="section-block">
+<div class="section-title">🧠 模型自评 & 置信度</div>
+<div style="font-size:13px;font-weight:600;color:#1d9e75;text-align:center;margin:8px 0">置信度: 68/100 ██████░░░░</div>
+<div style="font-size:11px;color:#aeaeb2;text-align:center">
+量能确定70 + 形态清晰80 + 关键位距离60 + 振幅适配65 + 时间窗口55<br>
+V反形态清晰但午后变数大，中高置信度
+</div>
+<div style="font-size:11px;color:#aeaeb2;text-align:center;margin-top:8px">
+该股累计预测: 25次 | 方向准确: 18/25 (72%)
+</div>
+</div>
+
+<div class="risk-bar">⚠️ 风险提示：以上分析仅为模型复盘参考，不构成投资建议。投资有风险，决策需谨慎。</div>
+
+</div>
+</body>
+</html>
