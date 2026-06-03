@@ -159,7 +159,7 @@
 <!-- 底部导航（移动端） -->
 <nav class="bottom-nav" id="bottom-nav"></nav>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="../js/chart.umd.min.js"></script>
 <script src="../js/charts.js"></script>
 <script src="../js/data-loader.js"></script>
 <script src="../js/live-quote.js"></script>
@@ -181,7 +181,8 @@ function refreshFundChart() {
 function triggerCatchup(session) {
   var names = { xinfengming: '新凤鸣', huagongkeji: '华工科技', zhongxing: '中兴通讯' };
   var labels = { morning: '午间复盘', afternoon: '盘后复盘' };
-  var msg = '请帮我补跑 ' + names.xinfengming + ' 的' + labels[session];
+  var stock = getCurrentStock();
+  var msg = '请帮我补跑 ' + names[stock] + ' 的' + labels[session];
   if (confirm('确认触发' + labels[session] + '？')) {
     navigator.clipboard.writeText(msg).then(function(){ alert('指令已复制：\n' + msg); }).catch(function(){ alert('请到 WorkBuddy 发送：\n' + msg); });
   }
@@ -189,8 +190,9 @@ function triggerCatchup(session) {
 
 // Start live quote polling
 document.addEventListener('DOMContentLoaded', function(){
+  var stock = getCurrentStock();
   startQuotePolling(10000);
-  setInterval(function(){ updateTopBarLive('xinfengming'); }, 5000);
+  setInterval(function(){ updateTopBarLive(stock); }, 5000);
 });
 </script>
 </body>

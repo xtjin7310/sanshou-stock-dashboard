@@ -10,7 +10,7 @@ var QUOTE_TIMER = null;
 
 function fetchLiveQuotes(callback) {
   var secids = ['1.603225','0.000988','0.000063'].join(',');
-  var url = 'https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&fields=f2,f3,f4,f14,f15,f17&secids=' + secids;
+  var url = 'https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&fields=f2,f3,f4,f14,f15,f16,f17&secids=' + secids;
 
   fetch(url).then(function(r){return r.json();}).then(function(d){
     if (!d.data || !d.data.diff) return;
@@ -21,7 +21,7 @@ function fetchLiveQuotes(callback) {
       else if (item.f14 === '中兴通讯') key = 'zhongxing';
       else return;
 
-      var f2 = item.f2; var f3 = item.f3; var f4 = item.f4; var f15 = item.f15; var f17 = item.f17;
+      var f2 = item.f2; var f3 = item.f3; var f4 = item.f4; var f15 = item.f15; var f16 = item.f16; var f17 = item.f17;
       LIVE_QUOTES[key].price = f2 / 100;
       LIVE_QUOTES[key].change = f3 / 100;
       LIVE_QUOTES[key].high = f15 / 100;

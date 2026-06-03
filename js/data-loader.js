@@ -159,6 +159,9 @@ function updateAllCharts(stock, startDate, endDate, sessionFilter) {
 
     // 更新顶部价格信息
     updateTopBarPrice(filtered[filtered.length - 1]);
+  }).catch(function(err) {
+    console.error('updateAllCharts 失败:', err);
+    showChartError('图表加载失败: ' + (err.message || '未知错误'));
   });
 }
 
