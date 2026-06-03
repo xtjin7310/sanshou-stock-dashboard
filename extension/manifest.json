@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "三寿股票分析 - WorkBuddy 桥接",
+  "version": "1.0",
+  "description": "一键触发 WorkBuddy 复盘，无需手动复制粘贴",
+  "permissions": ["nativeMessaging", "storage", "activeTab"],
+  "host_permissions": ["*://xtjin7310.github.io/*", "file:///Users/xtjin/stock-dashboard/*"],
+  "content_scripts": [{
+    "matches": ["*://xtjin7310.github.io/*", "file:///Users/xtjin/stock-dashboard/*"],
+    "js": ["content.js"],
+    "run_at": "document_end"
+  }],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "三寿 WorkBuddy"
+  }
+}

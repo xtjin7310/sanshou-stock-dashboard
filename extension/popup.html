@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body { width: 240px; padding: 12px; font-family: -apple-system, sans-serif; background: #0a0e14; color: #e1e4ea; font-size: 13px; }
+  h3 { font-size: 14px; margin: 0 0 8px; }
+  .status { display: flex; align-items: center; gap: 6px; margin: 6px 0; font-size: 12px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot.on { background: #22c55e; } .dot.off { background: #ef4444; }
+  .btn { width: 100%; padding: 8px; margin: 4px 0; border: 1px solid #2a3040; border-radius: 6px; background: #141820; color: #e1e4ea; cursor: pointer; font-size: 12px; }
+  .btn:hover { background: #1c2130; }
+  .btn:active { background: #3b82f6; color: #fff; }
+  hr { border-color: #1e2430; margin: 8px 0; }
+  .small { font-size: 10px; color: #5a6275; }
+</style>
+</head>
+<body>
+<h3>三寿WorkBuddy桥接</h3>
+<div class="status">
+  <span class="dot" id="status-dot"></span>
+  <span id="status-text">检测中...</span>
+</div>
+<hr>
+<button class="btn" id="btn-noon">午间复盘（全部）</button>
+<button class="btn" id="btn-eod">盘后复盘（全部）</button>
+<hr>
+<p class="small">点击股票页面上的补漏按钮，或使用上方按钮一键触发三股复盘</p>
+<script src="popup.js"></script>
+</body>
+</html>
