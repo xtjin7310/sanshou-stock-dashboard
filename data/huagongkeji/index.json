@@ -25,10 +25,22 @@
       "card_screenshot": "cards/2026-06-03-afternoon.png"
     }
   ],
+    {
+      "date": "2026-06-04",
+      "session": "morning",
+      "price": { "open": 150.01, "high": 156.05, "low": 150.01, "close": 154.39, "prev_close": 154.39, "change_pct": 0.00 },
+      "volume": { "amount": 5882824539, "volume_hands": 382247, "turnover_rate": 3.80, "volume_ratio": 0.85 },
+      "fund_flow": { "main_net": -45885952, "super_large_net": null, "large_net": null, "medium_net": null, "small_net": null, "northbound": -115656448 },
+      "sanshou_score": { "total": 55, "technical": 56, "volume_price": 65, "fund": 40, "news": 60, "chip": 50, "sector": 63, "macro": 50, "signal": "震荡" },
+      "predictions": { "base_scenario": "宽幅震荡", "base_range": "150-156", "bull_trigger": "放量突破156→158+", "bear_trigger": "跌破150→147", "confidence": 48 },
+      "key_levels": { "support": [150.01, 151], "resistance": [156.05, 159.01], "cost_basis": 159.01 },
+      "card_screenshot": "cards/2026-06-04-midday.png"
+    }
+  ],
   "accuracy": {
-    "total": 1,
+    "total": 2,
     "direction_correct": 0,
-    "composite_rate": 55,
-    "recent_predictions": []
+    "composite_rate": 52,
+    "recent_predictions": [
   }
 }
