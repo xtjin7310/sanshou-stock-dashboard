@@ -88,12 +88,105 @@
       "card_html": "cards/2026-06-05-midday.html",
       "card_screenshot": "cards/2026-06-05-midday.png",
       "tdx_connected": true
+    },
+    {
+      "date": "2026-06-05",
+      "session": "afternoon",
+      "price": 157.20,
+      "prev_close": 158.36,
+      "change": -1.16,
+      "change_percent": -0.73,
+      "open": 156.30,
+      "high": 165.87,
+      "low": 155.86,
+      "volume": 921741,
+      "amount": 14874960217,
+      "turnover_rate": 9.17,
+      "volume_ratio": 1.03,
+      "fund_flow": {
+        "tdx_inout": -381096448,
+        "tdx_inout_hb": 4462080,
+        "tdx_wtb": -66.11,
+        "inside": 476731,
+        "outside": 445010,
+        "main_net_flow": -45052614,
+        "jumbo_net_flow": 76316189,
+        "mid_net_flow": 79562457,
+        "small_net_flow": -34509842,
+        "main_net_5d": -3263054694,
+        "main_net_10d": -5502364031,
+        "main_net_20d": -11250732093,
+        "margin_balance": 11077535647,
+        "margin_dod": 1.40,
+        "short_balance": 21094819,
+        "short_dod": 0.46,
+        "block_trade": {
+          "type": "协议交易",
+          "price": 156.31,
+          "value": 6533800,
+          "discount": 0.0,
+          "buy_dept": "机构专用",
+          "sell_dept": "华泰证券福建分公司"
+        }
+      },
+      "technical": {
+        "ma5": 153.508,
+        "ma10": 158.723,
+        "ma20": 153.595,
+        "petm": 93.01,
+        "pe_static": 107.47,
+        "zaf20": 15.00,
+        "this_year": 98.16,
+        "ytd": 100.66
+      },
+      "sanshou_score": 48,
+      "score_category": "震荡",
+      "predictions": {
+        "base": {
+          "probability": 50,
+          "description": "155-165区间震荡，等待方向选择",
+          "range": "155.00-165.00",
+          "close_estimate": 158.00
+        },
+        "bull": {
+          "probability": 20,
+          "trigger": "6G政策落地+放量突破165.87+主力净流入转正",
+          "target": "170-175"
+        },
+        "bear": {
+          "probability": 30,
+          "trigger": "跌破155.86+主力继续净流出+CPO板块转弱",
+          "target": "148-152"
+        }
+      },
+      "confidence": 52,
+      "key_levels": {
+        "support": [155.86, 156.31, 152.00, 154.24],
+        "resistance": [165.87, 175.80],
+        "cost": 154.24
+      },
+      "midday_verification": {
+        "direction": "incorrect",
+        "direction_detail": "午间预测震多(57)→下午收157.20(-0.73%)，方向错误。上午+2.60%→收盘-0.73%，下午跌幅-3.2%",
+        "price": "incorrect",
+        "price_detail": "预测162.00→实际157.20，偏差-4.80，大超预期。主力下午疯狂出逃-3.81亿",
+        "logic": "partial",
+        "logic_detail": "预测高位震荡整理→实际冲高165.87后大幅回落至157.20，但确实在预测区间内震荡",
+        "fund": "incorrect",
+        "fund_detail": "上午tdx+1.95亿→下午累计-3.81亿，主力下午净流出-5.76亿！大单出逃主导",
+        "overall_score": 2,
+        "overall_max": 5,
+        "summary": "方向✘ · 价位✘(偏差-4.80) · 逻辑◆ · 资金✘（主力下午巨量出逃完全未预判到）"
+      },
+      "card_html": "cards/2026-06-05-afternoon.html",
+      "card_screenshot": "cards/2026-06-05-afternoon.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {
-    "total_predictions": 3,
+    "total_predictions": 4,
     "direction_accurate": 2,
-    "direction_accuracy": 66.7,
-    "composite_accuracy": 70.0
+    "direction_accuracy": 50.0,
+    "composite_accuracy": 60.0
   }
 }

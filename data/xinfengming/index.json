@@ -82,12 +82,98 @@
       "card_html": "cards/2026-06-05-midday.html",
       "card_screenshot": "cards/2026-06-05-midday.png",
       "tdx_connected": true
+    },
+    {
+      "date": "2026-06-05",
+      "session": "afternoon",
+      "price": 20.33,
+      "prev_close": 19.51,
+      "change": 0.82,
+      "change_percent": 4.20,
+      "open": 19.48,
+      "high": 21.12,
+      "low": 19.23,
+      "volume": 281245,
+      "amount": 569731392,
+      "turnover_rate": 1.69,
+      "volume_ratio": 0.86,
+      "fund_flow": {
+        "tdx_inout": 30435072,
+        "tdx_inout_hb": 51002352,
+        "tdx_wtb": 42.09,
+        "inside": 131301,
+        "outside": 149944,
+        "main_net_flow": 67136010,
+        "jumbo_net_flow": 42251469,
+        "mid_net_flow": -11763684,
+        "small_net_flow": -55372326,
+        "main_net_5d": 105980078,
+        "main_net_20d": 156544793,
+        "margin_balance": 335910937,
+        "margin_dod": 0.48,
+        "short_balance": 4434623,
+        "short_dod": 53.63
+      },
+      "technical": {
+        "ma5": 19.466,
+        "ma10": 18.505,
+        "ma20": 17.822,
+        "ma60": 17.538,
+        "chip_profit_rate": 87.65,
+        "chip_avg_cost": 17.54,
+        "petm": 31.57,
+        "pe_static": 33.49,
+        "zaf20": 11.88,
+        "this_year": 4.47
+      },
+      "sanshou_score": 62,
+      "score_category": "震多",
+      "predictions": {
+        "base": {
+          "probability": 50,
+          "description": "回调整固消化连涨获利盘",
+          "range": "19.50-20.50",
+          "close_estimate": 20.00
+        },
+        "bull": {
+          "probability": 25,
+          "trigger": "放量突破21.12+主力继续净流入",
+          "target": "21.50-22.77"
+        },
+        "bear": {
+          "probability": 25,
+          "trigger": "缩量跌破19.23+融券继续增加",
+          "target": "18.95-19.00"
+        }
+      },
+      "confidence": 60,
+      "key_levels": {
+        "support": [19.23, 19.04, 18.95, 17.54],
+        "resistance": [21.12, 21.46, 22.77],
+        "cost": 18.95
+      },
+      "midday_verification": {
+        "direction": "correct",
+        "direction_detail": "午间预测偏多→下午收20.33(+4.20%)，方向正确",
+        "price": "partial",
+        "price_detail": "预测20.35→实际20.33，偏差仅-0.02，价位极准",
+        "logic": "correct",
+        "logic_detail": "预测窄幅震荡消化获利盘→下午确实从20.40震荡回落至20.33",
+        "fund": "partial",
+        "fund_detail": "上午tdx+538万→下午累计+3044万，主力下午加仓但量不大",
+        "overall_score": 4,
+        "overall_max": 5,
+        "summary": "方向✓ · 价位✓(偏差-0.02) · 逻辑✓ · 资金◆"
+      },
+      "card_html": "cards/2026-06-05-afternoon.html",
+      "card_screenshot": "cards/2026-06-05-afternoon.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {
-    "total_predictions": 6,
-    "direction_accurate": 4,
-    "direction_accuracy": 66.7,
-    "composite_accuracy": 75.0
+    "total_predictions": 7,
+    "direction_accurate": 5,
+    "direction_accuracy": 71.4,
+    "composite_accuracy": 77.0
   }
 }

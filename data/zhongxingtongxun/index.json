@@ -90,12 +90,106 @@
       "card_html": "cards/2026-06-05-midday.html",
       "card_screenshot": "cards/2026-06-05-midday.png",
       "tdx_connected": true
+    },
+    {
+      "date": "2026-06-05",
+      "session": "afternoon",
+      "price": 39.13,
+      "prev_close": 37.74,
+      "change": 1.39,
+      "change_percent": 3.68,
+      "open": 37.58,
+      "high": 41.30,
+      "low": 37.05,
+      "volume": 4637054,
+      "amount": 18325624800,
+      "turnover_rate": 11.51,
+      "volume_ratio": 2.12,
+      "fund_flow": {
+        "tdx_inout": 2981579260,
+        "tdx_inout_hb": 1857118720,
+        "tdx_wtb": 59.36,
+        "inside": 2053575,
+        "outside": 2583479,
+        "main_net_flow": 1905725494,
+        "jumbo_net_flow": 1725870439,
+        "mid_net_flow": -732626102,
+        "small_net_flow": -1173099392,
+        "main_net_5d": 7171369,
+        "main_net_10d": 935671347,
+        "main_net_20d": -2028850669,
+        "margin_balance": 10355088959,
+        "margin_dod": 2.94,
+        "short_dod": -4.02,
+        "block_trade": {
+          "type": "协议交易",
+          "price": 34.00,
+          "value": 3400000,
+          "discount": 6.64,
+          "buy_dept": "国泰海通东营府前大街",
+          "sell_dept": "中信建投北京朝外大街"
+        }
+      },
+      "technical": {
+        "ma5": 37.202,
+        "ma10": 36.766,
+        "ma20": 37.038,
+        "ma60": 35.858,
+        "ma250": 38.246,
+        "petm": 41.83,
+        "pe_static": 33.32,
+        "zaf20": 1.16,
+        "this_year": 3.41,
+        "ytd": 3.88
+      },
+      "sanshou_score": 68,
+      "score_category": "偏多",
+      "predictions": {
+        "base": {
+          "probability": 50,
+          "description": "38-41区间震荡整固，消化巨量换手",
+          "range": "38.00-41.00",
+          "close_estimate": 39.50
+        },
+        "bull": {
+          "probability": 30,
+          "trigger": "放量突破41.30+6G政策持续发酵+主力继续净流入",
+          "target": "43.00-45.00"
+        },
+        "bear": {
+          "probability": 20,
+          "trigger": "缩量跌破37.05+大宗折价出现跟进信号",
+          "target": "35.50-36.00"
+        }
+      },
+      "confidence": 72,
+      "key_levels": {
+        "support": [37.05, 37.50, 35.79, 35.50],
+        "resistance": [41.30, 41.51, 55.85],
+        "cost": 35.79
+      },
+      "midday_verification": {
+        "direction": "correct",
+        "direction_detail": "午间预测强多(76)→下午收39.13(+3.68%)，方向正确",
+        "price": "partial",
+        "price_detail": "预测40.50→实际39.13，偏差-1.37（偏高）。下午从40.43回落至39.13，高位震荡幅度超预期",
+        "logic": "correct",
+        "logic_detail": "预测高位震荡消化获利盘→下午确实冲高41.30后持续回落，逻辑成立",
+        "fund": "partial",
+        "fund_detail": "上午tdx+37.07亿→下午累计+29.82亿，主力下午净流出-7.25亿。买入量巨大但下午减速",
+        "overall_score": 3,
+        "overall_max": 5,
+        "summary": "方向✓ · 价位◆(偏高1.37) · 逻辑✓ · 资金◆（下午减速但仍巨大）"
+      },
+      "card_html": "cards/2026-06-05-afternoon.html",
+      "card_screenshot": "cards/2026-06-05-afternoon.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {
-    "total_predictions": 10,
-    "direction_accurate": 7,
-    "direction_accuracy": 70.0,
-    "composite_accuracy": 72.0
+    "total_predictions": 11,
+    "direction_accurate": 8,
+    "direction_accuracy": 72.7,
+    "composite_accuracy": 70.0
   }
 }
