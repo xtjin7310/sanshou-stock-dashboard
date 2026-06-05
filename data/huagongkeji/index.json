@@ -1,238 +1,99 @@
 {
-  "stock": "华工科技",
+  "name": "华工科技",
   "code": "sz000988",
+  "pinyin": "huagongkeji",
   "sessions": [
     {
-      "date": "2026-06-03",
+      "date": "2026-06-05",
       "session": "morning",
-      "price": {
-        "open": 153.98,
-        "high": 160.2,
-        "low": 153.0,
-        "close": 159.77,
-        "prev_close": 149.25,
-        "change_pct": 7.06
-      },
-      "volume": {
-        "amount": 9820000000,
-        "volume_hands": 632000,
-        "turnover_rate": 6.29,
-        "volume_ratio": 1.11
-      },
+      "price": 162.47,
+      "prev_close": 158.36,
+      "change": 4.11,
+      "change_percent": 2.60,
+      "open": 156.30,
+      "high": 165.87,
+      "low": 156.01,
+      "volume": 561220,
+      "amount": 9134153984,
+      "turnover_rate": 5.58,
+      "volume_ratio": 1.26,
       "fund_flow": {
-        "main_net": 329000000,
-        "super_large_net": 220000000,
-        "large_net": 109000000,
-        "medium_net": -120000000,
-        "small_net": -209000000
-      },
-      "sanshou_score": {
-        "total": 78,
-        "technical": 85,
-        "volume_price": 80,
-        "fund": 82,
-        "news": 60,
-        "chip": 72,
-        "sector": 68,
-        "macro": 50,
-        "signal": "偏多"
-      },
-      "predictions": {
-        "base_scenario": "高位震荡",
-        "base_range": "158.50-161.00",
-        "bull_trigger": "放量突破160.20→挑战161.50",
-        "bear_trigger": "缩量失守158.00→回踩156.00",
-        "confidence": 68
-      },
-      "key_levels": {
-        "support": [
-          158.5,
-          156.0
-        ],
-        "resistance": [
-          160.2,
-          162.0
-        ],
-        "cost_basis": 159.01
-      },
-      "card_screenshot": "cards/2026-06-03-midday.png"
-    },
-    {
-      "date": "2026-06-03",
-      "session": "afternoon",
-      "price": {
-        "open": 153.98,
-        "high": 160.68,
-        "low": 150.7,
-        "close": 154.39,
-        "prev_close": 149.25,
-        "change_pct": 3.44
-      },
-      "volume": {
-        "amount": 15917615250,
-        "volume_hands": 1014860,
-        "turnover_rate": 10.1,
-        "volume_ratio": 1.11
-      },
-      "fund_flow": {
-        "main_net": -120488745,
-        "super_large_net": -54241889,
-        "large_net": -66246856,
-        "medium_net": -183688296,
-        "small_net": 304177041
-      },
-      "sanshou_score": {
-        "total": 48,
-        "technical": 8,
-        "volume_price": 10,
-        "fund": 6,
-        "news": 12,
-        "chip": 5,
-        "sector": 6,
-        "macro": 1,
-        "signal": "中性偏空"
-      },
-      "predictions": {
-        "base_scenario": "低开震荡",
-        "base_range": "150-156",
-        "bull_trigger": "反包突破158→163+",
-        "bear_trigger": "跌破149→140",
-        "confidence": 55
-      },
-      "key_levels": {
-        "support": [
-          150.7,
-          149.25,
-          130
-        ],
-        "resistance": [
-          160.68,
-          155.22,
-          158
-        ],
-        "cost_basis": 159.01
-      },
-      "card_screenshot": "cards/2026-06-03-afternoon.png"
-    },
-    {
-      "date": "2026-06-04",
-      "session": "morning",
-      "price": {
-        "open": 150.01,
-        "high": 156.05,
-        "low": 150.01,
-        "close": 154.39,
-        "prev_close": 154.39,
-        "change_pct": 0.0
-      },
-      "volume": {
-        "amount": 5882824539,
-        "volume_hands": 382247,
-        "turnover_rate": 3.8,
-        "volume_ratio": 0.85
-      },
-      "fund_flow": {
-        "main_net": -45885952,
-        "super_large_net": null,
-        "large_net": null,
-        "medium_net": null,
-        "small_net": null,
-        "northbound": -115656448
-      },
-      "sanshou_score": {
-        "total": 55,
-        "technical": 56,
-        "volume_price": 65,
-        "fund": 40,
-        "news": 60,
-        "chip": 50,
-        "sector": 63,
-        "macro": 50,
-        "signal": "震荡"
-      },
-      "predictions": {
-        "base_scenario": "宽幅震荡",
-        "base_range": "150-156",
-        "bull_trigger": "放量突破156→158+",
-        "bear_trigger": "跌破150→147",
-        "confidence": 48
-      },
-      "key_levels": {
-        "support": [
-          150.01,
-          151
-        ],
-        "resistance": [
-          156.05,
-          159.01
-        ],
-        "cost_basis": 159.01
-      },
-      "card_screenshot": "cards/2026-06-04-midday.png"
-    },
-    {
-      "date": "2026-06-04",
-      "session": "afternoon",
-      "price": {
-        "open": 150.01,
-        "high": 161.09,
-        "low": 150.01,
-        "close": 158.36,
-        "prev_close": 154.39,
-        "change_pct": 2.57
-      },
-      "volume": {
-        "amount": 11919691502,
-        "volume_hands": 764054,
-        "turnover_rate": 7.6,
-        "volume_ratio": 0.85
-      },
-      "fund_flow": {
-        "main_net": 477698679,
-        "super_large_net": 477193693,
-        "large_net": 504986,
-        "medium_net": -30471883,
-        "small_net": -447226797,
+        "tdx_inout": 195470848,
+        "tdx_inout_hb": 593902592,
+        "tdx_wtb": -31.78,
+        "inside": 270578,
+        "outside": 290642,
+        "main_net_flow": 572806848,
+        "jumbo_net_flow": 649162122,
+        "mid_net_flow": -149424054,
+        "small_net_flow": -423382794,
         "main_net_5d": -3263054694,
-        "main_net_20d": -11250732093
+        "main_net_10d": -5502364031,
+        "main_net_20d": -11250732093,
+        "margin_balance": 11077535647,
+        "margin_dod": 1.40,
+        "block_trade": {
+          "type": "协议交易",
+          "price": 156.31,
+          "value": 6533800,
+          "discount": 0.0,
+          "buy_dept": "机构专用",
+          "sell_dept": "华泰证券福建分公司"
+        }
       },
-      "sanshou_score": {
-        "total": 70,
-        "technical": 72,
-        "volume_price": 70,
-        "fund": 75,
-        "news": 65,
-        "chip": 55,
-        "sector": 68,
-        "macro": 50,
-        "signal": "偏多"
+      "technical": {
+        "ma5": 153.508,
+        "ma10": 158.723,
+        "ma20": 153.595,
+        "ma60": 128.619,
+        "macd_dif": 7.908,
+        "macd_dea": 9.158,
+        "macd_hist": -2.499,
+        "kdj_k": 46.92,
+        "kdj_d": 44.62,
+        "kdj_j": 51.51,
+        "rsi6": 60.70,
+        "boll_upper": 174.116,
+        "boll_mid": 153.595,
+        "boll_lower": 133.074,
+        "cci": 35.78,
+        "sar": 171.226
       },
+      "sanshou_score": 57,
+      "score_category": "震多",
       "predictions": {
-        "base_scenario": "偏多震荡",
-        "base_range": "153-162",
-        "bull_trigger": "放量突破161→165+",
-        "bear_trigger": "失守150→145",
-        "confidence": 70
+        "base": {
+          "probability": 50,
+          "description": "高位震荡整理",
+          "range": "160.00-165.00",
+          "close_estimate": 162.00
+        },
+        "bull": {
+          "probability": 25,
+          "trigger": "13:00-13:30放量突破165.50+CPO板块走强",
+          "target": "167-170"
+        },
+        "bear": {
+          "probability": 25,
+          "trigger": "缩量跌破160+板块转弱",
+          "target": "158-159"
+        }
       },
+      "confidence": 60,
       "key_levels": {
-        "support": [
-          154.0,
-          150.01
-        ],
-        "resistance": [
-          161.09,
-          165.0,
-          175.8
-        ],
-        "cost_basis": 154.24
+        "support": [160.00, 156.30, 153.60, 156.01],
+        "resistance": [165.87, 171.23, 174.20],
+        "cost": 154.24
       },
-      "card_screenshot": "cards/2026-06-04-afternoon.png"
+      "card_html": "cards/2026-06-05-midday.html",
+      "card_screenshot": "cards/2026-06-05-midday.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {
-    "total": 2,
-    "direction_correct": 0,
-    "composite_rate": 52,
-    "recent_predictions": []
+    "total_predictions": 3,
+    "direction_accurate": 2,
+    "direction_accuracy": 66.7,
+    "composite_accuracy": 70.0
   }
 }

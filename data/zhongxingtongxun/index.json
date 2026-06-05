@@ -1,0 +1,101 @@
+{
+  "name": "中兴通讯",
+  "code": "sz000063",
+  "pinyin": "zhongxingtongxun",
+  "sessions": [
+    {
+      "date": "2026-06-05",
+      "session": "morning",
+      "price": 40.43,
+      "prev_close": 37.74,
+      "change": 2.69,
+      "change_percent": 7.13,
+      "open": 37.58,
+      "high": 41.30,
+      "low": 37.05,
+      "volume": 3253297,
+      "amount": 12869742185,
+      "turnover_rate": 8.08,
+      "volume_ratio": 2.98,
+      "fund_flow": {
+        "tdx_inout": 3707257860,
+        "tdx_inout_hb": 2236246530,
+        "tdx_wtb": 3.41,
+        "inside": 1287637,
+        "outside": 1965661,
+        "main_net_flow": 2178263252,
+        "jumbo_net_flow": 2238171401,
+        "mid_net_flow": -873593512,
+        "small_net_flow": -1304669740,
+        "main_net_5d": 7171369,
+        "main_net_10d": 935671347,
+        "main_net_20d": -2028850669,
+        "margin_balance": 10355088959,
+        "margin_dod": 2.94,
+        "short_dod": -4.02,
+        "block_trade": {
+          "type": "协议交易",
+          "price": 34.00,
+          "value": 3400000,
+          "discount": 6.64,
+          "buy_dept": "国泰海通东营府前大街",
+          "sell_dept": "中信建投北京朝外大街"
+        }
+      },
+      "technical": {
+        "ma5": 37.202,
+        "ma10": 36.766,
+        "ma20": 37.038,
+        "ma60": 35.858,
+        "ma250": 38.246,
+        "macd_dif": 0.333,
+        "macd_dea": 0.098,
+        "macd_hist": 0.471,
+        "kdj_k": 64.43,
+        "kdj_d": 50.60,
+        "kdj_j": 92.09,
+        "rsi6": 72.47,
+        "boll_upper": 39.955,
+        "boll_mid": 37.038,
+        "boll_lower": 34.122,
+        "cci": 201.54,
+        "sar": 34.85
+      },
+      "sanshou_score": 76,
+      "score_category": "强多",
+      "predictions": {
+        "base": {
+          "probability": 45,
+          "description": "高位震荡消化获利盘",
+          "range": "39.80-41.00",
+          "close_estimate": 40.50
+        },
+        "bull": {
+          "probability": 35,
+          "trigger": "13:00-13:30放量突破41.24+通信板块走强",
+          "target": "41.51（涨停）"
+        },
+        "bear": {
+          "probability": 20,
+          "trigger": "缩量跌破39.50+主力转向卖出",
+          "target": "38.50（MA250支撑）"
+        }
+      },
+      "confidence": 78,
+      "key_levels": {
+        "support": [40.00, 39.50, 38.25, 37.05, 34.85],
+        "resistance": [41.24, 41.30, 41.51],
+        "cost": 35.79
+      },
+      "card_html": "cards/2026-06-05-midday.html",
+      "card_screenshot": "cards/2026-06-05-midday.png",
+      "tdx_connected": true
+    }
+  ],
+  "accuracy": {
+    "total_predictions": 10,
+    "direction_accurate": 7,
+    "direction_accuracy": 70.0,
+    "composite_accuracy": 72.0
+  }
+}
