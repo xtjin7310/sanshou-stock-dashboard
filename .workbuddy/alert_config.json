@@ -1,0 +1,177 @@
+{
+  "version": 4,
+  "methodology": "v4.1: 基于20日TDX capital_flow数据，3σ异常值剔除 + 超大单纯度加权 + 盘口深度辅助 + 量价背离诊断 + 自进化引擎",
+  "created": "2026-06-04T11:30:00",
+  "updated": "2026-06-08T10:05:00",
+  "last_weekly_review": "2026-06-08",
+  "data_source": "tdx_api_data capital_flow (日频) + tdx_quotes ProInfo (实时)",
+  "stocks": {
+    "000988": {
+      "name": "华工科技",
+      "setcode": "0",
+      "cost": 154.237,
+      "sector_code": "83205",
+      "sector_name": "CPO/通信",
+      "stats_20d": {
+        "n_days": 20,
+        "avg_abs_inout_billion": 11.04,
+        "sigma_abs_billion": 13.40,
+        "p50_abs": 7.62,
+        "p75_abs": 20.48,
+        "p90_abs": 23.60,
+        "p95_abs": 27.12,
+        "raw_p95_abs": 27.12,
+        "outliers_removed": [],
+        "bull_bear_ratio": "7多/13空",
+        "max_inflow_day": 27.08,
+        "max_outflow_day": -27.84,
+        "note": "高波动CPO龙头，超大单纯度75.3%(HIGH)，空头主导(13空)。20日Corr(个股vs板块)=-0.31，走独立行情"
+      },
+      "purity": {
+        "avg_super_large_pct": 75.3,
+        "signal_confidence": "HIGH",
+        "weight_multiplier": 1.0
+      },
+      "asymmetry": {
+        "inflow_p90_billion": 23.95,
+        "outflow_p90_billion": 22.46,
+        "outflow_inflow_ratio": 0.94
+      },
+      "thresholds": {
+        "inout_alert_billion": {"yellow": 2.05, "orange": 2.83, "red": 4.07, "unit": "亿/5min", "formula": "黄=P75×0.10/橙=P90×0.12/红=max(P95×0.15,橙×1.1)"},
+        "price_alert_pct": {"yellow": 0.5, "orange": 0.8, "red": 1.2, "unit": "%/5min"},
+        "wtb_flip_threshold": 30,
+        "volume_spike_multiplier": 3.0,
+        "turnover_alert_pct": 10.0,
+        "depth_ratio_drop_pct": 50,
+        "depth_ratio_warn_pct": 30
+      },
+      "sector": {"code": "880670", "setcode": "1", "name": "光通信", "base_weight": 0.15, "corr_20d": -0.31, "dynamic_weight": 0.15, "note": "Corr负值→个股走独立行情，保留base_weight"}
+    },
+    "603225": {
+      "name": "新凤鸣",
+      "setcode": "1",
+      "cost": 18.947,
+      "sector_code": "化纤",
+      "sector_name": "化纤/传统制造",
+      "stats_20d": {
+        "n_days": 20,
+        "avg_abs_inout_billion": 0.17,
+        "sigma_abs_billion": 0.21,
+        "p50_abs": 0.12,
+        "p75_abs": 0.21,
+        "p90_abs": 0.42,
+        "p95_abs": 0.49,
+        "raw_p95_abs": 0.49,
+        "outliers_removed": [],
+        "bull_bear_ratio": "13多/7空",
+        "max_inflow_day": 0.51,
+        "max_outflow_day": -0.42,
+        "note": "⚠️ 超大单纯度44.8%(LOW)，大单占主导。20日Corr=-0.30走独立行情。13天多头近期强势"
+      },
+      "purity": {
+        "avg_super_large_pct": 44.8,
+        "signal_confidence": "LOW",
+        "weight_multiplier": 0.6,
+        "note": "⚠️ 超大单占比不到一半，大单（散户型/量化拆单）占主导，实时InOut信号应打折60%"
+      },
+      "asymmetry": {
+        "inflow_p90_billion": 0.24,
+        "outflow_p90_billion": 0.32,
+        "outflow_inflow_ratio": 1.33
+      },
+      "thresholds": {
+        "inout_alert_billion": {"yellow": 0.02, "orange": 0.05, "red": 0.07, "unit": "亿/5min", "formula": "黄=P75×0.10/橙=P90×0.12/红=max(P95×0.15,橙×1.1)"},
+        "price_alert_pct": {"yellow": 0.3, "orange": 0.5, "red": 0.8, "unit": "%/5min"},
+        "wtb_flip_threshold": 20,
+        "volume_spike_multiplier": 3.0,
+        "turnover_alert_pct": 5.0,
+        "depth_ratio_drop_pct": 50,
+        "depth_ratio_warn_pct": 30
+      },
+      "sector": {"code": "881019", "setcode": "1", "name": "化纤", "base_weight": 0.08, "corr_20d": -0.30, "dynamic_weight": 0.08, "note": "Corr负值→个股走独立行情，保留base_weight"}
+    },
+    "000063": {
+      "name": "中兴通讯",
+      "setcode": "0",
+      "cost": 35.785,
+      "sector_code": "84101",
+      "sector_name": "通信设备",
+      "stats_20d": {
+        "n_days": 20,
+        "avg_abs_inout_billion": 6.60,
+        "sigma_abs_billion": 9.01,
+        "p50_abs": 4.73,
+        "p75_abs": 9.64,
+        "p90_abs": 12.99,
+        "p95_abs": 18.80,
+        "raw_p95_abs": 18.80,
+        "outliers_removed": [],
+        "bull_bear_ratio": "8多/12空",
+        "max_inflow_day": 23.24,
+        "max_outflow_day": -12.27,
+        "note": "偏空格局(12空)，但近5天4天净流入转多。超大单纯度70.1%(HIGH)。20日Corr=-0.12近乎零相关"
+      },
+      "purity": {
+        "avg_super_large_pct": 70.1,
+        "signal_confidence": "HIGH",
+        "weight_multiplier": 1.0
+      },
+      "asymmetry": {
+        "inflow_p90_billion": 14.94,
+        "outflow_p90_billion": 11.04,
+        "outflow_inflow_ratio": 0.74
+      },
+      "thresholds": {
+        "inout_alert_billion": {"yellow": 0.96, "orange": 1.56, "red": 2.82, "unit": "亿/5min", "formula": "黄=P75×0.10/橙=P90×0.12/红=max(P95×0.15,橙×1.1)"},
+        "price_alert_pct": {"yellow": 0.4, "orange": 0.6, "red": 1.0, "unit": "%/5min"},
+        "wtb_flip_threshold": 25,
+        "volume_spike_multiplier": 3.0,
+        "turnover_alert_pct": 5.0,
+        "depth_ratio_drop_pct": 50,
+        "depth_ratio_warn_pct": 30
+      },
+      "sector": {"code": "881338", "setcode": "1", "name": "通信设备", "base_weight": 0.12, "corr_20d": -0.12, "dynamic_weight": 0.12, "note": "Corr≈0→个股与板块几乎脱钩，保留base_weight"}
+    }
+  },
+  "v3_features": {
+    "depth_monitoring": {"enabled": true},
+    "volume_price_divergence": {"enabled": true},
+    "cumulative_escalation": {"enabled": true},
+    "purity_weighting": {"enabled": true},
+    "time_of_day_scaling": {"enabled": true},
+    "debounce": {"enabled": true},
+    "sector_alpha_flow": {"enabled": true},
+    "decision_engine": {"enabled": true},
+    "slippage_control": {"enabled": true}
+  },
+  "v4_features": {
+    "alert_backtracking": {"enabled": true, "source": "alert_performance_log.json"},
+    "k_table_auto_tune": {"enabled": true, "method": "genetic_micro_tuning", "learning_rate": 0.05},
+    "dynamic_weight_rolling": {"enabled": true, "method": "corr_20d", "update_freq": "weekly"},
+    "slippage_calibration": {"enabled": true, "source": "trade_feedback_log.json", "window_days": 7}
+  },
+  "alert_types": {
+    "PRICE_SURGE": {"emoji": "🔴", "label": "价格急涨", "severity": "high"},
+    "PRICE_PLUMMET": {"emoji": "🟢", "label": "价格急跌", "severity": "high"},
+    "INOUT_SURGE": {"emoji": "💰", "label": "主力急入", "severity": "high"},
+    "INOUT_PLUMMET": {"emoji": "💸", "label": "主力急出", "severity": "critical"},
+    "WTB_FLIP": {"emoji": "🔄", "label": "委比翻转", "severity": "medium"},
+    "VOLUME_SPIKE": {"emoji": "📊", "label": "量能暴增", "severity": "medium"},
+    "TURNOVER_ALERT": {"emoji": "⚠️", "label": "换手率异常", "severity": "high"},
+    "DEPTH_COLLAPSE": {"emoji": "🏚️", "label": "盘口崩塌", "severity": "critical"},
+    "DIVERGENCE_INFLOW": {"emoji": "🎭", "label": "量价背离(诱多)", "severity": "high"},
+    "DIVERGENCE_OUTFLOW": {"emoji": "🛡️", "label": "量价背离(承接)", "severity": "medium"}
+  },
+  "changelog": [
+    {"version": "v4.1 W1", "date": "2026-06-08", "changes": [
+      "首次周度复盘(last_weekly_review=2026-06-08)",
+      "华工: 黄2.05(↑0.05)/橙2.83(↑0.03)/红4.07(↓0.03) | 多空7多/13空",
+      "新凤鸣: 黄0.02(↓0.03)/橙0.05(↓0.03)/红0.07(↓0.03) | 多空13多/7空",
+      "中兴: 黄0.96(↑0.36)/橙1.56(↑0.46)/红2.82(↑1.02) | 多空8多/12空，近5日偏多",
+      "Module C: Corr均为负值(华工-0.31/新凤鸣-0.30/中兴-0.12)，三股均走独立行情",
+      "修正红阈公式: red=max(P95×0.15,橙×1.1) 解决P95×0.08导致红<橙的问题"
+    ]},
+    {"version": "v3→v4", "date": "2026-06-08", "changes": ["初始化last_weekly_review字段", "更新成本价(华工154.237, 新凤鸣18.947, 中兴35.785)", "新增v4_features自进化配置"]}
+  ]
+}

@@ -1,0 +1,1 @@
+{"alerts": [], "stats": {"total": 0, "tp": 0, "fp": 0, "fn": 0, "precision": null, "recall": null}, "created": "2026-06-08", "note": "Module A 初始化，待累积告警数据后回溯"}
