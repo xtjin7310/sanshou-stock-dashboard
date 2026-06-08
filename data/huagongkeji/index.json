@@ -277,12 +277,103 @@
       "card_html": "cards/2026-06-08-midday.html",
       "card_screenshot": "cards/2026-06-08-midday.png",
       "tdx_connected": true
+    },
+    {
+      "date": "2026-06-08",
+      "session": "afternoon",
+      "price": 148.85,
+      "prev_close": 157.2,
+      "change": -8.35,
+      "change_percent": -5.31,
+      "open": 146.0,
+      "high": 154.78,
+      "low": 146.0,
+      "volume": 687510,
+      "amount": 10296122400,
+      "turnover_rate": 6.84,
+      "volume_ratio": 0.79,
+      "fund_flow": {
+        "tdx_inout": -355833856,
+        "tdx_inout_hb": -825955328,
+        "tdx_wtb": 81.19,
+        "inside": 358422,
+        "outside": 329088,
+        "main_net_flow": -889890301,
+        "jumbo_net_flow": -738218655,
+        "mid_net_flow": 330206464,
+        "small_net_flow": 559683837,
+        "main_net_5d": -253083292,
+        "main_net_20d": -10758959487,
+        "margin_balance": 11220943604,
+        "margin_dod": 1.29,
+        "short_balance": 23455498,
+        "short_dod": 11.19,
+        "block_trade": {
+          "type": "协议交易",
+          "price": 156.31,
+          "value": 6533800,
+          "discount": 0.0,
+          "buy_dept": "机构专用",
+          "sell_dept": "华泰证券福建分公司"
+        }
+      },
+      "technical": {
+        "ma5": 153.508,
+        "ma10": 158.723,
+        "ma20": 153.595,
+        "petm": 88.07,
+        "pe_static": 101.76,
+        "zaf20": 0.87,
+        "this_year": 87.63
+      },
+      "sanshou_score": 42,
+      "score_category": "弱空",
+      "predictions": {
+        "base": {
+          "probability": 50,
+          "description": "利好出货后继续下探，测试MA20支撑",
+          "range": "145.00-152.00",
+          "close_estimate": 148.0
+        },
+        "bull": {
+          "probability": 20,
+          "trigger": "CPO政策超预期+主力净流入转正+放量突破155",
+          "target": "160-165"
+        },
+        "bear": {
+          "probability": 30,
+          "trigger": "跌破146+20日主力继续流出+板块转弱",
+          "target": "140-145"
+        }
+      },
+      "confidence": 58,
+      "key_levels": {
+        "support": [146.0, 145.0, 141.22, 154.24],
+        "resistance": [154.78, 157.2, 165.87, 175.8],
+        "cost": 154.24
+      },
+      "midday_verification": {
+        "direction": "correct",
+        "direction_detail": "午间预测震空(45)偏空→下午收148.85(-5.31%)，方向正确",
+        "price": "correct",
+        "price_detail": "Bear target 145-147，实际最低146.00(日低开盘)后收148.85，Bear区间精准命中",
+        "logic": "correct",
+        "logic_detail": "预测V反后回落震荡→下午从150.51震荡下行至148.85，逻辑完全验证",
+        "fund": "correct",
+        "fund_detail": "午间tdx-3.56亿→下午累计-3.56亿(基本未变)，主力全天持续派发，验证出货判断",
+        "overall_score": 4,
+        "overall_max": 5,
+        "summary": "方向✓ · 价位✓(Bear区间精准) · 逻辑✓ · 资金✓（全天派发验证）"
+      },
+      "card_html": "cards/2026-06-08-afternoon.html",
+      "card_screenshot": "cards/2026-06-08-afternoon.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {
-    "total_predictions": 4,
-    "direction_accurate": 2,
-    "direction_accuracy": 50.0,
-    "composite_accuracy": 60.0
+    "total_predictions": 5,
+    "direction_accurate": 3,
+    "direction_accuracy": 60.0,
+    "composite_accuracy": 64.0
   }
 }

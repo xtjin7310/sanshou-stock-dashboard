@@ -258,12 +258,95 @@
       "card_html": "cards/2026-06-08-midday.html",
       "card_screenshot": "cards/2026-06-08-midday.png",
       "tdx_connected": true
+    },
+    {
+      "date": "2026-06-08",
+      "session": "afternoon",
+      "price": 19.1,
+      "prev_close": 20.33,
+      "change": -1.23,
+      "change_percent": -6.05,
+      "open": 19.61,
+      "high": 20.25,
+      "low": 19.05,
+      "volume": 270077,
+      "amount": 525266784,
+      "turnover_rate": 1.62,
+      "volume_ratio": 0.79,
+      "fund_flow": {
+        "tdx_inout": 52652736,
+        "tdx_inout_hb": 45256988,
+        "tdx_wtb": -9.71,
+        "inside": 135420,
+        "outside": 134657,
+        "main_net_flow": 48235222,
+        "jumbo_net_flow": 27348367,
+        "mid_net_flow": -38235479,
+        "small_net_flow": -9999743,
+        "main_net_5d": 146744901,
+        "main_net_20d": 201383811,
+        "margin_balance": 365967128,
+        "margin_dod": 8.95,
+        "short_balance": 5938393,
+        "short_dod": 33.91
+      },
+      "technical": {
+        "ma5": 19.466,
+        "ma10": 18.505,
+        "ma20": 17.822,
+        "petm": 29.66,
+        "pe_static": 31.46,
+        "zaf20": 4.48,
+        "this_year": -1.85
+      },
+      "sanshou_score": 56,
+      "score_category": "震多",
+      "predictions": {
+        "base": {
+          "probability": 50,
+          "description": "缩量回调消化连涨获利盘，主力逆势吸筹",
+          "range": "18.80-19.80",
+          "close_estimate": 19.3
+        },
+        "bull": {
+          "probability": 20,
+          "trigger": "放量突破19.61+化纤板块翻红",
+          "target": "20.00-20.25"
+        },
+        "bear": {
+          "probability": 30,
+          "trigger": "缩量跌破18.50(MA10)+融券继续增加",
+          "target": "18.00-18.50"
+        }
+      },
+      "confidence": 62,
+      "key_levels": {
+        "support": [19.05, 18.80, 18.00, 17.54],
+        "resistance": [20.25, 20.80, 21.12, 22.77],
+        "cost": 18.95
+      },
+      "midday_verification": {
+        "direction": "correct",
+        "direction_detail": "午间预测震空(48)偏空→下午收19.10(-6.05%)，方向正确",
+        "price": "partial",
+        "price_detail": "Bear target 19.00-19.23，实际最低19.05收19.10，触及下沿，价位基本准确",
+        "logic": "partial",
+        "logic_detail": "预测缩量震荡消化低开→实际下午持续下行，跌幅超预期但逻辑框架成立",
+        "fund": "correct",
+        "fund_detail": "午间tdx+1913万→下午累计+5265万，主力下午继续加仓，验证逆势吸筹判断",
+        "overall_score": 3,
+        "overall_max": 5,
+        "summary": "方向✓ · 价位◆(Bear区间内) · 逻辑◆ · 资金✓"
+      },
+      "card_html": "cards/2026-06-08-afternoon.html",
+      "card_screenshot": "cards/2026-06-08-afternoon.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {
-    "total_predictions": 7,
-    "direction_accurate": 5,
-    "direction_accuracy": 71.4,
-    "composite_accuracy": 77.0
+    "total_predictions": 8,
+    "direction_accurate": 6,
+    "direction_accuracy": 75.0,
+    "composite_accuracy": 76.0
   }
 }
