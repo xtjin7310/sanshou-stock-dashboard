@@ -352,8 +352,18 @@
       },
       "confidence": 52,
       "key_levels": {
-        "support": [36.5, 35.79, 35.5, 34.8],
-        "resistance": [38.02, 39.0, 41.3, 43.04],
+        "support": [
+          36.5,
+          35.79,
+          35.5,
+          34.8
+        ],
+        "resistance": [
+          38.02,
+          39.0,
+          41.3,
+          43.04
+        ],
         "cost": 35.79
       },
       "midday_verification": {
@@ -372,6 +382,108 @@
       "card_html": "cards/2026-06-08-afternoon.html",
       "card_screenshot": "cards/2026-06-08-afternoon.png",
       "tdx_connected": true
+    },
+    {
+      "date": "2026-06-09",
+      "session": "afternoon",
+      "price": 39.14,
+      "prev_close": 36.81,
+      "change": 2.33,
+      "change_percent": 6.33,
+      "open": 37.39,
+      "high": 39.33,
+      "low": 37.19,
+      "volume": 3107501,
+      "amount": 12031235972,
+      "turnover_rate": 7.72,
+      "volume_ratio": 1.09,
+      "fund_flow": {
+        "tdx_inout": 0,
+        "tdx_inout_hb": 0,
+        "tdx_wtb": 0,
+        "inside": 0,
+        "outside": 0,
+        "main_net_flow": 1374431599,
+        "jumbo_net_flow": 1248167061,
+        "mid_net_flow": -314394089,
+        "small_net_flow": -1060037510,
+        "main_net_5d": 2243997807,
+        "main_net_20d": -1366874618,
+        "margin_balance": 10686356651,
+        "margin_dod": -0.85,
+        "short_balance": 22068626,
+        "short_dod": -0.27,
+        "block_trade": {
+          "type": "协议交易",
+          "price": 34.0,
+          "value": 3400000,
+          "discount": 6.64,
+          "buy_dept": "国泰海通东营府前大街",
+          "sell_dept": "中信建投北京朝外大街"
+        }
+      },
+      "technical": {
+        "ma5": 37.85,
+        "ma10": 37.05,
+        "ma20": 36.91,
+        "ma60": 35.87,
+        "ma250": 38.3,
+        "macd_dif": 0.358,
+        "macd_dea": 0.153,
+        "macd_hist": 0.41,
+        "kdj_k": 56.35,
+        "kdj_d": 51.52,
+        "kdj_j": 66.03,
+        "rsi6": 61.61,
+        "boll_upper": 39.52,
+        "boll_mid": 36.91,
+        "boll_lower": 34.3,
+        "cci": 122.3,
+        "sar": 35.27,
+        "petm": 41.84,
+        "pe_static": 33.33,
+        "zaf20": 2.76,
+        "this_year": 3.44
+      },
+      "sanshou_score": 66,
+      "score_category": "偏多",
+      "predictions": {
+        "base": {
+          "probability": 45,
+          "description": "大摩增持+AI合作催化下高位整固，消化6.33%涨幅",
+          "range": "38.00-40.00",
+          "close_estimate": 39.0
+        },
+        "bull": {
+          "probability": 30,
+          "trigger": "字节合作落地+主力续买>10亿+通信板块走强",
+          "target": "40.00-41.50"
+        },
+        "bear": {
+          "probability": 25,
+          "trigger": "贝莱德续减+短线获利回吐+跌破37.19",
+          "target": "36.50-37.00"
+        }
+      },
+      "confidence": 68,
+      "key_levels": {
+        "support": [
+          37.19,
+          36.91,
+          35.79,
+          35.5
+        ],
+        "resistance": [
+          39.33,
+          40.0,
+          41.3,
+          38.3
+        ],
+        "cost": 35.79
+      },
+      "card_html": "cards/2026-06-09-afternoon.html",
+      "card_screenshot": "cards/2026-06-09-afternoon.png",
+      "tdx_connected": false
     }
   ],
   "accuracy": {

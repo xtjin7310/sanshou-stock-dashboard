@@ -321,8 +321,18 @@
       },
       "confidence": 62,
       "key_levels": {
-        "support": [19.05, 18.80, 18.00, 17.54],
-        "resistance": [20.25, 20.80, 21.12, 22.77],
+        "support": [
+          19.05,
+          18.8,
+          18.0,
+          17.54
+        ],
+        "resistance": [
+          20.25,
+          20.8,
+          21.12,
+          22.77
+        ],
         "cost": 18.95
       },
       "midday_verification": {
@@ -341,6 +351,99 @@
       "card_html": "cards/2026-06-08-afternoon.html",
       "card_screenshot": "cards/2026-06-08-afternoon.png",
       "tdx_connected": true
+    },
+    {
+      "date": "2026-06-09",
+      "session": "afternoon",
+      "price": 19.5,
+      "prev_close": 19.1,
+      "change": 0.4,
+      "change_percent": 2.09,
+      "open": 19.26,
+      "high": 19.75,
+      "low": 18.65,
+      "volume": 263419,
+      "amount": 508424371,
+      "turnover_rate": 1.58,
+      "volume_ratio": 0.87,
+      "fund_flow": {
+        "tdx_inout": 0,
+        "tdx_inout_hb": 0,
+        "tdx_wtb": 0,
+        "inside": 0,
+        "outside": 0,
+        "main_net_flow": 32092784,
+        "jumbo_net_flow": 32858741,
+        "mid_net_flow": -62479469,
+        "small_net_flow": 30386686,
+        "main_net_5d": 155519100,
+        "main_net_20d": 218227746,
+        "margin_balance": 403328991,
+        "margin_dod": 10.21,
+        "short_balance": 6364120,
+        "short_dod": 7.17
+      },
+      "technical": {
+        "ma5": 19.59,
+        "ma10": 18.66,
+        "ma20": 17.78,
+        "ma60": 17.49,
+        "macd_dif": 0.537,
+        "macd_dea": 0.264,
+        "macd_hist": 0.546,
+        "kdj_k": 72.0,
+        "kdj_d": 73.63,
+        "kdj_j": 68.74,
+        "rsi6": 62.47,
+        "boll_upper": 20.12,
+        "boll_mid": 17.78,
+        "boll_lower": 15.43,
+        "cci": 78.67,
+        "sar": 16.8,
+        "petm": 30.28,
+        "pe_static": 32.12,
+        "zaf20": 10.29,
+        "this_year": 0.21
+      },
+      "sanshou_score": 54,
+      "score_category": "震多",
+      "predictions": {
+        "base": {
+          "probability": 50,
+          "description": "减持利空消化后区间震荡，主力连买提供支撑",
+          "range": "18.90-20.10",
+          "close_estimate": 19.4
+        },
+        "bull": {
+          "probability": 25,
+          "trigger": "减持利空快速消化+主力续买+化纤板块走强",
+          "target": "20.00-20.50"
+        },
+        "bear": {
+          "probability": 25,
+          "trigger": "减持引发跟风抛售+跌破18.65+主力转流出",
+          "target": "18.00-18.50"
+        }
+      },
+      "confidence": 55,
+      "key_levels": {
+        "support": [
+          18.65,
+          18.95,
+          17.78,
+          16.8
+        ],
+        "resistance": [
+          19.75,
+          20.12,
+          20.5,
+          22.77
+        ],
+        "cost": 18.95
+      },
+      "card_html": "cards/2026-06-09-afternoon.html",
+      "card_screenshot": "cards/2026-06-09-afternoon.png",
+      "tdx_connected": false
     }
   ],
   "accuracy": {

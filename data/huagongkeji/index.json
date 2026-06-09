@@ -348,8 +348,18 @@
       },
       "confidence": 58,
       "key_levels": {
-        "support": [146.0, 145.0, 141.22, 154.24],
-        "resistance": [154.78, 157.2, 165.87, 175.8],
+        "support": [
+          146.0,
+          145.0,
+          141.22,
+          154.24
+        ],
+        "resistance": [
+          154.78,
+          157.2,
+          165.87,
+          175.8
+        ],
         "cost": 154.24
       },
       "midday_verification": {
@@ -368,6 +378,107 @@
       "card_html": "cards/2026-06-08-afternoon.html",
       "card_screenshot": "cards/2026-06-08-afternoon.png",
       "tdx_connected": true
+    },
+    {
+      "date": "2026-06-09",
+      "session": "afternoon",
+      "price": 155.53,
+      "prev_close": 148.85,
+      "change": 6.68,
+      "change_percent": 4.49,
+      "open": 152.62,
+      "high": 155.79,
+      "low": 149.02,
+      "volume": 649279,
+      "amount": 9936018965,
+      "turnover_rate": 6.46,
+      "volume_ratio": 0.78,
+      "fund_flow": {
+        "tdx_inout": 0,
+        "tdx_inout_hb": 0,
+        "tdx_wtb": 0,
+        "inside": 0,
+        "outside": 0,
+        "main_net_flow": 93717348,
+        "jumbo_net_flow": -42198590,
+        "mid_net_flow": 94795085,
+        "small_net_flow": -188512433,
+        "main_net_5d": -91681747,
+        "main_net_20d": -11825777001,
+        "margin_balance": 11088132515,
+        "margin_dod": -1.18,
+        "short_balance": 20081056,
+        "short_dod": -14.39,
+        "block_trade": {
+          "type": "协议交易",
+          "price": 156.31,
+          "value": 6533800,
+          "discount": 0.0,
+          "buy_dept": "机构专用",
+          "sell_dept": "华泰证券福建分公司"
+        }
+      },
+      "technical": {
+        "ma5": 154.87,
+        "ma10": 154.41,
+        "ma20": 153.96,
+        "ma60": 129.3,
+        "macd_dif": 6.173,
+        "macd_dea": 8.081,
+        "macd_hist": -3.816,
+        "kdj_k": 42.72,
+        "kdj_d": 41.41,
+        "kdj_j": 45.33,
+        "rsi6": 52.33,
+        "boll_upper": 173.65,
+        "boll_mid": 153.96,
+        "boll_lower": 134.28,
+        "cci": -49.04,
+        "sar": 168.23,
+        "petm": 92.03,
+        "pe_static": 106.33,
+        "zaf20": 7.89,
+        "this_year": 96.05
+      },
+      "sanshou_score": 50,
+      "score_category": "震多",
+      "predictions": {
+        "base": {
+          "probability": 50,
+          "description": "AI光模块催化下企稳修复，测试MA20支撑",
+          "range": "151.00-159.00",
+          "close_estimate": 155.0
+        },
+        "bull": {
+          "probability": 25,
+          "trigger": "800G/1.6T交付加速+主力净流入转正+放量突破156",
+          "target": "160-165"
+        },
+        "bear": {
+          "probability": 25,
+          "trigger": "MACD死叉+20日主力续出+跌破149",
+          "target": "145-148"
+        }
+      },
+      "confidence": 52,
+      "key_levels": {
+        "support": [
+          149.02,
+          153.96,
+          148.0,
+          154.24
+        ],
+        "resistance": [
+          155.79,
+          160.0,
+          165.0,
+          175.8
+        ],
+        "cost": 154.24
+      },
+      "card_html": "cards/2026-06-09-afternoon.html",
+      "card_screenshot": "cards/2026-06-09-afternoon.png",
+      "tdx_connected": false
     }
   ],
   "accuracy": {
