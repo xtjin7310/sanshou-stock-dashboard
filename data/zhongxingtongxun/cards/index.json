@@ -1,0 +1,63 @@
+{
+  "stock": {"name": "中兴通讯", "code": "sz000063", "pinyin": "zhongxingtongxun"},
+  "sessions": [
+    {
+      "session": "afternoon",
+      "date": "2026-06-10",
+      "price": 38.42,
+      "change_pct": -1.84,
+      "open": 38.68,
+      "high": 40.52,
+      "low": 37.89,
+      "prev_close": 39.14,
+      "volume": 2817708,
+      "amount": 11004386103,
+      "turnover_rate": 7.00,
+      "volume_ratio": 0.90,
+      "fund_flow": {
+        "tdx_inout": -980965376,
+        "tdx_inout_hb": -663869952,
+        "tdx_wtb": 20.65,
+        "asfund_main_net_flow": -671180438,
+        "asfund_main_net_flow_5d": 2994234558,
+        "asfund_main_net_flow_20d": 952609779
+      },
+      "margin": {
+        "finance_value": 10807845958,
+        "security_value": 15057158,
+        "finance_dod": 1.14,
+        "security_dod": -31.77
+      },
+      "sanshou_score": {
+        "total": 55,
+        "level": "震多",
+        "factors": {
+          "tech": {"score": 56, "weight": 25},
+          "volume_price": {"score": 50, "weight": 20},
+          "fund": {"score": 55, "weight": 20},
+          "news": {"score": 73, "weight": 15},
+          "chip": {"score": 60, "weight": 10},
+          "sector": {"score": 38, "weight": 8},
+          "macro": {"score": 50, "weight": 2}
+        }
+      },
+      "predictions": {
+        "confidence": 50,
+        "base_scenario": "震多·利好兑现期",
+        "key_levels": {
+          "resistance": [40.52, 39.45, 39.14],
+          "support": [38.32, 37.89, 36.89, 35.79],
+          "cost": 35.79
+        }
+      }
+    }
+  ],
+  "accuracy_tracker": {
+    "total_predictions": 13,
+    "direction_accuracy": 0.69,
+    "composite_accuracy": 0.70,
+    "last_verification": "2026-06-10",
+    "last_score": "2/5",
+    "last_note": "利好兑现反转，方向错误但早盘前半段准确"
+  }
+}

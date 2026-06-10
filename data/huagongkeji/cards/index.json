@@ -1,0 +1,63 @@
+{
+  "stock": {"name": "华工科技", "code": "sz000988", "pinyin": "huagongkeji"},
+  "sessions": [
+    {
+      "session": "afternoon",
+      "date": "2026-06-10",
+      "price": 149.00,
+      "change_pct": -4.20,
+      "open": 152.80,
+      "high": 153.13,
+      "low": 147.01,
+      "prev_close": 155.53,
+      "volume": 524023,
+      "amount": 7870619671,
+      "turnover_rate": 5.21,
+      "volume_ratio": 0.65,
+      "fund_flow": {
+        "tdx_inout": -1255958530,
+        "tdx_inout_hb": -1057204990,
+        "tdx_wtb": -16.35,
+        "asfund_main_net_flow": -1178205901,
+        "asfund_main_net_flow_5d": -484015633,
+        "asfund_main_net_flow_20d": -10514464944
+      },
+      "margin": {
+        "finance_value": 11205101154,
+        "security_value": 21478693,
+        "finance_dod": 1.05,
+        "security_dod": 6.96
+      },
+      "sanshou_score": {
+        "total": 38,
+        "level": "弱空",
+        "factors": {
+          "tech": {"score": 40, "weight": 25},
+          "volume_price": {"score": 35, "weight": 20},
+          "fund": {"score": 20, "weight": 20},
+          "news": {"score": 60, "weight": 15},
+          "chip": {"score": 30, "weight": 10},
+          "sector": {"score": 30, "weight": 8},
+          "macro": {"score": 50, "weight": 2}
+        }
+      },
+      "predictions": {
+        "confidence": 45,
+        "base_scenario": "弱空·观望偏空",
+        "key_levels": {
+          "resistance": [154.24, 154.31, 153.79],
+          "support": [147.01, 140, 129.65],
+          "cost": 154.24
+        }
+      }
+    }
+  ],
+  "accuracy_tracker": {
+    "total_predictions": 6,
+    "direction_accuracy": 0.67,
+    "composite_accuracy": 0.67,
+    "last_verification": "2026-06-10",
+    "last_score": "4/5",
+    "last_note": "今日最佳预测，方向价位逻辑资金全中"
+  }
+}
