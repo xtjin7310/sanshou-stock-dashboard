@@ -1,267 +1,189 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>中兴通讯 收盘复盘 2026-06-09</title>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中兴通讯 午间复盘卡片</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f2f2f7;display:flex;justify-content:center;padding:20px}
-.card{width:600px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
-.header{padding:20px 24px 16px;border-bottom:1px solid #e5e5ea}
-.header-top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.name{font-size:22px;font-weight:700;color:#1d1d1f}
-.code{font-size:13px;color:#8e8e93}
-.tag{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500}
-.tag-mkt{background:#e8f4fd;color:#378add}
-.tag-rev{background:#fef3e8;color:#d85a30}
-.header-date{font-size:12px;color:#8e8e93;margin-top:4px}
-.price-row{display:flex;align-items:baseline;gap:12px;margin-top:12px}
-.price{font-size:36px;font-weight:700;color:#d85a30}
-.change{font-size:16px;font-weight:600;color:#d85a30;margin-left:4px}
-.cost-info{font-size:12px;color:#8e8e93;margin-top:4px}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; background: #f5f5f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+.card { width: 600px; background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+.stock-name { font-size: 20px; font-weight: 600; color: #1d1d1f; }
+.stock-code { font-size: 13px; color: #86868b; margin-left: 8px; }
+.badge { display: inline-block; font-size: 11px; background: #f2f2f7; color: #86868b; padding: 2px 10px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+.badge.green { background: #e1f5ee; color: #1d9e75; }
+.badge.red { background: #faeee7; color: #d85a30; }
+.date-label { font-size: 12px; color: #aeaeb2; margin-top: 4px; }
+.price-section { text-align: right; }
+.price { font-size: 32px; font-weight: 600; color: #1d1d1f; line-height: 1.1; }
+.change { display: flex; align-items: center; justify-content: flex-end; gap: 6px; margin-top: 4px; }
+.change-val { font-size: 14px; font-weight: 500; }
+.change-pct { font-size: 13px; font-weight: 500; padding: 1px 8px; border-radius: 4px; }
+.cost-tag { font-size: 11px; color: #aeaeb2; margin-top: 2px; }
+.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 18px; }
+.metric { background: #f5f5f7; border-radius: 8px; padding: 10px 12px; }
+.metric-label { font-size: 11px; color: #86868b; margin-bottom: 3px; }
+.metric-value { font-size: 15px; font-weight: 500; color: #1d1d1f; }
+.metric-value.blue { color: #378add; }
+.metric-value.gray { color: #888780; }
+.timeline-section { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
+.timeline-title { font-size: 13px; font-weight: 500; color: #1d1d1f; margin-bottom: 12px; }
+.timeline { display: flex; justify-content: space-between; position: relative; padding: 4px 0; }
+.tl-node { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.tl-dot { width: 8px; height: 8px; border-radius: 50%; background: #aeaeb2; z-index: 2; }
+.tl-dot.red { background: #d85a30; }
+.tl-dot.green { background: #1d9e75; }
+.tl-dot.blue { background: #378add; }
+.tl-dot.highlight { width: 12px; height: 12px; background: #d85a30; border: 3px solid #fff; box-shadow: 0 0 0 1px #e5e5ea; }
+.tl-time { font-size: 10px; color: #aeaeb2; margin-top: 6px; white-space: nowrap; }
+.tl-price { font-size: 12px; font-weight: 500; margin-top: 2px; }
+.tl-desc { font-size: 10px; color: #aeaeb2; margin-top: 1px; white-space: nowrap; }
+.tl-bar { height: 3px; border-radius: 2px; margin-top: 8px; }
+.section-block { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
+.section-title { font-size: 14px; font-weight: 500; color: #1d1d1f; margin-bottom: 10px; }
+.section-tag { font-size: 11px; padding: 2px 10px; border-radius: 4px; font-weight: 500; margin-left: 8px; }
+.tag-warn { background: #faedd4; color: #854f0b; }
+.tag-red { background: #faeee7; color: #d85a30; }
+.fund-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.fund-item { font-size: 12px; color: #636366; line-height: 1.6; }
+.fund-item strong { color: #1d1d1f; }
+.fund-positive { color: #d85a30; font-weight: 500; }
+.fund-negative { color: #1d9e75; font-weight: 500; }
+.fund-divider { border-top: 1px solid #f0f0f5; margin: 8px 0; padding-top: 8px; }
+.fund-conclusion { font-size: 12px; color: #636366; line-height: 1.6; }
+.prediction-section { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; background: #fafcff; }
+.pred-title { font-size: 14px; font-weight: 500; color: #1d1d1f; margin-bottom: 10px; }
+.pred-scene { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; font-size: 12px; color: #636366; line-height: 1.5; }
+.pred-scene-label { font-weight: 600; min-width: 90px; font-size: 12px; white-space: nowrap; }
+.scene-base { color: #378add; }
+.scene-bull { color: #d85a30; }
+.scene-bear { color: #1d9e75; }
+.level-block { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
+.level-title { font-size: 14px; font-weight: 500; color: #1d1d1f; margin-bottom: 10px; }
+.level-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.level-item { text-align: center; padding: 8px 6px; border-radius: 8px; }
+.level-item.support { background: #f0f6ff; }
+.level-item.resist { background: #fef5f1; }
+.level-val { font-size: 14px; font-weight: 600; }
+.level-val.blue { color: #378add; }
+.level-val.red { color: #d85a30; }
+.level-label { font-size: 10px; color: #aeaeb2; margin-top: 2px; }
+.warn-block { background: #faedd4; border-radius: 8px; padding: 10px 14px; font-size: 11px; color: #854f0b; line-height: 1.6; margin-bottom: 14px; }
+.degrade-block { background: #f2f2f7; border-radius: 8px; padding: 8px 14px; font-size: 10px; color: #aeaeb2; margin-top: 8px; text-align: center; }
+.conclusion-block { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
+.conclusion-title { font-size: 14px; font-weight: 500; color: #1d1d1f; margin-bottom: 10px; }
+.conclusion-text { font-size: 12px; color: #636366; line-height: 1.7; }
+.conclusion-text strong { color: #1d1d1f; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <div>
+      <div><span class="stock-name">中兴通讯</span><span class="stock-code">sz000063</span><span class="badge">深主板</span><span class="badge" style="background:#e1f5ee;color:#1d9e75;">通信设备</span></div>
+      <div class="date-label">2026-06-10 · 午间复盘 · 上午收盘</div>
+    </div>
+    <div class="price-section">
+      <div class="price">38.25</div>
+      <div class="change"><span class="change-val" style="color:#1d9e75">-0.89</span><span class="change-pct" style="color:#1d9e75;background:#e1f5ee">-2.27%</span></div>
+      <div class="cost-tag" style="color:#d85a30">持仓成本 ¥35.785 · 浮盈 +2.47(+6.9%)</div>
+    </div>
+  </div>
 
-/* 8-grid */
-.grid8{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e5e5ea;border-bottom:1px solid #e5e5ea}
-.g8-item{background:#fff;padding:10px 12px;text-align:center}
-.g8-label{font-size:10px;color:#8e8e93;margin-bottom:4px;text-transform:uppercase}
-.g8-val{font-size:15px;font-weight:600;color:#1d1d1f}
-.g8-hi{color:#d85a30}
-.g8-lo{color:#378add}
+  <div class="metrics">
+    <div class="metric"><div class="metric-label">开盘</div><div class="metric-value">38.68</div></div>
+    <div class="metric"><div class="metric-label">最高</div><div class="metric-value" style="color:#d85a30">40.52</div></div>
+    <div class="metric"><div class="metric-label">最低</div><div class="metric-value blue">37.89</div></div>
+    <div class="metric"><div class="metric-label">昨收</div><div class="metric-value">39.14</div></div>
+    <div class="metric"><div class="metric-label">成交量(手)</div><div class="metric-value">2,449,725</div></div>
+    <div class="metric"><div class="metric-label">成交额</div><div class="metric-value">95.93亿</div></div>
+    <div class="metric"><div class="metric-label">换手率</div><div class="metric-value">6.08%</div></div>
+    <div class="metric"><div class="metric-label">量比</div><div class="metric-value gray">1.01</div></div>
+  </div>
 
-/* section */
-.section{padding:16px 24px;border-bottom:1px solid #e5e5ea}
-.section-title{font-size:13px;font-weight:700;color:#1d1d1f;margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.section-title .icon{font-size:16px}
+  <div class="timeline-section">
+    <div class="timeline-title">📈 上午分时关键节点</div>
+    <div class="timeline">
+        <div class="tl-node">
+            <div class="tl-dot green"></div>
+            <div class="tl-time">09:30</div>
+            <div class="tl-price">38.68</div>
+            <div class="tl-desc">低开-1.18%</div>
+        </div>
+        <div class="tl-node">
+            <div class="tl-dot red"></div>
+            <div class="tl-time">09:50</div>
+            <div class="tl-price">40.50</div>
+            <div class="tl-desc">冲高+3.47%</div>
+        </div>
+        <div class="tl-node">
+            <div class="tl-dot green"></div>
+            <div class="tl-time">10:05</div>
+            <div class="tl-price">39.24</div>
+            <div class="tl-desc">急回调</div>
+        </div>
+        <div class="tl-node">
+            <div class="tl-dot green"></div>
+            <div class="tl-time">10:57</div>
+            <div class="tl-price">38.41</div>
+            <div class="tl-desc">跌破均线</div>
+        </div>
+        <div class="tl-node">
+            <div class="tl-dot green"></div>
+            <div class="tl-time">11:30</div>
+            <div class="tl-price">38.40</div>
+            <div class="tl-desc">上午收-1.89%</div>
+        </div></div>
+  </div>
 
-/* timeline */
-.timeline{display:flex;align-items:center;gap:0;margin:12px 0}
-.tl-node{flex:1;text-align:center;position:relative}
-.tl-time{font-size:10px;color:#8e8e93}
-.tl-price{font-size:13px;font-weight:600;color:#1d1d1f}
-.tl-bar{height:4px;border-radius:2px;margin:6px 2px 0;background:#e5e5ea;overflow:hidden}
-.tl-bar-inner{height:100%;border-radius:2px;background:linear-gradient(90deg,#378add,#1d9e75,#d85a30)}
+  <div class="section-block">
+    <div class="section-title">💰 上午资金流向<span class="section-tag tag-warn">westock asfund</span></div>
+    <div class="degrade-block">⚠️ tdx 未连接，资金面降级为 westock-data asfund（主力净额含超大单+大单+中单+小单估算）</div>
+    <div class="fund-grid">
+      <div class="fund-item"><strong>主力净流入</strong> <span class="fund-negative">-5.78亿</span></div>
+      <div class="fund-item"><strong>超大单净</strong> <span class="fund-negative">-6.11亿</span></div>
+      <div class="fund-item"><strong>中单净</strong> <span class="fund-positive">+1.28亿</span></div>
+      <div class="fund-item"><strong>小单净</strong> <span class="fund-positive">+4.50亿</span></div>
+    </div>
+    <div class="fund-divider"></div>
+    <div class="fund-conclusion">
+      <strong>5日累计主力：</strong>+29.94亿 · <strong>20日累计：</strong>+9.53亿<br>
+      <strong>融资余额：</strong>108.08亿(环比+1.14%) · <strong>融券：</strong>1506万(环比-31.77%)
+    </div>
+  </div>
 
-/* fund truth */
-.fund-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.fund-item{background:#f5f5f7;border-radius:8px;padding:10px;text-align:center}
-.fund-label{font-size:11px;color:#8e8e93;margin-bottom:2px}
-.fund-val{font-size:15px;font-weight:700}
-.fund-red{color:#d85a30}
-.fund-green{color:#1d9e75}
-.fund-blue{color:#378add}
+  <div class="prediction-section">
+    <div class="pred-title">📈 午后走势预判 · 三寿评分 <strong style="color:#e67e22">52</strong> <span style="font-weight:400;font-size:12px;color:#aeaeb2">[震空]</span></div>
+    <div class="pred-scene">
+      <span class="pred-scene-label scene-base">● Base(50%)</span>
+      <span>午后低位震荡消化上午冲高回落抛压<br>区间：37.50-39.00 · 收盘估：38.5</span>
+    </div>
+    <div class="pred-scene">
+      <span class="pred-scene-label scene-bull">▲ Bull(25%)</span>
+      <span>触发：融券撤退+5日净流入惯性+通信板块走强<br>目标：39.50-40.52</span>
+    </div>
+    <div class="pred-scene">
+      <span class="pred-scene-label scene-bear">▼ Bear(25%)</span>
+      <span>触发：跌破37.89+大单续出>3亿<br>目标：36.89-37.50</span>
+    </div>
+  </div>
 
-/* news */
-.news-list{list-style:none}
-.news-list li{padding:5px 0;font-size:12px;color:#3c3c43;border-bottom:1px solid #f5f5f7}
-.news-list li:last-child{border:none}
+  <div class="level-block">
+    <div class="level-title">📊 关键价位</div>
+    <div class="level-grid">
+      <div class="level-item support"><div class="level-val blue">37.89</div><div class="level-label">37.89</div></div><div class="level-item support"><div class="level-val blue">37.50</div><div class="level-label">37.50(MA10)</div></div><div class="level-item support"><div class="level-val blue">36.89</div><div class="level-label">36.89(MA20)</div></div><div class="level-item support"><div class="level-val blue">35.79</div><div class="level-label">35.79(成本)</div></div>
+      <div class="level-item resist"><div class="level-val red">39.14</div><div class="level-label">39.14(昨收)</div></div><div class="level-item resist"><div class="level-val red">40.00</div><div class="level-label">40.00</div></div><div class="level-item resist"><div class="level-val red">40.52</div><div class="level-label">40.52</div></div><div class="level-item resist"><div class="level-val red">41.30</div><div class="level-label">41.30</div></div>
+    </div>
+  </div>
 
-/* score */
-.score-block{background:#f0f7ff;border-radius:10px;padding:14px 16px;margin-top:8px}
-.score-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.score-num{font-size:28px;font-weight:700;color:#378add}
-.score-cat{font-size:13px;font-weight:600;color:#378add;background:#e8f4fd;padding:3px 10px;border-radius:12px}
-.score-item{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:12px}
-.sname{width:40px;color:#8e8e93;flex-shrink:0}
-.sbar-bg{flex:1;height:6px;background:#e5e5ea;border-radius:3px;overflow:hidden}
-.sbar-fill{height:100%;border-radius:3px}
-.sval{width:28px;text-align:right;font-weight:600;flex-shrink:0}
+  <div class="conclusion-block">
+    <div class="conclusion-title">📋 上午复盘总结</div>
+    <div class="conclusion-text"><strong>上午走势：冲高回落，典型的利好兑现出货</strong><br>低开-1.18%后受昨日大摩增持+AI催化惯性冲高至40.50(+3.47%)，但随后主力持续派发，10:57跌至38.41(-1.87%)，上午收38.40(-1.89%)。量比1.01平量，换手6.08%活跃。超大单-6.11亿+中单+1.28亿+小散+4.50亿，<strong>典型大单出货、散户接盘</strong>格局。但融券余额骤降-31.77%(空头撤退)，5日主力仍净流入29.94亿。</div>
+  </div>
 
-/* predictions */
-.pred-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.pred-card{background:#f5f5f7;border-radius:8px;padding:10px}
-.pred-type{font-size:11px;font-weight:600;margin-bottom:4px}
-.pred-prob{font-size:10px;color:#8e8e93;margin-bottom:2px}
-.pred-desc{font-size:11px;color:#3c3c43;line-height:1.4}
-
-/* advice */
-.advice-item{background:#f5f5f7;border-radius:8px;padding:10px 12px;margin-bottom:8px}
-.advice-tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;margin-bottom:6px}
-.advice-body{font-size:12px;color:#3c3c43;line-height:1.5}
-
-/* levels */
-.levels-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.level-col{}
-.level-title{font-size:11px;font-weight:600;margin-bottom:6px}
-.level-row{display:flex;justify-content:space-between;padding:4px 8px;background:#f5f5f7;border-radius:4px;margin-bottom:3px;font-size:12px}
-.level-price{font-weight:600}
-
-/* accuracy */
-.acc-block{background:#f5f5f7;border-radius:8px;padding:12px;margin-top:10px;text-align:center}
-.acc-stat{font-size:11px;color:#8e8e93}
-.acc-bar{height:5px;background:#e5e5ea;border-radius:3px;margin-top:6px;overflow:hidden}
-.acc-fill{height:100%;background:#378add;border-radius:3px}
-
-/* confidence */
-.conf-box{background:#f0f7ff;border:1px solid #cce5ff;border-radius:8px;padding:10px 14px;margin-top:10px;text-align:center}
-.conf-num{font-size:20px;font-weight:700;color:#378add}
-
-/* risks */
-.risks{margin-top:6px}
-.risk-item{font-size:11px;color:#8e8e93;padding:3px 0;line-height:1.4}
-
-.footer{padding:14px 24px;font-size:11px;color:#aeaeb2;text-align:center}
-.degraded-note{background:#fff3cd;color:#856404;padding:8px 16px;font-size:11px;text-align:center;border-bottom:1px solid #ffc107}
-</style></head><body><div class="card">
-<!-- HEADER -->
-<div class="header">
-<div class="header-top"><span class="name">中兴通讯</span><span class="code">sz000063</span>
-<span class="tag tag-mkt">深圳主板</span><span class="tag tag-rev">收盘复盘</span></div>
-<div class="header-date">2026-06-09 收盘复盘 · 通信设备</div>
-<div class="price-row"><span class="price">39.14</span><span class="change">+6.33%</span></div>
-<div class="cost-info">持仓成本 ¥35.79 · 浮++9.36% · PE(TTM) 41.8</div>
+  <div class="warn-block">
+    ⚠️ <strong>风险提示：</strong>冲高回落后上午收跌，大单出货格局已形成 · 价格跌破MA250(38.32)，年线支撑失守 · 虽融券撤退是利多，但短期卖压需要消化<br>
+    以上分析基于上午数据，下午走势可能受盘中新消息影响，仅供参考。
+  </div>
 </div>
-
-<!-- 8-grid -->
-<div class="grid8">
-<div class="g8-item"><div class="g8-label">开盘</div><div class="g8-val">37.39</div></div>
-<div class="g8-item"><div class="g8-label">最高</div><div class="g8-val g8-hi">39.33</div></div>
-<div class="g8-item"><div class="g8-label">最低</div><div class="g8-val g8-lo">37.19</div></div>
-<div class="g8-item"><div class="g8-label">昨收</div><div class="g8-val">36.81</div></div>
-<div class="g8-item"><div class="g8-label">成交量</div><div class="g8-val">310.8万手</div></div>
-<div class="g8-item"><div class="g8-label">成交额</div><div class="g8-val">120.31亿</div></div>
-<div class="g8-item"><div class="g8-label">换手率</div><div class="g8-val">7.72%</div></div>
-<div class="g8-item"><div class="g8-label">量比</div><div class="g8-val" style="color:#8e8e93">1.09</div></div>
-</div>
-
-<!-- Timing nodes -->
-<div class="section">
-<div class="section-title"><span class="icon">⏱</span>分时关键节点</div>
-<div class="timeline">
-<div class="tl-node"><div class="tl-time">09:30 开</div><div class="tl-price" style="color:#d85a30">37.39</div></div>
-<div class="tl-node"><div class="tl-time">10:00 早盘</div><div class="tl-price">📈</div></div>
-<div class="tl-node"><div class="tl-time">11:30 午收</div><div class="tl-price">偏强</div></div>
-<div class="tl-node"><div class="tl-time">14:00 午后</div><div class="tl-price">横盘</div></div>
-<div class="tl-node"><div class="tl-time">15:00 收盘</div><div class="tl-price" style="color:#d85a30">39.14</div></div>
-</div>
-<div class="tl-bar"><div class="tl-bar-inner" style="width:100%"></div></div>
-</div>
-
-<!-- Fund Truth -->
-<div class="section">
-<div class="section-title"><span class="icon">💰</span>今日资金真相 <span style="font-size:10px;color:#fa0;margin-left:6px">⚠️ tdx未连接，资金面=westock asfund</span></div>
-<div class="fund-grid">
-<div class="fund-item"><div class="fund-label">主力净额</div><div class="fund-val fund-red">+13.74亿</div></div>
-<div class="fund-item"><div class="fund-label">超大单</div><div class="fund-val fund-red">+12.48亿</div></div>
-<div class="fund-item"><div class="fund-label">中单</div><div class="fund-val fund-green">-3.14亿</div></div>
-<div class="fund-item"><div class="fund-label">小单</div><div class="fund-val fund-green">-10.60亿</div></div>
-<div class="fund-item"><div class="fund-label">5日主力</div><div class="fund-val fund-red">+22.44亿</div></div>
-<div class="fund-item"><div class="fund-label">20日主力</div><div class="fund-val fund-green">-13.67亿</div></div>
-<div class="fund-item"><div class="fund-label">融资余额</div><div class="fund-val fund-blue">106.9亿</div></div>
-<div class="fund-item"><div class="fund-label">融资环比</div><div class="fund-val fund-green">-0.8%</div></div>
-</div>
-</div>
-
-<!-- News & Sector -->
-<div class="section">
-<div class="section-title"><span class="icon">📰</span>个股和板块重要信息</div>
-<div style="font-size:12px;color:#8e8e93;margin-bottom:8px">机构评级：1家买入(大摩增持)</div>
-<ul class="news-list">
-<li>✅ 大摩指与字节跳动'豆包'AI助理合作为重要催化剂，提至增持评级</li><li>✅ 主力资金净买入超12亿(财联社)，全天净流入13.7亿</li><li>✅ 央视：新一代通信网将带动约7万亿总产出</li><li>⚠️ 贝莱德减持H股 + 6/8融资净卖出9206万</li>
-</ul>
-<div style="display:flex;justify-content:space-between;margin-top:10px;padding:8px;background:#f5f5f7;border-radius:6px;font-size:11px">
-<span>中兴通讯 +6.3%</span>
-<span>板块 +2.8%</span>
-<span>上证 N/A</span>
-</div>
-</div>
-
-<!-- Sanshou Score -->
-<div class="section">
-<div class="section-title"><span class="icon">📈</span>三寿股价预测评分</div>
-<div class="score-block">
-<div class="score-header">
-<span class="score-num">81</span>
-<span class="score-cat">强多</span>
-</div>
-<div class="score-item"><span class="sname">趋势</span><div class="sbar-bg"><div class="sbar-fill" style="width:100%;background:#378add"></div></div><span class="sval">30</span></div>
-<div class="score-item"><span class="sname">资金</span><div class="sbar-bg"><div class="sbar-fill" style="width:60%;background:#1d9e75"></div></div><span class="sval">18</span></div>
-<div class="score-item"><span class="sname">量价</span><div class="sbar-bg"><div class="sbar-fill" style="width:65%;background:#ff9500"></div></div><span class="sval">13</span></div>
-<div class="score-item"><span class="sname">消息</span><div class="sbar-bg"><div class="sbar-fill" style="width:100%;background:#af52de"></div></div><span class="sval">20</span></div>
-</div>
-
-<!-- Predictions -->
-<div style="margin-top:12px">
-<div class="pred-grid">
-<div class="pred-card" style="background:#f0f7ff">
-<div class="pred-type" style="color:#378add">● Base</div>
-<div class="pred-prob">概率 50%</div>
-<div class="pred-desc">大摩增持+AI合作催化，强势延续但需警惕获利回吐<br>区间 37.97-40.31</div>
-</div>
-<div class="pred-card" style="background:#ffece5">
-<div class="pred-type" style="color:#d85a30">▲ Bull</div>
-<div class="pred-prob">概率 30%</div>
-<div class="pred-desc">触发放量+板块走强<br>目标 ¥41.10</div>
-</div>
-<div class="pred-card" style="background:#e8f5ec">
-<div class="pred-type" style="color:#1d9e75">▼ Bear</div>
-<div class="pred-prob">概率 20%</div>
-<div class="pred-desc">触发缩量+主力流出<br>目标 ¥36.79</div>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Advice -->
-<div class="section">
-<div class="section-title"><span class="icon">🎯</span>具体操作建议</div>
-<div class="advice-item">
-<div class="advice-tag" style="background:#378add15;color:#378add">当前持仓</div>
-<div class="advice-body"><b>触发条件：</b>浮+9.4%盈，大摩增持+AI合作强催化<br><b>操作目标：</b>止损位37.19(今日低点)</div>
-</div>
-<div class="advice-item">
-<div class="advice-tag" style="background:#d85a3015;color:#d85a30">加仓</div>
-<div class="advice-body"><b>触发条件：</b>回踩38.00(MA60附近)+缩量企稳+主力继续净流入+字节合作落地<br><b>操作目标：</b>38.00-38.50加仓，止损37.00</div>
-</div>
-<div class="advice-item">
-<div class="advice-tag" style="background:#ff950015;color:#ff9500">观望</div>
-<div class="advice-body"><b>触发条件：</b>单日涨幅6.33%较大，存在短线获利回吐压力+贝莱德减持<br><b>操作目标：</b>观察次日能否站稳38.50以上</div>
-</div>
-<div class="advice-item">
-<div class="advice-tag" style="background:#1d9e7515;color:#1d9e75">减仓</div>
-<div class="advice-body"><b>触发条件：</b>跌破37.19+主力转为净流出>5亿+大摩评级言论被证伪<br><b>操作目标：</b>减至成本附近，止损36.50</div>
-</div>
-</div>
-<!-- Key Levels -->
-<div class="section">
-<div class="section-title"><span class="icon">📊</span>关键价位</div>
-<div class="levels-grid">
-<div class="level-col">
-<div class="level-title" style="color:#378add">▼ 支撑位</div>
-<div class="level-row"><span>¥36.82·近低</span><span style="color:#378add">支撑</span></div>
-<div class="level-row"><span>¥38.32</span><span style="color:#378add">支撑</span></div>
-<div class="level-row"><span>¥36.91·MA20</span><span style="color:#378add">支撑</span></div>
-<div class="level-row"><span>¥35.79·成本</span><span style="color:#378add">支撑</span></div>
-</div><div class="level-col">
-<div class="level-title" style="color:#d85a30">▲ 压力位</div>
-<div class="level-row"><span>¥39.53·近高</span><span style="color:#d85a30">压力</span></div>
-<div class="level-row"><span>¥38.30·MA250</span><span style="color:#d85a30">压力</span></div>
-<div class="level-row"><span>¥40.71</span><span style="color:#d85a30">压力</span></div>
-<div class="level-row"><span>¥41.88</span><span style="color:#d85a30">压力</span></div>
-</div></div></div>
-
-<!-- Confidence + Accuracy -->
-<div class="section">
-<div class="conf-box">
-置信度指数 <span class="conf-num">75/100</span>
-</div>
-<div class="acc-block">
-<div class="acc-stat">该股历史预测准确度参考</div>
-<div class="acc-bar"><div class="acc-fill" style="width:70%"></div></div>
-<div class="acc-stat" style="margin-top:3px">综合 ~70% · 盘后预测待次日验证</div>
-</div>
-</div>
-
-<!-- Risks -->
-<div class="section">
-<div class="section-title"><span class="icon">⚠️</span>风险提示</div>
-<div class="risks">
-<div class="risk-item">⚠️ 贝莱德减持H股，外资态度需持续跟踪</div>
-<div class="risk-item">⚠️ 单日涨幅6.33%后短线获利盘压力大，次日易现冲高回落</div>
-<div class="risk-item">📌 YTD仅+3.44%，严重跑输通信板块(+68%YTD)，基本面改善慢于板块</div>
-<div class="risk-item">📌 大宗折价交易(34.00元vs现价39.14)仍在进行中</div>
-</div></div>
-
-<!-- Degraded note -->
-<div class="degraded-note">⚠️ tdx通达信未连接，资金面数据来自 westock-data asfund（精度较低）。建议恢复 tdx 连接后重新复盘。</div>
-
-<div class="footer">2026-06-09 盘后复盘 · 三寿评分模型 v2.5.1 · 仅供参考不构成投资建议</div>
-</div></body></html>
+</body>
+</html>

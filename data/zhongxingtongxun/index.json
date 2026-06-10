@@ -484,10 +484,74 @@
       "card_html": "cards/2026-06-09-afternoon.html",
       "card_screenshot": "cards/2026-06-09-afternoon.png",
       "tdx_connected": false
+    },
+    {
+      "date": "2026-06-10",
+      "session": "morning",
+      "price": 38.3,
+      "prev_close": 39.14,
+      "change": -0.84,
+      "change_percent": -2.15,
+      "open": 38.68,
+      "high": 40.52,
+      "low": 37.89,
+      "volume": 2461411,
+      "amount": 9637395712,
+      "turnover_rate": 6.11,
+      "volume_ratio": 1.0,
+      "fund_flow": {
+        "tdx_inout": null,
+        "tdx_inout_hb": null,
+        "tdx_wtb": null,
+        "main_net_flow": -578022810,
+        "jumbo_net_flow": -610955554,
+        "big_net_flow": 32932744,
+        "mid_net_flow": 128131713,
+        "small_net_flow": 449891097,
+        "main_net_5d": 2994234558,
+        "main_net_20d": 952609779
+      },
+      "sanshou_score": 45,
+      "score_category": "震荡偏空",
+      "predictions": {
+        "base": {
+          "probability": 45,
+          "description": "38.00-39.00区间震荡，冲高回落获利回吐",
+          "range": "38.00-39.00",
+          "close_estimate": 38.3
+        },
+        "bull": {
+          "probability": 25,
+          "trigger": "14:00后5日主力买盘回补+量比回升",
+          "target": "39.00-39.50"
+        },
+        "bear": {
+          "probability": 30,
+          "trigger": "跌破37.89创新低+缩量",
+          "target": "37.00-37.50"
+        }
+      },
+      "confidence": 58,
+      "key_levels": {
+        "support": [
+          36.89,
+          37.89,
+          35.89
+        ],
+        "resistance": [
+          39.14,
+          39.44,
+          40.52
+        ],
+        "cost": 35.785
+      },
+      "card_html": "cards/2026-06-10-midday.html",
+      "card_screenshot": "cards/2026-06-10-midday.png",
+      "tdx_connected": false
     }
   ],
   "accuracy": {
-    "total_predictions": 12,
+    "total_predictions": 13,
     "direction_accurate": 9,
     "direction_accuracy": 75.0,
     "composite_accuracy": 72.0

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新凤鸣 午间复盘卡片</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: #f5f5f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .card { width: 600px; background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+  .stock-name { font-size: 20px; font-weight: 600; color: #1d1d1f; }
+  .stock-code { font-size: 13px; color: #86868b; margin-left: 8px; }
+  .badge { display: inline-block; font-size: 11px; background: #f2f2f7; color: #86868b; padding: 2px 10px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+  .badge.red { background: #faeee7; color: #d85a30; }
+  .badge.green { background: #e1f5ee; color: #1d9e75; }
+  .date-label { font-size: 12px; color: #aeaeb2; margin-top: 4px; }
+  .price-section { text-align: right; }
+  .price { font-size: 32px; font-weight: 600; color: #1d1d1f; line-height: 1.1; }
+  .change { display: flex; align-items: center; justify-content: flex-end; gap: 6px; margin-top: 4px; }
+  .change-val { font-size: 14px; font-weight: 500; color: #1d9e75; }
+  .change-pct { font-size: 13px; font-weight: 500; color: #1d9e75; background: #e1f5ee; padding: 1px 8px; border-radius: 4px; }
+  .cost-tag { font-size: 11px; color: #aeaeb2; margin-top: 2px; }
+
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 18px; }
+  .metric { background: #f5f5f7; border-radius: 8px; padding: 10px 12px; }
+  .metric-label { font-size: 11px; color: #86868b; margin-bottom: 3px; }
+  .metric-value { font-size: 15px; font-weight: 500; color: #1d1d1f; }
+  .metric-value.blue { color: #378add; }
+  .metric-value.gray { color: #888780; }
+  .metric-value.red { color: #d85a30; }
+  .metric-value.green { color: #1d9e75; }
+
+  .timeline-section { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
+  .timeline-title { font-size: 13px; font-weight: 500; color: #1d1d1f; margin-bottom: 12px; }
+  .timeline { display: flex; justify-content: space-between; position: relative; padding: 4px 0; }
+  .tl-node { display: flex; flex-direction: column; align-items: center; flex: 1; }
+  .tl-dot { width: 8px; height: 8px; border-radius: 50%; background: #aeaeb2; z-index: 2; }
+  .tl-dot.red { background: #d85a30; }
+  .tl-dot.green { background: #1d9e75; }
+  .tl-dot.blue { background: #378add; }
+  .tl-dot.highlight { width: 12px; height: 12px; background: #d85a30; border: 3px solid #fff; box-shadow: 0 0 0 1px #e5e5ea; }
+  .tl-time { font-size: 10px; color: #aeaeb2; margin-top: 6px; white-space: nowrap; }
+  .tl-price { font-size: 12px; font-weight: 500; margin-top: 2px; }
+  .tl-desc { font-size: 10px; color: #aeaeb2; margin-top: 1px; white-space: nowrap; }
+  .tl-desc.highlight { font-size: 10px; background: #faeee7; color: #d85a30; padding: 0 6px; border-radius: 3px; font-weight: 500; }
+  .tl-bar { height: 3px; border-radius: 2px; margin-top: 8px; }
+
+  .section-block { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
+  .section-title { font-size: 14px; font-weight: 500; color: #1d1d1f; margin-bottom: 10px; }
+
+  .level-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .level-box { background: #f5f5f7; border-radius: 8px; padding: 10px 12px; }
+  .level-label { font-size: 11px; color: #86868b; margin-bottom: 3px; }
+  .level-value { font-size: 15px; font-weight: 500; }
+  .level-value.support { color: #378add; }
+  .level-value.resistance { color: #d85a30; }
+  .level-value.cost { color: #1d1d1f; }
+
+  .confidence-block { background: #fafcff; border: 1px solid #e3f2fd; border-radius: 12px; padding: 14px 18px; margin-bottom: 14px; }
+  .conf-title { font-size: 13px; font-weight: 500; color: #1d1d1f; margin-bottom: 6px; }
+  .conf-row { font-size: 12px; color: #636366; line-height: 1.6; }
+
+  .sector-compare { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+  .sector-cell { background: #f5f5f7; border-radius: 6px; padding: 8px 10px; text-align: center; }
+  .sector-cell.active { background: #fafcff; border: 1px solid #e3f2fd; }
+  .sector-name { font-size: 10px; color: #86868b; margin-bottom: 2px; }
+  .sector-chg { font-size: 14px; font-weight: 600; }
+  .sector-chg.red { color: #d85a30; }
+  .sector-chg.green { color: #1d9e75; }
+
+  .prediction-block { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; background: #fafcff; }
+  .pred-scenario { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; font-size: 12px; color: #636366; }
+  .pred-icon { font-weight: 600; min-width: 55px; font-size: 11px; padding: 2px 8px; border-radius: 4px; text-align: center; }
+  .pred-icon.base { background: #f5f5f7; color: #636366; }
+  .pred-icon.bull { background: #faeee7; color: #d85a30; }
+  .pred-icon.bear { background: #e1f5ee; color: #1d9e75; }
+
+  .tdx-warn { background: #fff9e6; border: 1px solid #f0d060; border-radius: 8px; padding: 8px 12px; font-size: 11px; color: #854f0b; margin-bottom: 14px; text-align: center; }
+  .fund-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .fund-item { font-size: 12px; color: #636366; line-height: 1.6; }
+  .fund-item strong { color: #1d1d1f; }
+  .fund-positive { color: #d85a30; font-weight: 500; }
+  .fund-negative { color: #1d9e75; font-weight: 500; }
+  .fund-divider { border-top: 1px solid #f0f0f5; margin: 8px 0; padding-top: 8px; }
+  .fund-conclusion { font-size: 12px; color: #636366; line-height: 1.6; }
+
+  .accuracy-block { background: #f5f5f7; border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; }
+  .acc-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+  .acc-label { font-size: 11px; color: #86868b; }
+  .acc-badge { font-size: 11px; background: #e3f2fd; color: #378add; padding: 1px 8px; border-radius: 3px; font-weight: 500; }
+  .acc-stat { font-size: 10px; color: #636366; }
+  .acc-bar { height: 4px; background: #e5e5ea; border-radius: 2px; }
+  .acc-fill { height: 4px; background: #378add; border-radius: 2px; }
+
+  .risk-warn { font-size: 11px; color: #aeaeb2; text-align: center; padding: 8px 0; border-top: 1px solid #f0f0f5; margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <div>
+      <div>
+        <span class="stock-name">新凤鸣</span>
+        <span class="stock-code">603225.SH</span>
+        <span class="badge green">午间</span>
+        <span class="badge" style="background:#f5f5f7;color:#636366;">化学纤维</span>
+      </div>
+      <div class="date-label">2026-06-10 11:30 · 午间复盘</div>
+    </div>
+    <div class="price-section">
+      <div class="price">19.09</div>
+      <div class="change">
+        <span class="change-val">-0.41</span>
+        <span class="change-pct">-2.10%</span>
+      </div>
+      <div class="cost-tag">持仓成本 18.95 · 浮盈 +0.7%</div>
+    </div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric"><div class="metric-label">开盘</div><div class="metric-value green">18.97</div></div>
+    <div class="metric"><div class="metric-label">最高</div><div class="metric-value red">19.89</div></div>
+    <div class="metric"><div class="metric-label">最低</div><div class="metric-value blue">18.08</div></div>
+    <div class="metric"><div class="metric-label">昨收</div><div class="metric-value gray">19.50</div></div>
+    <div class="metric"><div class="metric-label">成交量</div><div class="metric-value">32.1万手</div></div>
+    <div class="metric"><div class="metric-label">成交额</div><div class="metric-value">6.12亿</div></div>
+    <div class="metric"><div class="metric-label">换手率</div><div class="metric-value">1.93%</div></div>
+    <div class="metric"><div class="metric-label">量比</div><div class="metric-value red">1.41</div></div>
+  </div>
+
+  <div class="timeline-section">
+    <div class="timeline-title">上午分时走势关键节点</div>
+    <div class="timeline">
+      <div class="tl-node">
+        <div class="tl-dot" style="background:#aeaeb2;"></div>
+        <div class="tl-time">09:30</div>
+        <div class="tl-price">18.97</div>
+        <div class="tl-desc">低开-2.7%</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-dot green"></div>
+        <div class="tl-time">09:31</div>
+        <div class="tl-price" style="color:#1d9e75">18.47</div>
+        <div class="tl-desc">急跌探底</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-dot red"></div>
+        <div class="tl-time">09:38</div>
+        <div class="tl-price" style="color:#d85a30">19.88</div>
+        <div class="tl-desc">V反日高</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-dot" style="background:#aeaeb2;"></div>
+        <div class="tl-time">10:29</div>
+        <div class="tl-price" style="color:#1d9e75">18.89</div>
+        <div class="tl-desc">回落筑底</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-dot highlight"></div>
+        <div class="tl-time">11:30</div>
+        <div class="tl-price">18.92</div>
+        <div class="tl-desc highlight">上午收盘</div>
+      </div>
+    </div>
+    <div class="tl-bar" style="background: linear-gradient(90deg, #aeaeb2 0%, #1d9e75 20%, #d85a30 40%, #aeaeb2 70%, #d85a30 100%);"></div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title">💰 上午资金面 <span style="font-size:9px;background:#fff9e6;color:#854f0b;padding:1px 5px;border-radius:3px;">westock asfund</span></div>
+    <div class="fund-grid">
+      <div class="fund-item">主力净流入 <span class="fund-positive">+71万</span></div>
+      <div class="fund-item">超大单净流入 <span class="fund-positive">+2,858万</span></div>
+      <div class="fund-item">大单净额 <span class="fund-negative">-2,787万</span></div>
+      <div class="fund-item">中单净额 <span class="fund-negative">-6,394万</span></div>
+      <div class="fund-item">小单净额 <span class="fund-positive">+6,322万</span></div>
+      <div class="fund-item">5日主力累计 <span class="fund-positive">+1.57亿</span></div>
+      <div class="fund-item">20日主力累计 <span class="fund-positive">+2.91亿</span></div>
+      <div class="fund-item">融资余额 <strong>3.97亿</strong></div>
+    </div>
+    <div class="fund-divider"></div>
+    <div class="fund-conclusion">
+      <strong>判断：</strong>主力净额仅+71万接近平衡，但超大单+2858万 vs 大单-2787万显示大单换手活跃。开盘急跌触18.08（预竞价低点）后9分钟V反至19.89，是典型的诱空洗盘手法。小单+6322万说明散户跟风追高，但中单-6394万意味着中等资金在派发。
+    </div>
+  </div>
+
+  <div class="prediction-block">
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+      <span style="font-size: 14px; font-weight: 500; color: #1d1d1f;">📈 下午走势预判</span>
+      <span style="font-size: 11px; background: #faedd4; color: #854f0b; padding: 2px 10px; border-radius: 4px; font-weight: 500;">震荡偏多 · 55</span>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <div class="pred-scenario">
+        <span class="pred-icon base">● Base (50%)</span>
+        <span>18.80-19.30窄幅震荡，上午V反后的筹码消化期。上午收18.92附近横盘近1小时，下午大概率延续</span>
+      </div>
+      <div class="pred-scenario">
+        <span class="pred-icon bull">▲ Bull (35%)</span>
+        <span>若13:00-13:15放量突破19.20且板块(化纤-1.61%)企稳反弹，则上攻19.50-19.70（昨收+MA5）。关键：量比需放大至1.5+</span>
+      </div>
+      <div class="pred-scenario">
+        <span class="pred-icon bear">▼ Bear (15%)</span>
+        <span>若板块继续走弱 + 大盘转跌，可能回测18.08日低。跌破18.50则诱空形态失效，短期转弱</span>
+      </div>
+    </div>
+
+    <div class="sector-compare">
+      <div class="sector-cell active">
+        <div class="sector-name">新凤鸣</div>
+        <div class="sector-chg green">-2.10%</div>
+      </div>
+      <div class="sector-cell">
+        <div class="sector-name">化学纤维</div>
+        <div class="sector-chg green">-1.61%</div>
+      </div>
+      <div class="sector-cell">
+        <div class="sector-name">上证指数</div>
+        <div class="sector-chg" style="color:#aeaeb2;">--</div>
+      </div>
+    </div>
+    <div style="font-size:10px; color:#aeaeb2; text-align:center;">板块弱 + 个股弱 → 下午延续弱（一致性高）· 但V反形态提供变数</div>
+  </div>
+
+  <div class="confidence-block">
+    <div class="conf-title">🧠 置信度评估</div>
+    <div class="conf-row">
+      置信度: <strong style="font-size:16px;">55/100</strong> █████░░░░░ <br>
+      (量能确定性50 + 形态清晰度60 + 关键位距离55 + 振幅适配55 + 时间窗口50)<br>
+      <span style="color:#d85a30;">⚠ 低置信度：V反后横盘近2小时，方向不明确。板块偏弱压制个股反弹空间，需下午观察量能确认</span>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title">📊 关键价位</div>
+    <div class="level-grid">
+      <div class="level-box"><div class="level-label">强支撑</div><div class="level-value support">17.88</div><div class="level-label" style="font-size:10px;color:#aeaeb2;margin-top:2px;">MA20/Boll中轨</div></div>
+      <div class="level-box"><div class="level-label">弱支撑</div><div class="level-value support">18.45</div><div class="level-label" style="font-size:10px;color:#aeaeb2;margin-top:2px;">上午急跌低点</div></div>
+      <div class="level-box"><div class="level-label">持仓成本</div><div class="level-value cost" style="color:#1d1d1f;">18.95</div><div class="level-label" style="font-size:10px;color:#aeaeb2;margin-top:2px;">浮盈+0.7%</div></div>
+      <div class="level-box"><div class="level-label">弱压力</div><div class="level-value resistance">19.50</div><div class="level-label" style="font-size:10px;color:#aeaeb2;margin-top:2px;">昨收/MA5</div></div>
+      <div class="level-box"><div class="level-label">强压力</div><div class="level-value resistance">19.69</div><div class="level-label" style="font-size:10px;color:#aeaeb2;margin-top:2px;">Boll上轨附近</div></div>
+      <div class="level-box"><div class="level-label">SAR</div><div class="level-value" style="color:#1d1d1f;">17.79</div><div class="level-label" style="font-size:10px;color:#aeaeb2;margin-top:2px;">止损参考</div></div>
+      <div class="level-box"><div class="level-label">MA60</div><div class="level-value" style="color:#378add;">17.50</div><div class="level-label" style="font-size:10px;color:#aeaeb2;margin-top:2px;">中期趋势</div></div>
+      <div class="level-box"><div class="level-label">上午高</div><div class="level-value" style="color:#d85a30;">19.89</div><div class="level-label" style="font-size:10px;color:#aeaeb2;margin-top:2px;">V反顶点</div></div>
+    </div>
+  </div>
+
+  <div class="accuracy-block">
+    <div class="acc-row">
+      <span class="acc-label">新凤鸣历史预测</span>
+      <span class="acc-badge">8次</span>
+      <span class="acc-stat">方向 75%</span>
+      <span class="acc-stat">综合 76%</span>
+    </div>
+    <div class="acc-bar"><div class="acc-fill" style="width:76%"></div></div>
+  </div>
+
+  <div class="tdx-warn">⚠️ tdx 未连接，资金面降级为 westock-data asfund</div>
+
+  <div class="risk-warn">
+    风险提示：以上分析基于历史数据与公开信息，不构成投资建议。股市有风险，投资需谨慎。<br>
+    V反缩量横盘可能演变为出货陷阱；化纤板块整体偏弱，个股独立行情持续性存疑。
+  </div>
+</div>
+</body>
+</html>
