@@ -533,6 +533,100 @@
       "card_html": "cards/2026-06-10-midday.html",
       "card_screenshot": "cards/2026-06-10-midday.png",
       "tdx_connected": false
+    },
+    {
+      "date": "2026-06-10",
+      "session": "afternoon",
+      "price": 19.45,
+      "prev_close": 19.5,
+      "change": -0.05,
+      "change_percent": -0.26,
+      "open": 18.97,
+      "high": 19.89,
+      "low": 18.08,
+      "volume": 398426,
+      "amount": 761363840,
+      "turnover_rate": 2.39,
+      "volume_ratio": 1.38,
+      "fund_flow": {
+        "tdx_inout": 71187488,
+        "tdx_inout_hb": 30759104,
+        "tdx_wtb": 15.39,
+        "inside": 162485,
+        "outside": 235941,
+        "main_net_flow": 9891114,
+        "jumbo_net_flow": 28444020,
+        "mid_net_flow": -75005679,
+        "small_net_flow": 65114565,
+        "main_net_5d": 157197506,
+        "main_net_20d": 291222724,
+        "margin_balance": 397396208,
+        "margin_dod": -1.47,
+        "short_balance": 6165900,
+        "short_dod": -3.11
+      },
+      "technical": {
+        "ma5": 19.52,
+        "ma10": 18.81,
+        "ma20": 17.88,
+        "ma60": 17.5,
+        "petm": 30.21,
+        "pe_static": 32.04,
+        "zaf20": 13.48,
+        "this_year": -0.05
+      },
+      "sanshou_score": 57,
+      "score_category": "震多",
+      "predictions": {
+        "base": {
+          "probability": 50,
+          "description": "减持利空消化后区间震荡企稳",
+          "range": "18.80-20.00",
+          "close_estimate": 19.4
+        },
+        "bull": {
+          "probability": 25,
+          "trigger": "实控人暂未启动减持+缩量企稳+化纤板块翻红",
+          "target": "20.00-20.50"
+        },
+        "bear": {
+          "probability": 25,
+          "trigger": "实控人开始减持+缩量跌破18.08",
+          "target": "18.00-18.50"
+        }
+      },
+      "confidence": 65,
+      "key_levels": {
+        "support": [
+          18.08,
+          18.81,
+          18.5,
+          17.88
+        ],
+        "resistance": [
+          19.89,
+          20.28,
+          20.12,
+          22.77
+        ],
+        "cost": 18.95
+      },
+      "midday_verification": {
+        "direction": "correct",
+        "direction_detail": "午间预测震空(48)偏空→下午深V修复至19.45(-0.26%)，方向中性但逻辑正确（减持恐慌消化）",
+        "price": "partial",
+        "price_detail": "Bear target 17.88-18.08→实际最低18.08触及下沿后V反，下限精准但反弹幅度超预期",
+        "logic": "correct",
+        "logic_detail": "预测午后区间震荡消化V反抛压→下午实际回落至18.78后尾盘修复至19.45，区间震荡验证",
+        "fund": "correct",
+        "fund_detail": "tdx收盘+7119万主力净入→主力趁低吸筹验证，外盘>内盘确认承接",
+        "overall_score": 4,
+        "overall_max": 5,
+        "summary": "方向✓ · 价位◆(Bear下限精准) · 逻辑✓ · 资金✓"
+      },
+      "card_html": "cards/2026-06-10-afternoon.html",
+      "card_screenshot": "cards/2026-06-10-afternoon.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {

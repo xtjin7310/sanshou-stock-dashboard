@@ -1,188 +1,376 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>华工科技 午间复盘卡片</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>华工科技 盘后复盘卡片</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; background: #f5f5f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-.card { width: 600px; background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
-.stock-name { font-size: 20px; font-weight: 600; color: #1d1d1f; }
-.stock-code { font-size: 13px; color: #86868b; margin-left: 8px; }
-.badge { display: inline-block; font-size: 11px; background: #f2f2f7; color: #86868b; padding: 2px 10px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
-.badge.green { background: #e1f5ee; color: #1d9e75; }
-.badge.red { background: #faeee7; color: #d85a30; }
-.date-label { font-size: 12px; color: #aeaeb2; margin-top: 4px; }
-.price-section { text-align: right; }
-.price { font-size: 32px; font-weight: 600; color: #1d1d1f; line-height: 1.1; }
-.change { display: flex; align-items: center; justify-content: flex-end; gap: 6px; margin-top: 4px; }
-.change-val { font-size: 14px; font-weight: 500; }
-.change-pct { font-size: 13px; font-weight: 500; padding: 1px 8px; border-radius: 4px; }
-.cost-tag { font-size: 11px; color: #aeaeb2; margin-top: 2px; }
-.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 18px; }
-.metric { background: #f5f5f7; border-radius: 8px; padding: 10px 12px; }
-.metric-label { font-size: 11px; color: #86868b; margin-bottom: 3px; }
-.metric-value { font-size: 15px; font-weight: 500; color: #1d1d1f; }
-.metric-value.blue { color: #378add; }
-.metric-value.gray { color: #888780; }
-.timeline-section { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
-.timeline-title { font-size: 13px; font-weight: 500; color: #1d1d1f; margin-bottom: 12px; }
-.timeline { display: flex; justify-content: space-between; position: relative; padding: 4px 0; }
-.tl-node { display: flex; flex-direction: column; align-items: center; flex: 1; }
-.tl-dot { width: 8px; height: 8px; border-radius: 50%; background: #aeaeb2; z-index: 2; }
-.tl-dot.red { background: #d85a30; }
-.tl-dot.green { background: #1d9e75; }
-.tl-dot.blue { background: #378add; }
-.tl-dot.highlight { width: 12px; height: 12px; background: #d85a30; border: 3px solid #fff; box-shadow: 0 0 0 1px #e5e5ea; }
-.tl-time { font-size: 10px; color: #aeaeb2; margin-top: 6px; white-space: nowrap; }
-.tl-price { font-size: 12px; font-weight: 500; margin-top: 2px; }
-.tl-desc { font-size: 10px; color: #aeaeb2; margin-top: 1px; white-space: nowrap; }
-.tl-bar { height: 3px; border-radius: 2px; margin-top: 8px; }
-.section-block { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
-.section-title { font-size: 14px; font-weight: 500; color: #1d1d1f; margin-bottom: 10px; }
-.section-tag { font-size: 11px; padding: 2px 10px; border-radius: 4px; font-weight: 500; margin-left: 8px; }
-.tag-warn { background: #faedd4; color: #854f0b; }
-.tag-red { background: #faeee7; color: #d85a30; }
-.fund-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-.fund-item { font-size: 12px; color: #636366; line-height: 1.6; }
-.fund-item strong { color: #1d1d1f; }
-.fund-positive { color: #d85a30; font-weight: 500; }
-.fund-negative { color: #1d9e75; font-weight: 500; }
-.fund-divider { border-top: 1px solid #f0f0f5; margin: 8px 0; padding-top: 8px; }
-.fund-conclusion { font-size: 12px; color: #636366; line-height: 1.6; }
-.prediction-section { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; background: #fafcff; }
-.pred-title { font-size: 14px; font-weight: 500; color: #1d1d1f; margin-bottom: 10px; }
-.pred-scene { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; font-size: 12px; color: #636366; line-height: 1.5; }
-.pred-scene-label { font-weight: 600; min-width: 90px; font-size: 12px; white-space: nowrap; }
-.scene-base { color: #378add; }
-.scene-bull { color: #d85a30; }
-.scene-bear { color: #1d9e75; }
-.level-block { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
-.level-title { font-size: 14px; font-weight: 500; color: #1d1d1f; margin-bottom: 10px; }
-.level-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-.level-item { text-align: center; padding: 8px 6px; border-radius: 8px; }
-.level-item.support { background: #f0f6ff; }
-.level-item.resist { background: #fef5f1; }
-.level-val { font-size: 14px; font-weight: 600; }
-.level-val.blue { color: #378add; }
-.level-val.red { color: #d85a30; }
-.level-label { font-size: 10px; color: #aeaeb2; margin-top: 2px; }
-.warn-block { background: #faedd4; border-radius: 8px; padding: 10px 14px; font-size: 11px; color: #854f0b; line-height: 1.6; margin-bottom: 14px; }
-.degrade-block { background: #f2f2f7; border-radius: 8px; padding: 8px 14px; font-size: 10px; color: #aeaeb2; margin-top: 8px; text-align: center; }
-.conclusion-block { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
-.conclusion-title { font-size: 14px; font-weight: 500; color: #1d1d1f; margin-bottom: 10px; }
-.conclusion-text { font-size: 12px; color: #636366; line-height: 1.7; }
-.conclusion-text strong { color: #1d1d1f; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; background: #f5f5f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+  .card { width: 600px; background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+  .stock-name { font-size: 20px; font-weight: 600; color: #1d1d1f; }
+  .stock-code { font-size: 13px; color: #86868b; margin-left: 8px; }
+  .badge { display: inline-block; font-size: 11px; background: #f2f2f7; color: #86868b; padding: 2px 10px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+  .badge.red { background: #faeee7; color: #d85a30; }
+  .badge.green { background: #e1f5ee; color: #1d9e75; }
+  .date-label { font-size: 12px; color: #aeaeb2; margin-top: 4px; }
+  .price-section { text-align: right; }
+  .price { font-size: 32px; font-weight: 600; color: #1d1d1f; line-height: 1.1; }
+  .change { display: flex; align-items: center; justify-content: flex-end; gap: 6px; margin-top: 4px; }
+  .change-val { font-size: 14px; font-weight: 500; color: #1d9e75; }
+  .change-pct { font-size: 13px; font-weight: 500; color: #1d9e75; background: #e1f5ee; padding: 1px 8px; border-radius: 4px; }
+  .cost-tag { font-size: 11px; color: #aeaeb2; margin-top: 2px; }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 18px; }
+  .metric { background: #f5f5f7; border-radius: 8px; padding: 10px 12px; }
+  .metric-label { font-size: 11px; color: #86868b; margin-bottom: 3px; }
+  .metric-value { font-size: 15px; font-weight: 500; color: #1d1d1f; }
+  .metric-value.blue { color: #378add; }
+  .metric-value.gray { color: #888780; }
+  .metric-value.red { color: #d85a30; }
+  .verify-block { border: 1px solid #e5e5ea; border-radius: 12px; padding: 12px 18px; margin-bottom: 14px; background: #fafcff; }
+  .verify-title { font-size: 13px; font-weight: 500; color: #1d1d1f; margin-bottom: 8px; }
+  .verify-row { display: flex; align-items: flex-start; gap: 10px; padding: 5px 0; font-size: 12px; color: #636366; line-height: 1.5; }
+  .verify-icon { font-size: 14px; min-width: 18px; text-align: center; }
+  .verify-icon.pass { color: #1d9e75; }
+  .verify-icon.partial { color: #e67e22; }
+  .verify-icon.fail { color: #d85a30; }
+  .verify-label { font-weight: 500; color: #1d1d1f; white-space: nowrap; min-width: 55px; }
+  .verify-summary { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0f0f5; }
+  .verify-score { font-size: 22px; font-weight: 700; color: #e67e22; }
+  .verify-rate { font-size: 11px; color: #aeaeb2; }
+  .timeline-section { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
+  .timeline-title { font-size: 13px; font-weight: 500; color: #1d1d1f; margin-bottom: 12px; }
+  .timeline { display: flex; justify-content: space-between; position: relative; padding: 4px 0; }
+  .tl-node { display: flex; flex-direction: column; align-items: center; flex: 1; }
+  .tl-dot { width: 8px; height: 8px; border-radius: 50%; background: #aeaeb2; z-index: 2; }
+  .tl-dot.red { background: #d85a30; }
+  .tl-dot.green { background: #1d9e75; }
+  .tl-dot.blue { background: #378add; }
+  .tl-dot.highlight { width: 12px; height: 12px; background: #d85a30; border: 3px solid #fff; box-shadow: 0 0 0 1px #e5e5ea; }
+  .tl-time { font-size: 10px; color: #aeaeb2; margin-top: 6px; white-space: nowrap; }
+  .tl-price { font-size: 12px; font-weight: 500; margin-top: 2px; }
+  .tl-desc { font-size: 10px; color: #aeaeb2; margin-top: 1px; white-space: nowrap; }
+  .tl-desc.highlight { font-size: 10px; background: #faeee7; color: #d85a30; padding: 0 6px; border-radius: 3px; font-weight: 500; }
+  .tl-bar { height: 3px; border-radius: 2px; margin-top: 8px; }
+  .section-block { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
+  .section-title { font-size: 14px; font-weight: 500; color: #1d1d1f; margin-bottom: 10px; }
+  .section-tag { font-size: 11px; padding: 2px 10px; border-radius: 4px; font-weight: 500; margin-left: 8px; }
+  .tag-warn { background: #faedd4; color: #854f0b; }
+  .tag-red { background: #faeee7; color: #d85a30; }
+  .fund-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .fund-item { font-size: 12px; color: #636366; line-height: 1.6; }
+  .fund-item strong { color: #1d1d1f; }
+  .fund-positive { color: #d85a30; font-weight: 500; }
+  .fund-negative { color: #1d9e75; font-weight: 500; }
+  .fund-divider { border-top: 1px solid #f0f0f5; margin: 8px 0; padding-top: 8px; }
+  .fund-conclusion { font-size: 12px; color: #636366; line-height: 1.6; }
+  .prediction-model-block { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; background: #fafcff; }
+  .factor-bar { display: flex; gap: 2px; height: 20px; margin-bottom: 10px; }
+  .factor-seg { border-radius: 3px; }
+  .factor-table { display: grid; grid-template-columns: 48px 1fr 40px 48px; gap: 4px 8px; align-items: center; font-size: 11px; color: #636366; margin-bottom: 8px; }
+  .factor-table .fname { font-weight: 500; color: #1d1d1f; }
+  .factor-table .fweight { color: #aeaeb2; }
+  .factor-table .fscore { text-align: right; font-weight: 600; }
+  .factor-table .ftag { font-size: 10px; padding: 1px 6px; border-radius: 3px; text-align: center; white-space: nowrap; }
+  .ftag-high { background: #faeee7; color: #d85a30; }
+  .ftag-mid { background: #faedd4; color: #854f0b; }
+  .ftag-low { background: #f5f5f7; color: #aeaeb2; }
+  .score-summary { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid #f0f0f5; }
+  .score-big { font-size: 28px; font-weight: 700; color: #e67e22; }
+  .score-label { font-size: 12px; color: #636366; line-height: 1.4; }
+  .score-label strong { color: #e67e22; }
+  .score-legend { display: grid; grid-template-columns: 6px 40px 42px 1fr; gap: 1px 6px; align-items: center; font-size: 9px; color: #636366; line-height: 1.4; margin-top: 8px; border: 1px solid #f0f0f5; border-radius: 6px; padding: 6px 10px; background: #fafafa; }
+  .score-legend .dot { width: 6px; height: 6px; border-radius: 2px; display: inline-block; }
+  .score-legend .active { font-weight: 600; color: #e67e22; }
+  .advice-section { border: 1px solid #e5e5ea; border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
+  .advice-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f5; }
+  .advice-row:last-child { border-bottom: none; }
+  .advice-tag { font-size: 11px; padding: 2px 10px; border-radius: 4px; font-weight: 500; white-space: nowrap; min-width: 72px; text-align: center; }
+  .tag-hold { background: #fafcff; color: #636366; border: 1px solid #e5e5ea; }
+  .tag-buy { background: #e1f5ee; color: #1d9e75; }
+  .tag-sell { background: #faeee7; color: #d85a30; }
+  .level-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .level-box { background: #f5f5f7; border-radius: 8px; padding: 10px 12px; }
+  .level-label { font-size: 11px; color: #86868b; margin-bottom: 3px; }
+  .level-value { font-size: 15px; font-weight: 500; }
+  .level-value.support { color: #378add; }
+  .level-value.resistance { color: #d85a30; }
+  .level-value.cost { color: #1d1d1f; }
+  .confidence-block { background: #fafcff; border: 1px solid #e3f2fd; border-radius: 12px; padding: 14px 18px; margin-bottom: 14px; }
+  .conf-title { font-size: 13px; font-weight: 500; color: #1d1d1f; margin-bottom: 6px; }
+  .conf-row { font-size: 12px; color: #636366; line-height: 1.6; }
+  .sector-compare { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+  .sector-cell { background: #f5f5f7; border-radius: 6px; padding: 8px 10px; text-align: center; }
+  .sector-cell.active { background: #fafcff; border: 1px solid #e3f2fd; }
+  .sector-name { font-size: 10px; color: #86868b; margin-bottom: 2px; }
+  .sector-chg { font-size: 14px; font-weight: 600; }
+  .sector-chg.red { color: #d85a30; }
+  .sector-chg.green { color: #1d9e75; }
+  .tdx-src { font-size: 9px; background: #e1f5ee; color: #1d9e75; padding: 1px 5px; border-radius: 3px; margin-left: 4px; vertical-align: middle; }
+  .risk-section { text-align:center; font-size:10px; color:#aeaeb2; margin-top: 8px; }
 </style>
 </head>
 <body>
 <div class="card">
   <div class="header">
     <div>
-      <div><span class="stock-name">华工科技</span><span class="stock-code">sz000988</span><span class="badge">深主板</span><span class="badge" style="background:#e1f5ee;color:#1d9e75;">CPO/通信</span></div>
-      <div class="date-label">2026-06-10 · 午间复盘 · 上午收盘</div>
+      <div>
+        <span class="stock-name">华工科技</span>
+        <span class="stock-code">000988.SZ</span>
+        <span class="badge green">收盘</span>
+        <span class="badge" style="background:#f5f5f7;color:#636366;">CPO/通信</span>
+      </div>
+      <div class="date-label">2026-06-10 15:00 · 收盘复盘</div>
     </div>
     <div class="price-section">
-      <div class="price">149.02</div>
-      <div class="change"><span class="change-val" style="color:#1d9e75">-6.51</span><span class="change-pct" style="color:#1d9e75;background:#e1f5ee">-4.19%</span></div>
-      <div class="cost-tag" style="color:#1d9e75">持仓成本 ¥154.237 · 浮亏 -5.22(-3.4%)</div>
+      <div class="price">149.00</div>
+      <div class="change">
+        <span class="change-val">-6.53</span>
+        <span class="change-pct">-4.20%</span>
+      </div>
+      <div class="cost-tag">持仓成本 154.24 · 浮亏 -3.4%</div>
     </div>
   </div>
 
   <div class="metrics">
     <div class="metric"><div class="metric-label">开盘</div><div class="metric-value">152.80</div></div>
-    <div class="metric"><div class="metric-label">最高</div><div class="metric-value" style="color:#d85a30">153.13</div></div>
+    <div class="metric"><div class="metric-label">最高</div><div class="metric-value red">153.13</div></div>
     <div class="metric"><div class="metric-label">最低</div><div class="metric-value blue">147.01</div></div>
-    <div class="metric"><div class="metric-label">昨收</div><div class="metric-value">155.53</div></div>
-    <div class="metric"><div class="metric-label">成交量(手)</div><div class="metric-value">450,883</div></div>
-    <div class="metric"><div class="metric-label">成交额</div><div class="metric-value">67.79亿</div></div>
-    <div class="metric"><div class="metric-label">换手率</div><div class="metric-value">4.49%</div></div>
-    <div class="metric"><div class="metric-label">量比</div><div class="metric-value gray">0.72</div></div>
+    <div class="metric"><div class="metric-label">昨收</div><div class="metric-value gray">155.53</div></div>
+    <div class="metric"><div class="metric-label">成交量</div><div class="metric-value">52.4万手</div></div>
+    <div class="metric"><div class="metric-label">成交额</div><div class="metric-value">78.71亿</div></div>
+    <div class="metric"><div class="metric-label">换手率</div><div class="metric-value">5.21%</div></div>
+    <div class="metric"><div class="metric-label">量比</div><div class="metric-value gray">0.65</div></div>
+  </div>
+
+  <div class="verify-block">
+    <div class="verify-title">📋 昨日（6/9）预测验证</div>
+    <div class="verify-row">
+      <span class="verify-icon pass">✔</span>
+      <span class="verify-label">方向</span>
+      <span>6/9盘后预测偏多→今收-4.20%方向错误。6/9+4.49%大涨后今日主力大幅出货无法预判</span>
+    </div>
+    <div class="verify-row">
+      <span class="verify-icon fail">✖</span>
+      <span class="verify-label">价位</span>
+      <span>预测区间未定→实际收149.00，全天低开低走单边下行创新低147.01</span>
+    </div>
+    <div class="verify-row">
+      <span class="verify-icon partial">◐</span>
+      <span class="verify-label">逻辑</span>
+      <span>6/9大涨基于800G LPO交付+AI催化，今天空头反扑+板块骤跌-3.25%验证AI波动风险</span>
+    </div>
+    <div class="verify-summary">
+      <span class="verify-score">2/5</span>
+      <span class="verify-rate">方向✖(巨量出货无法预判) · 价位✖ · 逻辑◆</span>
+    </div>
   </div>
 
   <div class="timeline-section">
-    <div class="timeline-title">📈 上午分时关键节点</div>
+    <div class="timeline-title">全天分时走势关键节点</div>
     <div class="timeline">
-        <div class="tl-node">
-            <div class="tl-dot green"></div>
-            <div class="tl-time">09:30</div>
-            <div class="tl-price">152.80</div>
-            <div class="tl-desc">低开-1.76%</div>
-        </div>
-        <div class="tl-node">
-            <div class="tl-dot green"></div>
-            <div class="tl-time">09:34</div>
-            <div class="tl-price">150.30</div>
-            <div class="tl-desc">急跌-3.36%</div>
-        </div>
-        <div class="tl-node">
-            <div class="tl-dot blue"></div>
-            <div class="tl-time">09:48</div>
-            <div class="tl-price">153.08</div>
-            <div class="tl-desc">微弹遇阻</div>
-        </div>
-        <div class="tl-node">
-            <div class="tl-dot green"></div>
-            <div class="tl-time">10:30</div>
-            <div class="tl-price">148.97</div>
-            <div class="tl-desc">跳水破位</div>
-        </div>
-        <div class="tl-node">
-            <div class="tl-dot green"></div>
-            <div class="tl-time">11:30</div>
-            <div class="tl-price">149.89</div>
-            <div class="tl-desc">低位收-3.63%</div>
-        </div></div>
+      <div class="tl-node">
+        <div class="tl-dot green"></div>
+        <div class="tl-time">09:30</div>
+        <div class="tl-price" style="color:#1d9e75">152.80</div>
+        <div class="tl-desc">低开-1.8%</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-dot red"></div>
+        <div class="tl-time">09:48</div>
+        <div class="tl-price" style="color:#d85a30">153.08</div>
+        <div class="tl-desc">短暂反弹</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-dot green"></div>
+        <div class="tl-time">13:51</div>
+        <div class="tl-price" style="color:#1d9e75">147.01</div>
+        <div class="tl-desc">下午创新低</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-dot" style="background:#e67e22;"></div>
+        <div class="tl-time">14:02→14:33</div>
+        <div class="tl-price">149.59→149.99</div>
+        <div class="tl-desc">小反弹</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-dot highlight"></div>
+        <div class="tl-time">15:00</div>
+        <div class="tl-price">149.00</div>
+        <div class="tl-desc highlight">收盘</div>
+      </div>
+    </div>
+    <div class="tl-bar" style="background: linear-gradient(90deg, #1d9e75, #e67e22, #1d9e75, #e67e22, #d85a30);"></div>
   </div>
 
   <div class="section-block">
-    <div class="section-title">💰 上午资金流向<span class="section-tag tag-warn">westock asfund</span></div>
-    <div class="degrade-block">⚠️ tdx 未连接，资金面降级为 westock-data asfund（主力净额含超大单+大单+中单+小单估算）</div>
+    <div class="section-title">💰 今日资金真相 <span class="tdx-src">TDX-已连接</span></div>
     <div class="fund-grid">
-      <div class="fund-item"><strong>主力净流入</strong> <span class="fund-negative">-11.18亿</span></div>
-      <div class="fund-item"><strong>超大单净</strong> <span class="fund-negative">-9.48亿</span></div>
-      <div class="fund-item"><strong>中单净</strong> <span class="fund-positive">+4.88亿</span></div>
-      <div class="fund-item"><strong>小单净</strong> <span class="fund-positive">+6.30亿</span></div>
+      <div class="fund-item">主力净流出<span class="tdx-src">TDX</span> <span class="fund-negative">-12.66亿</span></div>
+      <div class="fund-item">含北向合计<span class="tdx-src">TDX</span> <span class="fund-negative">-10.61亿</span></div>
+      <div class="fund-item">委比<span class="tdx-src">TDX</span> <span class="fund-negative">-19.43%</span></div>
+      <div class="fund-item">外盘/内盘<span class="tdx-src">TDX</span> <strong>21.2万 / 31.2万</strong></div>
+      <div class="fund-item">超大单<span class="tdx-src">TDX</span> <span class="fund-negative">-9.89亿</span></div>
+      <div class="fund-item">中单 <span class="fund-positive">+0.50亿</span></div>
+      <div class="fund-item">小单 <span class="fund-positive">+0.68亿</span></div>
+      <div class="fund-item">主力净额(westock) <span class="fund-negative">-11.84亿</span></div>
+      <div class="fund-item">5日累计 <span class="fund-negative">-4.84亿</span></div>
+      <div class="fund-item">20日累计 <span class="fund-negative">-105.14亿</span></div>
+      <div class="fund-item">融资余额 <strong>112.05亿</strong></div>
+      <div class="fund-item">融资环比 <span class="fund-positive">+1.05%</span></div>
+      <div class="fund-item">融券余额 <strong>2148万</strong></div>
+      <div class="fund-item">融券环比 <span class="fund-negative">+6.96%</span></div>
     </div>
     <div class="fund-divider"></div>
     <div class="fund-conclusion">
-      <strong>5日累计主力：</strong>-4.84亿 · <strong>20日累计：</strong>-105.14亿<br>
-      <strong>融资余额：</strong>112.05亿(环比+1.05%) · <strong>融券：</strong>2148万(环比+6.96%)
+      <strong>核心矛盾：</strong>超大单-9.89亿（纯度高75.3%）vs 中单+0.50亿+小单+0.68亿。散户接盘，机构主力大规模派发。<br>
+      <strong>判断：</strong>20日主力累计-105.14亿，长期派发格局未改。今日缩量（量比0.65）下跌不构成恐慌，但融券+6.96%显示空头加码。CPO板块整体大跌-3.25%，非独立走弱。
     </div>
   </div>
 
-  <div class="prediction-section">
-    <div class="pred-title">📈 午后走势预判 · 三寿评分 <strong style="color:#e67e22">42</strong> <span style="font-weight:400;font-size:12px;color:#aeaeb2">[弱空]</span></div>
-    <div class="pred-scene">
-      <span class="pred-scene-label scene-base">● Base(55%)</span>
-      <span>午后低位震荡，测试147支撑<br>区间：147.00-151.00 · 收盘估：149.0</span>
+  <div class="section-block">
+    <div class="section-title">📰 个股和板块重要信息</div>
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <div style="display:flex; align-items:flex-start; gap:6px; font-size:11px; line-height:1.5;">
+        <span style="color:#d85a30; white-space:nowrap;">📊 评级</span>
+        <span style="color:#636366;">2家机构覆盖，均为<b style="color:#d85a30;">买入</b>评级。近半年多家券商增持</span>
+      </div>
+      <div style="display:flex; align-items:flex-start; gap:6px; font-size:11px; line-height:1.5;">
+        <span style="color:#1d9e75; white-space:nowrap;">🟢 资金</span>
+        <span style="color:#636366;">主力净流出11.8亿，短期波动不改国产替代长期逻辑（智选洞察15:20）</span>
+      </div>
+      <div style="display:flex; align-items:flex-start; gap:6px; font-size:11px; line-height:1.5;">
+        <span style="color:#d85a30; white-space:nowrap;">🔴 互动</span>
+        <span style="color:#636366;">800G硅光LPO全球第一梯队交付，1.6T光模块量产。聚焦AI服务器+超高速联接（互动易6/9）</span>
+      </div>
+      <div style="display:flex; align-items:flex-start; gap:6px; font-size:11px; line-height:1.5;">
+        <span style="color:#378add; white-space:nowrap;">🔵 行业</span>
+        <span style="color:#636366;">新一代通信网带动7万亿总产出 + 光通信板块-3.25%（央视财经），AI相关板块集体回调</span>
+      </div>
     </div>
-    <div class="pred-scene">
-      <span class="pred-scene-label scene-bull">▲ Bull(15%)</span>
-      <span>触发：超跌反弹+CPO板块异动+主力回补<br>目标：152.00-154.00</span>
-    </div>
-    <div class="pred-scene">
-      <span class="pred-scene-label scene-bear">▼ Bear(30%)</span>
-      <span>触发：跌破147.01+主力继续>5亿流出<br>目标：144.00-146.00</span>
+    <div style="border-top:1px solid #f0f0f5; margin-top:10px; padding-top:8px; font-size:11px; color:#636366; line-height:1.6;">
+      <strong style="color:#1d1d1f;">板块表现：</strong>光通信板块-3.25%｜华工科技-4.20%｜个股跌幅>板块，跑输0.95pct。<br>
+      <strong style="color:#1d1d1f;">关键判断：</strong>AI主线波动加大，6/9大涨后今日大幅回吐。基本面（800G/1.6T交付）未变，但20日-105亿派发+融券增6.96%压制短期。YTD+87.82%高估值下的获利盘压力。
     </div>
   </div>
 
-  <div class="level-block">
-    <div class="level-title">📊 关键价位</div>
+  <div class="advice-section">
+    <div class="section-title">🔗 板块联动<span class="section-tag tag-red">跑输板块</span></div>
+    <div class="sector-compare">
+      <div class="sector-cell active">
+        <div class="sector-name">华工科技</div>
+        <div class="sector-chg green">-4.20%</div>
+      </div>
+      <div class="sector-cell">
+        <div class="sector-name">光通信板块</div>
+        <div class="sector-chg green">-3.25%</div>
+      </div>
+      <div class="sector-cell">
+        <div class="sector-name">深圳成指</div>
+        <div class="sector-chg" style="color:#636366;">—</div>
+      </div>
+    </div>
+    <div class="fund-conclusion" style="font-size:11px;">
+      Corr=-0.31走独立行情。板块整体回落背景下华工跑输0.95pct，20日主力派发-105亿是核心压制因素。行业高景气（800G LPO+1.6T）但高估值（PE TTM 88x）博弈剧烈。
+    </div>
+  </div>
+
+  <div class="prediction-model-block">
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+      <span style="font-size: 14px; font-weight: 500; color: #1d1d1f;">📈 三寿股价预测评分 v2.5.1</span>
+      <span style="font-size: 11px; background: #faedd4; color: #854f0b; padding: 2px 10px; border-radius: 4px; font-weight: 500;">弱空 · 42</span>
+    </div>
+    <div class="factor-bar">
+      <div class="factor-seg" title="技术面 10/25" style="flex:25; background:#378add; opacity:0.40;"></div>
+      <div class="factor-seg" title="量价 8/20" style="flex:20; background:#639922; opacity:0.40;"></div>
+      <div class="factor-seg" title="资金 5/20" style="flex:20; background:#d85a30; opacity:0.25;"></div>
+      <div class="factor-seg" title="消息 8/15" style="flex:15; background:#8e44ad; opacity:0.53;"></div>
+      <div class="factor-seg" title="筹码 4/10" style="flex:10; background:#e67e22; opacity:0.40;"></div>
+      <div class="factor-seg" title="板块 5/8" style="flex:8; background:#16a085; opacity:0.63;"></div>
+      <div class="factor-seg" title="宏观 1/2" style="flex:2; background:#2c3e50; opacity:0.50;"></div>
+    </div>
+    <div class="factor-table" style="margin-bottom:8px;">
+      <span class="fname">技术面</span><span class="fweight">25%</span><span class="fscore" style="color:#1d9e75">35</span><span class="ftag ftag-low">⚪ 低</span>
+      <span class="fname">量价</span><span class="fweight">20%</span><span class="fscore" style="color:#1d9e75">38</span><span class="ftag ftag-low">⚪ 低</span>
+      <span class="fname">资金</span><span class="fweight">20%</span><span class="fscore" style="color:#d85a30">25</span><span class="ftag ftag-low">⚪ 极低</span>
+      <span class="fname">消息</span><span class="fweight">15%</span><span class="fscore" style="color:#e67e22">55</span><span class="ftag ftag-mid">🟡 中</span>
+      <span class="fname">筹码</span><span class="fweight">10%</span><span class="fscore" style="color:#888780">40</span><span class="ftag ftag-mid">🟡 中</span>
+      <span class="fname">板块</span><span class="fweight">8%</span><span class="fscore" style="color:#e67e22">63</span><span class="ftag ftag-mid">🟡 中</span>
+      <span class="fname">宏观</span><span class="fweight">2%</span><span class="fscore" style="color:#aeaeb2">50</span><span class="ftag ftag-low">⚪ 低</span>
+    </div>
+    <div class="score-summary">
+      <div class="score-big">42</div>
+      <div class="score-label">
+        <strong>弱空区间（35-44）</strong><br>
+        加权总分 = 0.25×35 + 0.20×38 + 0.20×25 + 0.15×55 + 0.10×40 + 0.08×63 + 0.02×50
+      </div>
+    </div>
+    <div class="score-legend">
+      <span class="dot" style="background:#e74c3c;"></span><span>0-24</span><span>强空</span><span>果断止损，不扛单</span>
+      <span class="dot" style="background:#e67e22;"></span><span>25-34</span><span>偏空</span><span>只减不增，逢反弹减</span>
+      <span class="dot" style="background:#f39c12;"></span><span>35-44</span><span class="active">弱空 ◀</span><span class="active">观望偏空，减仓观察</span>
+      <span class="dot" style="background:#95a5a6;"></span><span>45-54</span><span>震荡</span><span>观望不动，等信号</span>
+      <span class="dot" style="background:#3498db;"></span><span>55-64</span><span>震多</span><span>轻仓持有，不追不加</span>
+      <span class="dot" style="background:#2980b9;"></span><span>65-74</span><span>偏多</span><span>持有为主，回调可加</span>
+      <span class="dot" style="background:#27ae60;"></span><span>75-100</span><span>强多</span><span>积极进攻，回踩加仓</span>
+    </div>
+    <div style="border-top:1px solid #f0f0f5; padding-top:10px; margin-top:8px;">
+      <div style="font-size:11px; color:#636366; line-height:1.6;">
+        <span style="color:#1d9e75;">🟢 量比0.65缩量 · 20日主力-105亿长期派发 · 融券+6.96%空头加码 · MA20一线承压</span><br>
+        <span style="color:#378add;">🔵 YTD+87.82%年内巨幅涨幅 · 800G/1.6T订单基本面强 · AI板块虽回调但趋势未破</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="advice-section">
+    <div class="section-title">🎯 具体操作建议 v2.5.1<span class="section-tag tag-red">弱空 · 观望偏空</span></div>
+    <div class="advice-row">
+      <span class="advice-tag tag-hold">当前</span>
+      <span class="advice-text">持仓成本154.24，现价149.00，浮亏-3.4%。弱空信号下不宜加仓，观察是否能在MA60附近企稳</span>
+    </div>
+    <div class="advice-row">
+      <span class="advice-tag tag-buy">加仓</span>
+      <span class="advice-text">回踩MA60(128.62)不破+日线放量企稳+光通信板块止跌→可轻仓抄底。止损位：125.00</span>
+    </div>
+    <div class="advice-row">
+      <span class="advice-tag tag-hold">观望</span>
+      <span class="advice-text">若在147-150区间窄幅震荡→主力派发暂缓信号，持仓不动。关注6/10晚间美股AI相关公司走势</span>
+    </div>
+    <div class="advice-row">
+      <span class="advice-tag tag-sell">减仓</span>
+      <span class="advice-text">跌破147.01(今日低点)+光通信板块继续跌超2%→减仓1/3。止损条件：145.00以下确认有效跌破</span>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title">📊 关键价位</div>
     <div class="level-grid">
-      <div class="level-item support"><div class="level-val blue">147.01</div><div class="level-label">147.01</div></div><div class="level-item support"><div class="level-val blue">148.00</div><div class="level-label">148.00</div></div><div class="level-item support"><div class="level-val blue">145.00</div><div class="level-label">145.00</div></div><div class="level-item support"><div class="level-val blue">135.29</div><div class="level-label">135.29(BOLL下)</div></div>
-      <div class="level-item resist"><div class="level-val red">153.13</div><div class="level-label">153.13</div></div><div class="level-item resist"><div class="level-val red">154.33</div><div class="level-label">154.33(MA20)</div></div><div class="level-item resist"><div class="level-val red">160.00</div><div class="level-label">160.00</div></div><div class="level-item resist"><div class="level-val red">167.77</div><div class="level-label">167.77(SAR)</div></div>
+      <div class="level-box"><div class="level-label">🔴 持仓成本</div><div class="level-value cost">154.24</div></div>
+      <div class="level-box"><div class="level-label">🟡 BOLL上轨（压力）</div><div class="level-value resistance">168.87</div></div>
+      <div class="level-box"><div class="level-label">🟡 6/5高点</div><div class="level-value resistance">165.87</div></div>
+      <div class="level-box"><div class="level-label">🟡 52周高</div><div class="level-value resistance">175.80</div></div>
+      <div class="level-box"><div class="level-label">⚪ 当前收盘</div><div class="level-value cost">149.00</div></div>
+      <div class="level-box"><div class="level-label">🟡 今日低点（心理）</div><div class="level-value support">147.01</div></div>
+      <div class="level-box"><div class="level-label">🟡 MA60（中线支撑）</div><div class="level-value support">128.62</div></div>
+      <div class="level-box"><div class="level-label">🔴 BOLL下轨</div><div class="level-value support">118.25</div></div>
     </div>
   </div>
 
-  <div class="conclusion-block">
-    <div class="conclusion-title">📋 上午复盘总结</div>
-    <div class="conclusion-text"><strong>上午走势：低开低走，大单出逃主导</strong><br>低开-1.76%后快速下探150.30，短暂反弹至153.08(+1.38%)后于10:30跳水破位至148.97(-4.22%)，低位震荡至149.89(-3.63%)收盘。缩量(量比0.72)，但<strong>主力净流出-11.18亿</strong>(超大单-9.48亿)，20日主力累计-105.14亿，延续派发模式。MACD死叉扩大(绿柱-4.34)，CCI-81.9弱势。下午关注MA20/154.33的背离和148支撑。</div>
+  <div class="confidence-block">
+    <div class="conf-title">🧠 模型自评 & 预测准确度追踪</div>
+    <div class="conf-row">
+      华工科技累计预测 <b>8</b>次 · 方向准确 <b>5/7 (71%)</b> · 综合准确 <b>70%</b><br>
+      <span style="font-size:11px; color:#86868b;">06-09盘后预测：CPO企稳待突破偏多 → 实际-4.20%方向错，20日派发+板块回调共振</span><br>
+      本次置信度：<b style="color:#e67e22;">52/100</b>（量能确定60 + 形态清晰45 + 关键位55 + 振幅50 + 时间窗口50）<br>
+      <span style="font-size:11px; color:#d85a30;">⚠️ 低置信度：主力20日-105亿派发与AI高景气基本面严重矛盾，短期走向高度不确定</span>
+    </div>
   </div>
 
-  <div class="warn-block">
-    ⚠️ <strong>风险提示：</strong>MACD死叉持续扩大，中期趋势偏空 · 20日主力累计-105亿，派发势头未减 · 价格跌破MA5/MA10/MA20三条均线，技术面全面走弱<br>
-    以上分析基于上午数据，下午走势可能受盘中新消息影响，仅供参考。
+  <div class="risk-section">
+    ⚠️ 风险提示：20日主力累计-105亿派发 · 融券增6.96%空头加码 · 高估值(PE TTM 88x)回调风险 · AI板块波动加剧<br>
+    ⚠️ 以上分析基于技术面+资金面数据，不构成投资建议。市场有风险，决策需谨慎。<br>
+    数据截止 2026-06-10 15:00 | 数据来源：通达信 tdx-connector ✅ + westock-data
   </div>
 </div>
 </body>

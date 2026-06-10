@@ -576,6 +576,100 @@
       "card_html": "cards/2026-06-10-midday.html",
       "card_screenshot": "cards/2026-06-10-midday.png",
       "tdx_connected": false
+    },
+    {
+      "date": "2026-06-10",
+      "session": "afternoon",
+      "price": 149.0,
+      "prev_close": 155.53,
+      "change": -6.53,
+      "change_percent": -4.2,
+      "open": 152.8,
+      "high": 153.13,
+      "low": 147.01,
+      "volume": 524023,
+      "amount": 7870619671,
+      "turnover_rate": 5.21,
+      "volume_ratio": 0.65,
+      "fund_flow": {
+        "tdx_inout": -1265753090,
+        "tdx_inout_hb": -1061116930,
+        "tdx_wtb": -19.43,
+        "inside": 311672,
+        "outside": 212351,
+        "main_net_flow": -1183603277,
+        "jumbo_net_flow": -988781587,
+        "mid_net_flow": 502530620,
+        "small_net_flow": 681072657,
+        "main_net_5d": -484015633,
+        "main_net_20d": -10514464944,
+        "margin_balance": 11205101154,
+        "margin_dod": 1.05,
+        "short_balance": 21478693,
+        "short_dod": 6.96
+      },
+      "technical": {
+        "ma5": 153.51,
+        "ma10": 158.72,
+        "ma20": 153.6,
+        "ma60": 128.62,
+        "petm": 88.16,
+        "pe_static": 101.86,
+        "zaf20": 4.86,
+        "this_year": 87.82
+      },
+      "sanshou_score": 42,
+      "score_category": "弱空",
+      "predictions": {
+        "base": {
+          "probability": 55,
+          "description": "AI板块回调中继续弱势震荡，20日派发未完",
+          "range": "145.00-153.00",
+          "close_estimate": 148.0
+        },
+        "bull": {
+          "probability": 20,
+          "trigger": "晚间美股AI反弹+光通信板块止跌+缩量企稳MA60",
+          "target": "155.00-158.36"
+        },
+        "bear": {
+          "probability": 25,
+          "trigger": "融券继续增加+板块再跌2%+跌破147.01",
+          "target": "140.00-145.00"
+        }
+      },
+      "confidence": 52,
+      "key_levels": {
+        "support": [
+          147.01,
+          145.0,
+          128.62,
+          118.25
+        ],
+        "resistance": [
+          153.13,
+          155.53,
+          165.87,
+          175.8
+        ],
+        "cost": 154.24
+      },
+      "midday_verification": {
+        "direction": "correct",
+        "direction_detail": "午间预测弱空/偏空→下午继续下跌收-4.20%，方向正确",
+        "price": "correct",
+        "price_detail": "预测Bear 140-145→实际低点147.01后小幅反弹至149，未达极端但下行趋势验证",
+        "logic": "correct",
+        "logic_detail": "预测下午延续派发→实际主力继续出货，下午创新低147.01后小反弹，逻辑正确",
+        "fund": "correct",
+        "fund_detail": "上午tdx-5.18亿→下午累计-12.66亿，主力继续大规模出货验证",
+        "overall_score": 4,
+        "overall_max": 5,
+        "summary": "方向✓ · 价位◆ · 逻辑✓ · 资金✓"
+      },
+      "card_html": "cards/2026-06-10-afternoon.html",
+      "card_screenshot": "cards/2026-06-10-afternoon.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {

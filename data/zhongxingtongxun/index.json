@@ -582,6 +582,101 @@
       "card_html": "cards/2026-06-10-midday.html",
       "card_screenshot": "cards/2026-06-10-midday.png",
       "tdx_connected": false
+    },
+    {
+      "date": "2026-06-10",
+      "session": "afternoon",
+      "price": 38.42,
+      "prev_close": 39.14,
+      "change": -0.72,
+      "change_percent": -1.84,
+      "open": 38.68,
+      "high": 40.52,
+      "low": 37.89,
+      "volume": 2817708,
+      "amount": 11004386103,
+      "turnover_rate": 7.0,
+      "volume_ratio": 0.9,
+      "fund_flow": {
+        "tdx_inout": -1006241280,
+        "tdx_inout_hb": -654760448,
+        "tdx_wtb": 36.35,
+        "inside": 1523739,
+        "outside": 1293969,
+        "main_net_flow": -658617098,
+        "jumbo_net_flow": -771539114,
+        "mid_net_flow": 178172707,
+        "small_net_flow": 480444391,
+        "main_net_5d": 2994234558,
+        "main_net_20d": 952609779,
+        "margin_balance": 10807845958,
+        "margin_dod": 1.14,
+        "short_balance": 15057158,
+        "short_dod": -31.77
+      },
+      "technical": {
+        "ma5": 37.2,
+        "ma10": 36.77,
+        "ma20": 37.04,
+        "ma60": 35.86,
+        "ma250": 38.25,
+        "petm": 41.07,
+        "pe_static": 32.71,
+        "zaf20": -1.06,
+        "this_year": 1.53
+      },
+      "sanshou_score": 50,
+      "score_category": "震荡",
+      "predictions": {
+        "base": {
+          "probability": 55,
+          "description": "多空信号矛盾，区间震荡等待方向选择",
+          "range": "37.50-40.50",
+          "close_estimate": 38.5
+        },
+        "bull": {
+          "probability": 20,
+          "trigger": "通信板块止跌+南向停止减持+主力转流入",
+          "target": "40.00-40.52"
+        },
+        "bear": {
+          "probability": 25,
+          "trigger": "南向继续减持+通信板块继续跌+跌破37.89",
+          "target": "35.79-36.50"
+        }
+      },
+      "confidence": 48,
+      "key_levels": {
+        "support": [
+          37.89,
+          37.5,
+          35.86,
+          35.79
+        ],
+        "resistance": [
+          40.52,
+          39.14,
+          41.5,
+          55.85
+        ],
+        "cost": 35.79
+      },
+      "midday_verification": {
+        "direction": "partial",
+        "direction_detail": "午间预测偏空→下午收-1.84%，方向部分正确但跌幅未达极端",
+        "price": "partial",
+        "price_detail": "预测Bear 35.79-37.00→实际低点37.89后修复至38.42，跌幅小于预期",
+        "logic": "partial",
+        "logic_detail": "预测下午出货延续→实际主力继续出货-10亿，但尾盘修复至38.42超预期",
+        "fund": "correct",
+        "fund_detail": "上午tdx-6.47亿→下午累计-10.06亿，主力出货逻辑验证",
+        "overall_score": 3,
+        "overall_max": 5,
+        "summary": "方向◆ · 价位◆ · 逻辑◆ · 资金✓"
+      },
+      "card_html": "cards/2026-06-10-afternoon.html",
+      "card_screenshot": "cards/2026-06-10-afternoon.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {
