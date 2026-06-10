@@ -483,59 +483,93 @@
     {
       "date": "2026-06-10",
       "session": "morning",
-      "price": 149.41,
+      "price": 149.02,
       "prev_close": 155.53,
-      "change": -6.12,
-      "change_percent": -3.93,
+      "change": -6.51,
+      "change_percent": -4.19,
       "open": 152.8,
       "high": 153.13,
       "low": 147.01,
-      "volume": 454073,
-      "amount": 6826571069,
-      "turnover_rate": 4.52,
-      "volume_ratio": 0.71,
+      "volume": 450883,
+      "amount": 6779053518,
+      "turnover_rate": 4.49,
+      "volume_ratio": 0.72,
       "fund_flow": {
-        "tdx_inout": null,
-        "tdx_inout_hb": null,
-        "tdx_wtb": null,
-        "main_net_flow": -1115923372,
-        "jumbo_net_flow": -945725276,
-        "big_net_flow": -170198096,
-        "mid_net_flow": 486346390,
-        "small_net_flow": 629576982,
+        "tdx_inout": 0,
+        "tdx_inout_hb": 0,
+        "tdx_wtb": 0,
+        "inside": 0,
+        "outside": 0,
+        "main_net_flow": -1117627486,
+        "jumbo_net_flow": -947623608,
+        "mid_net_flow": 487542337,
+        "small_net_flow": 630085149,
         "main_net_5d": -484015633,
-        "main_net_20d": -10514464944
+        "main_net_20d": -10514464944,
+        "margin_balance": 11205101154,
+        "margin_dod": 1.05,
+        "short_balance": 21478693,
+        "short_dod": 6.96,
+        "block_trade": {
+          "type": "协议交易",
+          "price": 156.31,
+          "value": 6533800,
+          "discount": 0.0,
+          "buy_dept": "机构专用",
+          "sell_dept": "华泰证券福建分公司"
+        }
       },
-      "sanshou_score": 32,
-      "score_category": "震空",
+      "technical": {
+        "ma5": 153.89,
+        "ma10": 153.37,
+        "ma20": 154.33,
+        "ma60": 129.66,
+        "macd_dif": 5.37,
+        "macd_dea": 7.54,
+        "macd_hist": -4.34,
+        "kdj_k": 39.47,
+        "kdj_d": 40.76,
+        "kdj_j": 36.87,
+        "boll_upper": 173.38,
+        "boll_mid": 154.33,
+        "boll_lower": 135.29,
+        "cci": -81.91,
+        "sar": 167.77,
+        "rsi6": 44.03
+      },
+      "sanshou_score": 42,
+      "score_category": "弱空",
       "predictions": {
         "base": {
           "probability": 55,
-          "description": "147-151区间震荡下行，缩量主力持续出逃",
-          "range": "147-151",
-          "close_estimate": 148.5
+          "description": "午后低位震荡，测试147支撑",
+          "range": "147.00-151.00",
+          "close_estimate": 149.0
         },
         "bull": {
           "probability": 15,
-          "trigger": "大盘企稳+板块反弹",
-          "target": "152-153"
+          "trigger": "超跌反弹+CPO板块异动+主力回补",
+          "target": "152.00-154.00"
         },
         "bear": {
           "probability": 30,
-          "trigger": "跌破147.01创新低",
-          "target": "140-145"
+          "trigger": "跌破147.01+主力继续>5亿流出",
+          "target": "144.00-146.00"
         }
       },
-      "confidence": 72,
+      "confidence": 48,
       "key_levels": {
         "support": [
-          135.29,
           147.01,
-          129.66
+          148.0,
+          145.0,
+          135.29
         ],
         "resistance": [
-          153.08,
-          155.53
+          153.13,
+          154.33,
+          160.0,
+          167.77
         ],
         "cost": 154.24
       },

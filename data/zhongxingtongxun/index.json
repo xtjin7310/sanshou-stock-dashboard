@@ -488,62 +488,96 @@
     {
       "date": "2026-06-10",
       "session": "morning",
-      "price": 38.3,
+      "price": 38.25,
       "prev_close": 39.14,
-      "change": -0.84,
-      "change_percent": -2.15,
+      "change": -0.89,
+      "change_percent": -2.27,
       "open": 38.68,
       "high": 40.52,
       "low": 37.89,
-      "volume": 2461411,
-      "amount": 9637395712,
-      "turnover_rate": 6.11,
-      "volume_ratio": 1.0,
+      "volume": 2449725,
+      "amount": 9592741779,
+      "turnover_rate": 6.08,
+      "volume_ratio": 1.01,
       "fund_flow": {
-        "tdx_inout": null,
-        "tdx_inout_hb": null,
-        "tdx_wtb": null,
+        "tdx_inout": 0,
+        "tdx_inout_hb": 0,
+        "tdx_wtb": 0,
+        "inside": 0,
+        "outside": 0,
         "main_net_flow": -578022810,
         "jumbo_net_flow": -610955554,
-        "big_net_flow": 32932744,
         "mid_net_flow": 128131713,
         "small_net_flow": 449891097,
         "main_net_5d": 2994234558,
-        "main_net_20d": 952609779
+        "main_net_20d": 952609779,
+        "margin_balance": 10807845958,
+        "margin_dod": 1.14,
+        "short_balance": 15057158,
+        "short_dod": -31.77,
+        "block_trade": {
+          "type": "协议交易",
+          "price": 34.0,
+          "value": 3400000,
+          "discount": 6.64,
+          "buy_dept": "国泰海通东营府前大街",
+          "sell_dept": "中信建投北京朝外大街"
+        }
       },
-      "sanshou_score": 45,
-      "score_category": "震荡偏空",
+      "technical": {
+        "ma5": 38.23,
+        "ma10": 37.4,
+        "ma20": 36.89,
+        "ma60": 35.89,
+        "ma250": 38.32,
+        "macd_dif": 0.42,
+        "macd_dea": 0.21,
+        "macd_hist": 0.42,
+        "kdj_k": 55.77,
+        "kdj_d": 52.94,
+        "kdj_j": 61.45,
+        "boll_upper": 39.44,
+        "boll_mid": 36.89,
+        "boll_lower": 34.34,
+        "cci": 123.32,
+        "sar": 35.59,
+        "rsi6": 55.9
+      },
+      "sanshou_score": 52,
+      "score_category": "震空",
       "predictions": {
         "base": {
-          "probability": 45,
-          "description": "38.00-39.00区间震荡，冲高回落获利回吐",
-          "range": "38.00-39.00",
-          "close_estimate": 38.3
+          "probability": 50,
+          "description": "午后低位震荡消化上午冲高回落抛压",
+          "range": "37.50-39.00",
+          "close_estimate": 38.5
         },
         "bull": {
           "probability": 25,
-          "trigger": "14:00后5日主力买盘回补+量比回升",
-          "target": "39.00-39.50"
+          "trigger": "融券撤退+5日净流入惯性+通信板块走强",
+          "target": "39.50-40.52"
         },
         "bear": {
-          "probability": 30,
-          "trigger": "跌破37.89创新低+缩量",
-          "target": "37.00-37.50"
+          "probability": 25,
+          "trigger": "跌破37.89+大单续出>3亿",
+          "target": "36.89-37.50"
         }
       },
-      "confidence": 58,
+      "confidence": 60,
       "key_levels": {
         "support": [
-          36.89,
           37.89,
-          35.89
+          37.5,
+          36.89,
+          35.79
         ],
         "resistance": [
           39.14,
-          39.44,
-          40.52
+          40.0,
+          40.52,
+          41.3
         ],
-        "cost": 35.785
+        "cost": 35.79
       },
       "card_html": "cards/2026-06-10-midday.html",
       "card_screenshot": "cards/2026-06-10-midday.png",

@@ -448,59 +448,85 @@
     {
       "date": "2026-06-10",
       "session": "morning",
-      "price": 19.09,
+      "price": 19.05,
       "prev_close": 19.5,
-      "change": -0.41,
-      "change_percent": -2.1,
+      "change": -0.45,
+      "change_percent": -2.31,
       "open": 18.97,
       "high": 19.89,
       "low": 18.08,
-      "volume": 321328,
-      "amount": 612467773,
-      "turnover_rate": 1.93,
-      "volume_ratio": 1.41,
+      "volume": 318163,
+      "amount": 606448134,
+      "turnover_rate": 1.91,
+      "volume_ratio": 1.42,
       "fund_flow": {
-        "tdx_inout": null,
-        "tdx_inout_hb": null,
-        "tdx_wtb": null,
+        "tdx_inout": 0,
+        "tdx_inout_hb": 0,
+        "tdx_wtb": 0,
+        "inside": 0,
+        "outside": 0,
         "main_net_flow": 710850,
         "jumbo_net_flow": 28581448,
-        "big_net_flow": -27870599,
-        "mid_net_flow": -63935795,
-        "small_net_flow": 63224945,
+        "mid_net_flow": -63985543,
+        "small_net_flow": 63274693,
         "main_net_5d": 157197506,
-        "main_net_20d": 291222724
+        "main_net_20d": 291222724,
+        "margin_balance": 397396208,
+        "margin_dod": -1.47,
+        "short_balance": 6165900,
+        "short_dod": -3.11
       },
-      "sanshou_score": 55,
-      "score_category": "震荡偏多",
+      "technical": {
+        "ma5": 19.52,
+        "ma10": 18.81,
+        "ma20": 17.88,
+        "ma60": 17.5,
+        "macd_dif": 0.536,
+        "macd_dea": 0.319,
+        "macd_hist": 0.435,
+        "kdj_k": 67.78,
+        "kdj_d": 71.68,
+        "kdj_j": 59.98,
+        "boll_upper": 20.28,
+        "boll_mid": 17.88,
+        "boll_lower": 15.48,
+        "cci": 53.2,
+        "sar": 17.79,
+        "rsi6": 56.13
+      },
+      "sanshou_score": 48,
+      "score_category": "震空",
       "predictions": {
         "base": {
-          "probability": 50,
-          "description": "18.80-19.30窄幅震荡，上午V反后筹码消化期",
-          "range": "18.80-19.30",
+          "probability": 55,
+          "description": "午后区间震荡消化上午V反抛压",
+          "range": "18.50-19.50",
           "close_estimate": 19.1
         },
         "bull": {
-          "probability": 35,
-          "trigger": "放量突破19.20+板块企稳",
-          "target": "19.50-19.70"
+          "probability": 20,
+          "trigger": "13:00放量突破19.10+化纤板块翻红",
+          "target": "19.50-19.89"
         },
         "bear": {
-          "probability": 15,
-          "trigger": "板块继续走弱+跌破18.50",
-          "target": "17.88-18.50"
+          "probability": 25,
+          "trigger": "缩量跌破18.08+中单持续流出",
+          "target": "17.88-18.08"
         }
       },
       "confidence": 55,
       "key_levels": {
         "support": [
-          17.88,
-          18.45
+          18.08,
+          18.5,
+          18.8,
+          17.88
         ],
         "resistance": [
           19.5,
-          19.69,
-          19.89
+          19.89,
+          20.12,
+          20.8
         ],
         "cost": 18.95
       },
