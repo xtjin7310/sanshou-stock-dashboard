@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=680">
+<title>华工科技 - 收盘复盘</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC",sans-serif;display:flex;justify-content:center;padding:20px}
+.card{width:680px;background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,0.08);overflow:hidden}
+.card-header{padding:20px 24px;border-bottom:1px solid #e5e5ea}
+.card-header .top-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.card-header .stock-name{font-size:22px;font-weight:700;color:#1d1d1f}
+.card-header .stock-code{font-size:14px;color:#86868b;margin-left:8px}
+.card-header .tags{display:flex;gap:6px}
+.card-header .mode-tag{font-size:12px;padding:3px 10px;border-radius:12px;background:#f5f5f7;color:#86868b;font-weight:500}
+.card-header .ind-tag{font-size:12px;padding:3px 10px;border-radius:12px;background:#f0f4ff;color:#378add;font-weight:500}
+.card-header .price-row{display:flex;align-items:baseline;gap:12px;margin-top:4px;flex-wrap:wrap}
+.card-header .price{font-size:36px;font-weight:700;color:#d85a30}
+.card-header .change{font-size:18px;color:#d85a30;font-weight:600}
+.card-header .date{font-size:13px;color:#86868b}
+.cost-info{font-size:12px;color:#1d9e75;margin-top:4px}
+.cost-info span{font-weight:600}
+.section-block{padding:16px 24px;border-bottom:1px solid #e5e5ea}
+.section-block:last-child{border-bottom:none}
+.section-title{font-size:14px;font-weight:600;color:#1d1d1f;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.indicator-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.indicator-item{background:#f5f5f7;border-radius:10px;padding:10px 12px}
+.indicator-item .label{font-size:11px;color:#86868b;margin-bottom:4px}
+.indicator-item .value{font-size:16px;font-weight:600;color:#1d1d1f}
+.indicator-item .value.red{color:#d85a30}
+.indicator-item .value.green{color:#1d9e75}
+.indicator-item .value.blue{color:#378add}
+.verify-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px}
+.verify-item{background:#f5f5f7;border-radius:8px;padding:10px;text-align:center}
+.verify-item.correct{background:#f0faf5}
+.verify-item.partial{background:#fff8f0}
+.verify-item.wrong{background:#fef0f0}
+.verify-item .v-icon{font-size:18px}
+.verify-item .v-label{font-size:11px;color:#86868b;margin:2px 0}
+.verify-item .v-result{font-size:12px;font-weight:600}
+.verify-score{font-size:13px;color:#378add;font-weight:600;text-align:center;margin-top:4px}
+.timeline{position:relative;padding-left:20px}
+.timeline::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:3px;border-radius:2px;background:linear-gradient(180deg,#d85a30,#f5a623,#378add,#1d9e75,#d85a30)}
+.timeline-node{position:relative;margin-bottom:14px;padding-left:16px}
+.timeline-node::before{content:'';position:absolute;left:-16px;top:6px;width:11px;height:11px;border-radius:50%;background:#fff;border:2.5px solid #378add}
+.timeline-node:first-child::before{border-color:#d85a30}
+.timeline-node:last-child::before{border-color:#d85a30}
+.fund-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f5}
+.fund-row:last-child{border-bottom:none}
+.fund-row .f-label{font-size:13px;color:#86868b}
+.fund-row .f-value{font-size:13px;font-weight:600}
+.fund-row .f-value.in{color:#d85a30}
+.fund-row .f-value.out{color:#1d9e75}
+.warn-block{background:#fef0f0;border:1px solid #fdd;border-radius:10px;padding:12px;margin-top:10px}
+.warn-block.note{background:#f0f4ff;border-color:#dde8ff}
+.warn-block .w-title{font-size:13px;font-weight:600;color:#d85a30;margin-bottom:4px}
+.warn-block.note .w-title{color:#378add}
+.warn-block .w-text{font-size:12px;color:#86868b;line-height:1.5}
+.news-item{padding:8px 0;border-bottom:1px solid #f0f0f5;font-size:13px}
+.news-item:last-child{border-bottom:none}
+.news-item .n-date{color:#86868b;font-size:11px}
+.news-item .n-title{color:#1d1d1f;margin-top:2px}
+.news-item .n-impact{font-size:11px;padding:1px 6px;border-radius:8px;margin-left:4px}
+.news-item .n-impact.high{background:#fef0f0;color:#d85a30}
+.news-item .n-impact.mid{background:#fff8f0;color:#f5a623}
+.score-block{background:#f0f4ff;border-radius:10px;padding:14px;margin-bottom:10px}
+.score-block .s-total{font-size:28px;font-weight:700;color:#378add}
+.score-block .s-cat{font-size:14px;color:#378add;font-weight:600;margin-left:8px}
+.factor-row{display:flex;align-items:center;margin:6px 0;gap:8px}
+.factor-row .f-name{width:60px;font-size:12px;color:#86868b;text-align:right}
+.factor-row .f-bar{flex:1;height:8px;background:#e5e5ea;border-radius:4px;overflow:hidden}
+.factor-row .f-fill{height:100%;border-radius:4px;background:#378add}
+.factor-row .f-score{width:30px;font-size:12px;font-weight:600;color:#1d1d1f;text-align:right}
+.advice-item{background:#f5f5f7;border-radius:10px;padding:12px;margin-bottom:8px;border-left:3px solid #e5e5ea}
+.advice-item.buy{border-left-color:#d85a30}
+.advice-item.hold{border-left-color:#378add}
+.advice-item.sell{border-left-color:#1d9e75}
+.advice-item .a-tag{font-size:11px;padding:2px 8px;border-radius:8px;font-weight:600;display:inline-block;margin-bottom:4px}
+.advice-item.buy .a-tag{background:#fef0f0;color:#d85a30}
+.advice-item.hold .a-tag{background:#f0f4ff;color:#378add}
+.advice-item.sell .a-tag{background:#f0faf5;color:#1d9e75}
+.advice-item .a-desc{font-size:13px;color:#1d1d1f;line-height:1.5}
+.level-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.level-card{border-radius:10px;padding:12px;background:#f5f5f7}
+.level-card.support{background:#f0f4ff}
+.level-card.resistance{background:#fef0f0}
+.level-card .lvl-name{font-size:12px;color:#86868b;margin-bottom:6px}
+.level-card .lvl-price{font-size:18px;font-weight:700}
+.level-card.support .lvl-price{color:#378add}
+.level-card.resistance .lvl-price{color:#d85a30}
+.level-card .lvl-desc{font-size:11px;color:#86868b;margin-top:4px}
+.self-review{background:#f8f9fc;border:1px solid #e5e5ea;border-radius:10px;padding:12px;margin-top:8px}
+.self-review .sr-title{font-size:12px;color:#378add;font-weight:600;margin-bottom:6px}
+.self-review .sr-text{font-size:12px;color:#86868b;line-height:1.5}
+.risk-block{background:#fef8f0;border:1px solid #f5e6cc;border-radius:10px;padding:12px;margin-top:10px}
+.risk-block .r-title{font-size:13px;font-weight:600;color:#d85a30;margin-bottom:6px}
+.risk-block .r-item{font-size:12px;color:#86868b;padding:3px 0}
+.risk-block .r-item::before{content:"⚠️ ";color:#d85a30}
+.sector-compare{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.sector-item{background:#f5f5f7;border-radius:8px;padding:10px;text-align:center}
+.sector-item .s-name{font-size:11px;color:#86868b}
+.sector-item .s-pct{font-size:18px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="card">
+
+<div class="card-header">
+  <div class="top-row">
+    <div><span class="stock-name">华工科技</span><span class="stock-code">sz000988</span></div>
+    <div class="tags">
+      <span class="ind-tag">通信设备</span>
+      <span class="mode-tag">收盘复盘</span>
+    </div>
+  </div>
+  <div class="price-row">
+    <span class="price">150.50</span>
+    <span class="change">+1.50 (+1.01%)</span>
+    <span class="date">2026年6月11日 盘后</span>
+  </div>
+  <div class="cost-info">持仓成本 <span>154.24</span> | 浮亏 <span>-2.42%</span> | 浮亏金额 <span>-3.74元/股</span></div>
+</div>
+
+<div class="section-block">
+  <div class="section-title"><span class="icon">📊</span>核心指标</div>
+  <div class="indicator-grid">
+    <div class="indicator-item"><div class="label">开盘</div><div class="value green">148.01</div></div>
+    <div class="indicator-item"><div class="label">最高</div><div class="value red">152.50</div></div>
+    <div class="indicator-item"><div class="label">最低</div><div class="value blue">147.13</div></div>
+    <div class="indicator-item"><div class="label">昨收</div><div class="value">149.00</div></div>
+    <div class="indicator-item"><div class="label">成交量</div><div class="value">49.1万手</div></div>
+    <div class="indicator-item"><div class="label">成交额</div><div class="value">73.71亿</div></div>
+    <div class="indicator-item"><div class="label">换手率</div><div class="value">4.89%</div></div>
+    <div class="indicator-item"><div class="label">量比</div><div class="value">0.69</div></div>
+    <div class="indicator-item"><div class="label">PE(TTM)</div><div class="value">89.05</div></div>
+    <div class="indicator-item"><div class="label">振幅</div><div class="value">3.60%</div></div>
+    <div class="indicator-item"><div class="label">5日涨幅</div><div class="value green">-4.96%</div></div>
+    <div class="indicator-item"><div class="label">YTD</div><div class="value red">+89.71%</div></div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-title"><span class="icon">📋</span>午间预测验证</div>
+  <div class="verify-grid">
+    <div class="verify-item wrong"><div class="v-icon">✘</div><div class="v-label">方向</div><div class="v-result">预测偏空→实收+1.01%</div></div>
+    <div class="verify-item partial"><div class="v-icon">◆</div><div class="v-label">价位</div><div class="v-result">预测148.50→实150.50</div></div>
+    <div class="verify-item wrong"><div class="v-icon">✘</div><div class="v-label">逻辑</div><div class="v-result">预测弱势→尾盘拉升</div></div>
+    <div class="verify-item correct"><div class="v-icon">✓</div><div class="v-label">资金</div><div class="v-result">主力-4467万确认流出</div></div>
+  </div>
+  <div class="verify-score">综合评分: 2/5 | 方向✘ · 价位◆ · 逻辑✘ · 资金✓</div>
+  <div class="self-review" style="margin-top:8px">
+    <div class="sr-title">🧠 偏差分析</div>
+    <div class="sr-text">午间给出弱势偏空判断(37分)，但下午尾盘资金突然拉升(+1%)超出预期。核心盲区：未识别"明天分红登记日"的抢权逻辑——尽管主力净流出(-4467万)，但场内资金在尾盘集中买入抢权。这是一次典型的"日历效应"超预期。</div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-title"><span class="icon">⏱</span>全天分时关键节点 · 低开冲高回落→尾盘V反收红</div>
+  <div class="timeline">
+    <div class="timeline-node"><div class="time">09:30 开盘</div><div class="desc">148.01 低开-0.66%</div><div class="detail">分红登记日前日，竞价偏弱</div></div>
+    <div class="timeline-node"><div class="time">10:00 冲高</div><div class="desc">152.50 日高，+2.35%</div><div class="detail">AI算力通信策略利好刺激早盘冲高</div></div>
+    <div class="timeline-node"><div class="time">11:30 上午收</div><div class="desc">148.60 倒V回落，收-0.27%</div><div class="detail">冲高后资金持续流出，上午主力-1.78亿</div></div>
+    <div class="timeline-node"><div class="time">13:15 日低</div><div class="desc">147.13 下午探底，-1.26%</div><div class="detail">缩量洗盘，触及MA60(130)上方支撑区</div></div>
+    <div class="timeline-node"><div class="time">14:46 尾盘</div><div class="desc">150.30 尾盘放量拉升</div><div class="detail">分红登记日抢权资金入场，单笔拉涨</div></div>
+    <div class="timeline-node"><div class="time">15:00 收盘</div><div class="desc">150.50，全日+1.01%</div><div class="detail">缩量尾盘收红，下方探147后主力回补</div></div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-title"><span class="icon">💰</span>今日资金真相 <span style="font-size:11px;color:#378add;font-weight:400">[tdx-已连接]</span></div>
+  <div class="fund-row"><span class="f-label">tdx主力净流入</span><span class="f-value out">-4467万</span></div>
+  <div class="fund-row"><span class="f-label">tdx含北向合计</span><span class="f-value out">-3.81亿</span></div>
+  <div class="fund-row"><span class="f-label">外盘/内盘</span><span class="f-value">24.5万手 / 24.6万手</span></div>
+  <div class="fund-row"><span class="f-label">委比</span><span class="f-value out">-14.39%</span></div>
+  <div class="fund-row"><span class="f-label">超大单净流入</span><span class="f-value out">-4.29亿</span></div>
+  <div class="fund-row"><span class="f-label">中单净流入</span><span class="f-value in">+1.93亿</span></div>
+  <div class="fund-row"><span class="f-label">小单净流入</span><span class="f-value in">+1.55亿</span></div>
+  <div class="fund-row"><span class="f-label">主力5日累计</span><span class="f-value out">-15.47亿</span></div>
+  <div class="fund-row"><span class="f-label">主力20日累计</span><span class="f-value out">-106.07亿 ⚠</span></div>
+  <div class="fund-row"><span class="f-label">融资余额/环比</span><span class="f-value">111.74亿 / -0.28%</span></div>
+  <div class="fund-row"><span class="f-label">融券余额/环比</span><span class="f-value">2165万 / +0.81%</span></div>
+  <div class="fund-row"><span class="f-label">协议交易</span><span class="f-value in">机构156.31元买入65万</span></div>
+
+  <div class="warn-block">
+    <div class="w-title">⚡ 核心矛盾：尾盘抢权 vs 主力持续派发</div>
+    <div class="w-text">今日tdx主力净流出-4467万，但尾盘14:46-15:00拉升至150.50收红。主力20日净流出-106.07亿堪称天文数字，表明中长线机构仍在持续派发。明6/12为分红登记日(10派1.7元)，尾盘抢权属一次性事件驱动。机构156.31元协议买入65万等于是153元区间接盘信号。</div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-title"><span class="icon">📰</span>个股和板块重要信息</div>
+  <div style="font-size:13px;font-weight:600;color:#1d1d1f;margin-bottom:8px">📌 当日重要新闻</div>
+  <div class="news-item">
+    <span class="n-impact high">高影响</span>
+    <div class="n-title">华工科技大笔净卖出，分红登记日资金离场 <span class="n-date">06-11 09:33</span></div>
+  </div>
+  <div class="news-item">
+    <span class="n-impact mid">中影响</span>
+    <div class="n-title">华工科技6月10日被融资净卖出3135万元 <span class="n-date">06-11</span></div>
+  </div>
+  <div class="news-item">
+    <span class="n-impact high">高影响</span>
+    <div class="n-title">通信行业半年度投资策略：全球算力基建加速，景气度持续攀升（东方财富证券） <span class="n-date">06-11</span></div>
+  </div>
+  <div class="news-item">
+    <span class="n-impact mid">中影响</span>
+    <div class="n-title">华工科技：聚焦800G/1.6T/3.2T/6.4T超高速联接产品研发 <span class="n-date">06-09 互动易</span></div>
+  </div>
+
+  <div style="font-size:13px;font-weight:600;color:#1d1d1f;margin:12px 0 8px">📊 机构评级</div>
+  <div style="font-size:13px;color:#86868b">2家机构覆盖 | 买入2家 | 目标价未出</div>
+
+  <div style="font-size:13px;font-weight:600;color:#1d1d1f;margin:12px 0 8px">🔗 板块联动对比</div>
+  <div class="sector-compare">
+    <div class="sector-item"><div class="s-name">华工科技</div><div class="s-pct" style="color:#d85a30">+1.01%</div></div>
+    <div class="sector-item"><div class="s-name">上证指数</div><div class="s-pct" style="color:#1d9e75">-0.16%</div></div>
+    <div class="sector-item"><div class="s-name">深证成指</div><div class="s-pct" style="color:#1d9e75">-0.68%</div></div>
+  </div>
+  <div class="warn-block note">
+    <div class="w-title">📌 板块判断</div>
+    <div class="w-text">华工+1.01%跑赢大盘(上证-0.16%/深证-0.68%)，但量比仅0.69缩量上涨。通信算力AI板块半年度策略利好+明天分红登记日抢权，短期偏多但量能不足制约持续性。YTD+89.71%积累大量获利盘，20日主力-106亿派发未动摇。</div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-title"><span class="icon">📈</span>三寿股价预测评分</div>
+  <div class="score-block">
+    <span class="s-total">40</span><span class="s-cat">弱势偏空</span>
+    <div style="margin-top:10px">
+      <div class="factor-row"><span class="f-name">技术面</span><div class="f-bar"><div class="f-fill" style="width:40%"></div></div><span class="f-score">40</span></div>
+      <div class="factor-row"><span class="f-name">资金面</span><div class="f-bar"><div class="f-fill" style="width:25%"></div></div><span class="f-score">25</span></div>
+      <div class="factor-row"><span class="f-name">消息面</span><div class="f-bar"><div class="f-fill" style="width:50%"></div></div><span class="f-score">50</span></div>
+      <div class="factor-row"><span class="f-name">量价面</span><div class="f-bar"><div class="f-fill" style="width:45%"></div></div><span class="f-score">45</span></div>
+      <div class="factor-row"><span class="f-name">筹码面</span><div class="f-bar"><div class="f-fill" style="width:40%"></div></div><span class="f-score">40</span></div>
+      <div class="factor-row"><span class="f-name">板块面</span><div class="f-bar"><div class="f-fill" style="width:50%"></div></div><span class="f-score">50</span></div>
+      <div class="factor-row"><span class="f-name">市场面</span><div class="f-bar"><div class="f-fill" style="width:45%"></div></div><span class="f-score">45</span></div>
+    </div>
+    <div style="font-size:11px;color:#86868b;margin-top:8px">加权: 40×25% + 25×25% + 50×20% + 45×15% + 40×5% + 50×5% + 45×5% = 40.0</div>
+  </div>
+  <div style="font-size:12px;color:#86868b;line-height:1.5">
+    <b>评分分析：</b>MACD死叉扩大(DIF4.73<DEA6.97)，KDJ低位(K38/D40/J36)接近超卖。技术面40分——关键位置MA60(130)处有强支撑。资金面25分严重拖后腿——20日主力-106亿天量派发是最大权重扣分项。消息面50分中性偏正——通信算力政策利好但分红日资金博弈抵消。明天除权后需重新评估。
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-title"><span class="icon">🎯</span>具体操作建议</div>
+  <div class="advice-item hold">
+    <div class="a-tag">当前持仓</div>
+    <div class="a-desc">浮亏-2.42%(500股)，明天分红除权（10派1.7元约合每股0.17元）。除权后成本降至154.07元。不建议今日操作，观望除权后走势。</div>
+  </div>
+  <div class="advice-item buy">
+    <div class="a-tag">加仓条件</div>
+    <div class="a-desc">除权后缩量回踩MA60(130)不破 + 20日主力流出放缓（单日<3亿）→ 轻仓试多，目标145-150区间。止损129(-1.5%)。</div>
+  </div>
+  <div class="advice-item hold">
+    <div class="a-tag">观望条件</div>
+    <div class="a-desc">除权后145-155区间震荡为大概率，关注20日主力资金是否由流出转平。日均成交>50亿是关键流动性指标。</div>
+  </div>
+  <div class="advice-item sell">
+    <div class="a-tag">减仓条件</div>
+    <div class="a-desc">20日主力单日净流出>5亿且跌破MA60(130) → 减半仓。主力-106亿派发未止是最大风险。</div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-title"><span class="icon">📊</span>关键价位</div>
+  <div class="level-grid">
+    <div class="level-card support"><div class="lvl-name">🛡️ 日低支撑</div><div class="lvl-price">147.13</div><div class="lvl-desc">今日最低 + 下午V反起点</div></div>
+    <div class="level-card resistance"><div class="lvl-name">⚔️ 日高压力</div><div class="lvl-price">152.50</div><div class="lvl-desc">今日最高 + 5日均线附近</div></div>
+    <div class="level-card support"><div class="lvl-name">🛡️ MA60支撑</div><div class="lvl-price">130.18</div><div class="lvl-desc">MA60强支撑区 + 前期突破位</div></div>
+    <div class="level-card resistance"><div class="lvl-name">⚔️ 筹码压力</div><div class="lvl-price">153.36</div><div class="lvl-desc">筹码均成本(盈利盘仅36%)</div></div>
+    <div class="level-card support"><div class="lvl-name">🛡️ BOLL下轨</div><div class="lvl-price">137.42</div><div class="lvl-desc">BOLL LOWER 极端支撑</div></div>
+    <div class="level-card resistance"><div class="lvl-name">⚔️ MA20压力</div><div class="lvl-price">154.97</div><div class="lvl-desc">MA20均线收回是企稳信号</div></div>
+    <div class="level-card support"><div class="lvl-name">💼 除权成本</div><div class="lvl-price">154.07</div><div class="lvl-desc">分红10派1.7除权后新成本</div></div>
+    <div class="level-card resistance"><div class="lvl-name">⚔️ BOLL上轨</div><div class="lvl-price">172.51</div><div class="lvl-desc">BOLL UPPER 强阻力</div></div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-title"><span class="icon">🔮</span>次日走势预判</div>
+  <div class="score-block" style="background:#f5f5f7">
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="font-size:14px;font-weight:700;color:#1d1d1f">置信度 50/100</span>
+      <span style="font-size:11px;color:#86868b">低置信 · 除权日不确定性大</span>
+    </div>
+    <div style="font-size:12px;color:#86868b;margin-top:8px;line-height:1.5">
+      <b>● Base(45%):</b> 除权后震荡 144-150，消化主力派发<br>
+      <b>▲ Bull(25%):</b> AI算力板块走强+缩量企稳 → 反弹至152-155<br>
+      <b>▼ Bear(30%):</b> 主力加速派发+除权抛售 → 下探138-143<br>
+      <span style="color:#d85a30">⚠ 6/12为除权除息日，价格将下修约0.17元。20日主力-106亿派发是中期核心矛盾</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-title"><span class="icon">🧠</span>模型自评 & 预测准确度追踪</div>
+  <div class="self-review">
+    <div class="sr-title">累计预测: 8次 | 方向准确率: 50% | 综合准确率: 61%</div>
+    <div class="sr-text">
+      <b>本次复盘质量自评：</b><br>
+      数据源完整度: 10/10 (双源完整)<br>
+      分析深度: 7/10 (尾盘抢权逻辑识别到位，但午间未预见)<br>
+      操作建议: 8/10 (覆盖除权场景)<br>
+      <b>改进点:</b> 日历效应(除权除息日)应纳入预测框架。互动易利好+除权抢权两因叠加导致尾盘异动，纯量化模型未覆盖此类事件驱动。
+    </div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="risk-block">
+    <div class="r-title">⚠️ 重要风险提示</div>
+    <div class="r-item">20日主力净流出-106.07亿是天量级别，中长线机构派发趋势未改，中期看空逻辑不变</div>
+    <div class="r-item">6/12为除权除息日(10派1.7元)，除权后价格下修，技术指标需要重新锚定</div>
+    <div class="r-item">MACD死叉扩大(DIF4.73<DEA6.97, MACD=-4.48)，技术面偏空趋势确立</div>
+    <div class="r-item">盈利盘仅35.95%，均成本153.36高于现价，上方套牢盘压力重</div>
+    <div class="r-item">YTD+89.71%积累巨量获利盘，短期回调风险尚未完全释放</div>
+    <div class="r-item" style="color:#378add;margin-top:6px;font-weight:600">✅ tdx-已连接 · 资金面以tdx为准</div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

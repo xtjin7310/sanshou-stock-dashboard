@@ -743,12 +743,109 @@
       "morphology": "N型走势（急跌V反再回落）",
       "afternoon_bias": "偏空（冲高回落+资金分歧）",
       "card_screenshot": "cards/2026-06-11-midday.png"
+    },
+    {
+      "date": "2026-06-11",
+      "session": "afternoon",
+      "price": 37.81,
+      "prev_close": 38.42,
+      "change": -0.61,
+      "change_percent": -1.59,
+      "open": 37.91,
+      "high": 39.50,
+      "low": 37.28,
+      "volume": 2480502,
+      "amount": 9493878259,
+      "turnover_rate": 6.16,
+      "volume_ratio": 0.78,
+      "fund_flow": {
+        "tdx_inout": -1238571260,
+        "tdx_inout_hb": -674445056,
+        "tdx_wtb": -11.52,
+        "inside": 1349455,
+        "outside": 1131047,
+        "main_net_flow": -691335439,
+        "jumbo_net_flow": -617637105,
+        "mid_net_flow": 115153074,
+        "small_net_flow": 576182366,
+        "main_net_5d": 2465409285,
+        "main_net_20d": 140545631,
+        "margin_balance": 10745214486,
+        "margin_dod": -0.58,
+        "short_balance": 14445920,
+        "short_dod": -4.06,
+        "block_trade": "34.00元折价6.64%大宗卖出340万"
+      },
+      "technical": {
+        "ma5": 38.262,
+        "ma10": 37.361,
+        "ma20": 36.903,
+        "ma60": 35.914,
+        "macd_dif": 0.417,
+        "macd_dea": 0.248,
+        "macd_hist": 0.337,
+        "kdj_k": 52.858,
+        "kdj_d": 52.99,
+        "kdj_j": 52.594,
+        "boll_upper": 39.478,
+        "boll_mid": 36.903,
+        "boll_lower": 34.328,
+        "petm": 40.42,
+        "pe_static": 32.20,
+        "zaf20": 0.67,
+        "this_year": -0.08,
+        "chip_profit_rate": 53.99,
+        "chip_avg_cost": 37.67
+      },
+      "sanshou_score": 49,
+      "score_category": "震荡偏空",
+      "predictions": {
+        "base": {
+          "probability": 50,
+          "description": "MA20-MA5区间震荡缩量整固",
+          "range": "36.90-38.26",
+          "close_estimate": 37.5
+        },
+        "bull": {
+          "probability": 25,
+          "trigger": "5G-A政策超预期+主力回补+北向企稳",
+          "target": "38.50-39.00"
+        },
+        "bear": {
+          "probability": 25,
+          "trigger": "主力继续出货+南向加速减持+跌破MA20",
+          "target": "35.90-36.90"
+        }
+      },
+      "confidence": 58,
+      "key_levels": {
+        "support": [37.36, 36.90, 35.785, 34.33],
+        "resistance": [38.26, 39.48, 37.67, 35.91],
+        "cost": 35.785
+      },
+      "midday_verification": {
+        "direction": "correct",
+        "direction_detail": "午间预测偏空(44分)→下午收-1.59%下跌，方向正确",
+        "price": "partial",
+        "price_detail": "预测收盘38.20→实际37.81，偏差-1.02%，但在Base合理范围；Bear target 37.20-37.50被低点37.28精确触及",
+        "logic": "correct",
+        "logic_detail": "预测弱势震荡→下午单边回落后小幅修复，逻辑正确",
+        "fund": "correct",
+        "fund_detail": "上午tdx-5800万→下午累计-12.39亿，主力加速出货验证偏空判断",
+        "overall_score": 4,
+        "overall_max": 5,
+        "summary": "方向✓ · 价位◆ · 逻辑✓ · 资金✓"
+      },
+      "card_html": "cards/2026-06-11-afternoon.html",
+      "card_screenshot": "cards/2026-06-11-afternoon.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {
-    "total_predictions": 14,
-    "direction_accurate": 9,
-    "direction_accuracy": 75.0,
-    "composite_accuracy": 72.0
+    "total_predictions": 15,
+    "direction_accurate": 10,
+    "direction_partial": 0,
+    "direction_accuracy": 73.3,
+    "composite_accuracy": 73.3
   }
 }

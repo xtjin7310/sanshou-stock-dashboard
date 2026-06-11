@@ -736,12 +736,110 @@
       "morphology": "冲高回落（倒V反转）",
       "afternoon_bias": "偏空（主力持续流出）",
       "card_screenshot": "cards/2026-06-11-midday.png"
+    },
+    {
+      "date": "2026-06-11",
+      "session": "afternoon",
+      "price": 150.50,
+      "prev_close": 149.0,
+      "change": 1.50,
+      "change_percent": 1.01,
+      "open": 148.01,
+      "high": 152.50,
+      "low": 147.13,
+      "volume": 491338,
+      "amount": 7371418282,
+      "turnover_rate": 4.89,
+      "volume_ratio": 0.69,
+      "fund_flow": {
+        "tdx_inout": -44670720,
+        "tdx_inout_hb": -381102080,
+        "tdx_wtb": -14.39,
+        "inside": 245901,
+        "outside": 245437,
+        "main_net_flow": -347753398,
+        "jumbo_net_flow": -429459521,
+        "mid_net_flow": 192848411,
+        "small_net_flow": 154904987,
+        "main_net_5d": -1547130165,
+        "main_net_20d": -10607357849,
+        "margin_balance": 11173741979,
+        "margin_dod": -0.28,
+        "short_balance": 21652233,
+        "short_dod": 0.81,
+        "block_trade": "机构156.31元买入65万"
+      },
+      "technical": {
+        "ma5": 152.216,
+        "ma10": 151.807,
+        "ma20": 154.965,
+        "ma60": 130.179,
+        "macd_dif": 4.73,
+        "macd_dea": 6.971,
+        "macd_hist": -4.481,
+        "kdj_k": 38.418,
+        "kdj_d": 39.835,
+        "kdj_j": 35.585,
+        "boll_upper": 172.511,
+        "boll_mid": 154.965,
+        "boll_lower": 137.418,
+        "petm": 89.05,
+        "pe_static": 102.89,
+        "zaf20": 9.53,
+        "this_year": 89.71,
+        "chip_profit_rate": 35.95,
+        "chip_avg_cost": 153.36
+      },
+      "sanshou_score": 40,
+      "score_category": "弱势偏空",
+      "predictions": {
+        "base": {
+          "probability": 45,
+          "description": "除权后震荡消化主力派发",
+          "range": "144-150",
+          "note": "6/12除权除息10派1.7元"
+        },
+        "bull": {
+          "probability": 25,
+          "trigger": "AI算力板块走强+缩量企稳",
+          "target": "152-155"
+        },
+        "bear": {
+          "probability": 30,
+          "trigger": "主力加速派发+除权抛售",
+          "target": "138-143"
+        }
+      },
+      "confidence": 50,
+      "key_levels": {
+        "support": [147.13, 130.18, 137.42],
+        "resistance": [152.50, 153.36, 154.97, 172.51],
+        "cost": 154.24,
+        "ex_rights_cost": 154.07
+      },
+      "midday_verification": {
+        "direction": "wrong",
+        "direction_detail": "午间预测偏空(37分)→实际尾盘拉升+1.01%收红，方向错误",
+        "price": "partial",
+        "price_detail": "预测收盘148.50→实际150.50，偏差+1.35%，略超Base区间(147.50-150)",
+        "logic": "wrong",
+        "logic_detail": "预测弱势震荡→实际14:46-15:00尾盘集中拉升，分红登记日抢权超预期",
+        "fund": "correct",
+        "fund_detail": "tdx主力净流出-4467万确认判断，但尾盘抢权资金未反映在主力口径",
+        "overall_score": 2,
+        "overall_max": 5,
+        "summary": "方向✘ · 价位◆ · 逻辑✘ · 资金✓"
+      },
+      "card_html": "cards/2026-06-11-afternoon.html",
+      "card_screenshot": "cards/2026-06-11-afternoon.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {
-    "total_predictions": 7,
+    "total_predictions": 8,
     "direction_accurate": 3,
-    "direction_accuracy": 60.0,
-    "composite_accuracy": 64.0
+    "direction_partial": 0,
+    "direction_accuracy": 50.0,
+    "composite_accuracy": 61.3
   }
 }

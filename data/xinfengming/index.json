@@ -693,12 +693,108 @@
       "morphology": "深V探底回升",
       "afternoon_bias": "偏多（V反形态有效）",
       "card_screenshot": "cards/2026-06-11-midday.png"
+    },
+    {
+      "date": "2026-06-11",
+      "session": "afternoon",
+      "price": 18.33,
+      "prev_close": 19.45,
+      "change": -1.12,
+      "change_percent": -5.76,
+      "open": 19.17,
+      "high": 19.63,
+      "low": 17.90,
+      "volume": 338065,
+      "amount": 620944109,
+      "turnover_rate": 2.03,
+      "volume_ratio": 1.15,
+      "fund_flow": {
+        "tdx_inout": 144369488,
+        "tdx_inout_hb": -43590288,
+        "tdx_wtb": -47.06,
+        "inside": 135902,
+        "outside": 202163,
+        "main_net_flow": -38971121,
+        "jumbo_net_flow": -31474458,
+        "mid_net_flow": -63372948,
+        "small_net_flow": 102344070,
+        "main_net_5d": 143136095,
+        "main_net_20d": 313209626,
+        "margin_balance": 385038447,
+        "margin_dod": -3.11,
+        "short_balance": 6095630,
+        "short_dod": -1.14
+      },
+      "technical": {
+        "ma5": 19.342,
+        "ma10": 18.932,
+        "ma20": 17.96,
+        "ma60": 17.513,
+        "macd_dif": 0.481,
+        "macd_dea": 0.355,
+        "macd_hist": 0.252,
+        "kdj_k": 60.562,
+        "kdj_d": 68.418,
+        "kdj_j": 44.848,
+        "boll_upper": 20.366,
+        "boll_mid": 17.96,
+        "boll_lower": 15.555,
+        "petm": 28.47,
+        "pe_static": 30.19,
+        "zaf20": 7.76,
+        "this_year": -5.81,
+        "chip_profit_rate": 62.69,
+        "chip_avg_cost": 17.73
+      },
+      "sanshou_score": 48,
+      "score_category": "震荡偏空",
+      "predictions": {
+        "base": {
+          "probability": 50,
+          "description": "区间震荡消化减持利空情绪",
+          "range": "17.90-18.80",
+          "close_estimate": 18.3
+        },
+        "bull": {
+          "probability": 20,
+          "trigger": "减持暂缓公告 + 大盘回暖",
+          "target": "19.00-19.50"
+        },
+        "bear": {
+          "probability": 30,
+          "trigger": "减持启动 + 跌破17.90",
+          "target": "17.00-17.50"
+        }
+      },
+      "confidence": 55,
+      "key_levels": {
+        "support": [17.90, 17.73, 17.51, 17.00],
+        "resistance": [19.17, 19.63, 19.34, 20.37],
+        "cost": 18.95
+      },
+      "midday_verification": {
+        "direction": "partial",
+        "direction_detail": "午间预测偏多(V反有效)→实际全天-5.76%大跌，方向错误但Bias偏多本身犹豫",
+        "price": "partial",
+        "price_detail": "预测收盘18.50→实际18.33，偏差-0.92%但在Base区间(18.20-18.80)内",
+        "logic": "partial",
+        "logic_detail": "V反有效预判成立(午后冲至18.70)，但低估减持利空持续压制力",
+        "fund": "correct",
+        "fund_detail": "tdx主力净流入+1.44亿验证承接判断，外盘>内盘确认",
+        "overall_score": 3,
+        "overall_max": 5,
+        "summary": "方向◆ · 价位◆ · 逻辑◆ · 资金✓"
+      },
+      "card_html": "cards/2026-06-11-afternoon.html",
+      "card_screenshot": "cards/2026-06-11-afternoon.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {
-    "total_predictions": 10,
+    "total_predictions": 11,
     "direction_accurate": 6,
-    "direction_accuracy": 75.0,
-    "composite_accuracy": 76.0
+    "direction_partial": 1,
+    "direction_accuracy": 59.1,
+    "composite_accuracy": 73.6
   }
 }

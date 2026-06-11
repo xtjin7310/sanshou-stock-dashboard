@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=680">
+<title>新凤鸣 - 收盘复盘</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC",sans-serif;display:flex;justify-content:center;padding:20px}
+.card{width:680px;background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,0.08);overflow:hidden}
+.card-header{padding:20px 24px;border-bottom:1px solid #e5e5ea}
+.card-header .top-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.card-header .stock-name{font-size:22px;font-weight:700;color:#1d1d1f}
+.card-header .stock-code{font-size:14px;color:#86868b;margin-left:8px}
+.card-header .tags{display:flex;gap:6px}
+.card-header .mode-tag{font-size:12px;padding:3px 10px;border-radius:12px;background:#f5f5f7;color:#86868b;font-weight:500}
+.card-header .ind-tag{font-size:12px;padding:3px 10px;border-radius:12px;background:#f0f4ff;color:#378add;font-weight:500}
+.card-header .price-row{display:flex;align-items:baseline;gap:12px;margin-top:4px;flex-wrap:wrap}
+.card-header .price{font-size:36px;font-weight:700;color:#1d9e75}
+.card-header .change{font-size:18px;color:#1d9e75;font-weight:600}
+.card-header .date{font-size:13px;color:#86868b}
+.cost-info{font-size:12px;color:#d85a30;margin-top:4px}
+.cost-info span{font-weight:600}
+.section-block{padding:16px 24px;border-bottom:1px solid #e5e5ea}
+.section-block:last-child{border-bottom:none}
+.section-title{font-size:14px;font-weight:600;color:#1d1d1f;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.section-title .icon{font-size:16px}
+.indicator-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.indicator-item{background:#f5f5f7;border-radius:10px;padding:10px 12px}
+.indicator-item .label{font-size:11px;color:#86868b;margin-bottom:4px}
+.indicator-item .value{font-size:16px;font-weight:600;color:#1d1d1f}
+.indicator-item .value.red{color:#d85a30}
+.indicator-item .value.green{color:#1d9e75}
+.indicator-item .value.blue{color:#378add}
+.verify-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px}
+.verify-item{background:#f5f5f7;border-radius:8px;padding:10px;text-align:center}
+.verify-item.correct{background:#f0faf5}
+.verify-item.partial{background:#fff8f0}
+.verify-item.wrong{background:#fef0f0}
+.verify-item .v-icon{font-size:18px}
+.verify-item .v-label{font-size:11px;color:#86868b;margin:2px 0}
+.verify-item .v-result{font-size:12px;font-weight:600}
+.verify-score{font-size:13px;color:#378add;font-weight:600;text-align:center;margin-top:4px}
+.timeline{position:relative;padding-left:20px}
+.timeline::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:3px;border-radius:2px;background:linear-gradient(180deg,#d85a30,#f5a623,#378add,#1d9e75,#d85a30)}
+.timeline-node{position:relative;margin-bottom:14px;padding-left:16px}
+.timeline-node::before{content:'';position:absolute;left:-16px;top:6px;width:11px;height:11px;border-radius:50%;background:#fff;border:2.5px solid #378add}
+.timeline-node:first-child::before{border-color:#d85a30}
+.timeline-node:last-child::before{border-color:#1d9e75}
+.timeline-node .time{font-size:12px;color:#86868b}
+.timeline-node .desc{font-size:14px;color:#1d1d1f;font-weight:500}
+.timeline-node .detail{font-size:12px;color:#86868b;margin-top:2px}
+.fund-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f5}
+.fund-row:last-child{border-bottom:none}
+.fund-row .f-label{font-size:13px;color:#86868b}
+.fund-row .f-value{font-size:13px;font-weight:600}
+.fund-row .f-value.in{color:#d85a30}
+.fund-row .f-value.out{color:#1d9e75}
+.warn-block{background:#fef0f0;border:1px solid #fdd;border-radius:10px;padding:12px;margin-top:10px}
+.warn-block.note{background:#f0f4ff;border-color:#dde8ff}
+.warn-block .w-title{font-size:13px;font-weight:600;color:#d85a30;margin-bottom:4px}
+.warn-block.note .w-title{color:#378add}
+.warn-block .w-text{font-size:12px;color:#86868b;line-height:1.5}
+.news-item{padding:8px 0;border-bottom:1px solid #f0f0f5;font-size:13px}
+.news-item:last-child{border-bottom:none}
+.news-item .n-date{color:#86868b;font-size:11px}
+.news-item .n-title{color:#1d1d1f;margin-top:2px}
+.news-item .n-impact{font-size:11px;padding:1px 6px;border-radius:8px;margin-left:4px}
+.news-item .n-impact.high{background:#fef0f0;color:#d85a30}
+.news-item .n-impact.mid{background:#fff8f0;color:#f5a623}
+.score-block{background:#f0f4ff;border-radius:10px;padding:14px;margin-bottom:10px}
+.score-block .s-total{font-size:28px;font-weight:700;color:#378add}
+.score-block .s-cat{font-size:14px;color:#378add;font-weight:600;margin-left:8px}
+.factor-row{display:flex;align-items:center;margin:6px 0;gap:8px}
+.factor-row .f-name{width:60px;font-size:12px;color:#86868b;text-align:right}
+.factor-row .f-bar{flex:1;height:8px;background:#e5e5ea;border-radius:4px;overflow:hidden}
+.factor-row .f-fill{height:100%;border-radius:4px;background:#378add}
+.factor-row .f-score{width:30px;font-size:12px;font-weight:600;color:#1d1d1f;text-align:right}
+.advice-item{background:#f5f5f7;border-radius:10px;padding:12px;margin-bottom:8px;border-left:3px solid #e5e5ea}
+.advice-item.buy{border-left-color:#d85a30}
+.advice-item.hold{border-left-color:#378add}
+.advice-item.sell{border-left-color:#1d9e75}
+.advice-item .a-tag{font-size:11px;padding:2px 8px;border-radius:8px;font-weight:600;display:inline-block;margin-bottom:4px}
+.advice-item.buy .a-tag{background:#fef0f0;color:#d85a30}
+.advice-item.hold .a-tag{background:#f0f4ff;color:#378add}
+.advice-item.sell .a-tag{background:#f0faf5;color:#1d9e75}
+.advice-item .a-desc{font-size:13px;color:#1d1d1f;line-height:1.5}
+.level-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.level-card{border-radius:10px;padding:12px;background:#f5f5f7}
+.level-card.support{background:#f0f4ff}
+.level-card.resistance{background:#fef0f0}
+.level-card .lvl-name{font-size:12px;color:#86868b;margin-bottom:6px}
+.level-card .lvl-price{font-size:18px;font-weight:700}
+.level-card.support .lvl-price{color:#378add}
+.level-card.resistance .lvl-price{color:#d85a30}
+.level-card .lvl-desc{font-size:11px;color:#86868b;margin-top:4px}
+.self-review{background:#f8f9fc;border:1px solid #e5e5ea;border-radius:10px;padding:12px;margin-top:8px}
+.self-review .sr-title{font-size:12px;color:#378add;font-weight:600;margin-bottom:6px}
+.self-review .sr-text{font-size:12px;color:#86868b;line-height:1.5}
+.risk-block{background:#fef8f0;border:1px solid #f5e6cc;border-radius:10px;padding:12px;margin-top:10px}
+.risk-block .r-title{font-size:13px;font-weight:600;color:#d85a30;margin-bottom:6px}
+.risk-block .r-item{font-size:12px;color:#86868b;padding:3px 0}
+.risk-block .r-item::before{content:"⚠️ ";color:#d85a30}
+.sector-compare{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.sector-item{background:#f5f5f7;border-radius:8px;padding:10px;text-align:center}
+.sector-item .s-name{font-size:11px;color:#86868b}
+.sector-item .s-pct{font-size:18px;font-weight:700}
+.sector-item .s-pct.green{color:#1d9e75}
+.sector-item .s-pct.red{color:#d85a30}
+</style>
+</head>
+<body>
+<div class="card">
+
+<!-- ① 头部 -->
+<div class="card-header">
+  <div class="top-row">
+    <div><span class="stock-name">新凤鸣</span><span class="stock-code">sh603225</span></div>
+    <div class="tags">
+      <span class="ind-tag">化工化纤</span>
+      <span class="mode-tag">收盘复盘</span>
+    </div>
+  </div>
+  <div class="price-row">
+    <span class="price">18.33</span>
+    <span class="change">-1.12 (-5.76%)</span>
+    <span class="date">2026年6月11日 盘后</span>
+  </div>
+  <div class="cost-info">持仓成本 <span>18.95</span> | 浮亏 <span>-3.27%</span> | 浮亏金额 <span>-0.62元/股</span></div>
+</div>
+
+<!-- ② 8格指标 -->
+<div class="section-block">
+  <div class="section-title"><span class="icon">📊</span>核心指标</div>
+  <div class="indicator-grid">
+    <div class="indicator-item"><div class="label">开盘</div><div class="value red">19.17</div></div>
+    <div class="indicator-item"><div class="label">最高</div><div class="value red">19.63</div></div>
+    <div class="indicator-item"><div class="label">最低</div><div class="value blue">17.90</div></div>
+    <div class="indicator-item"><div class="label">昨收</div><div class="value">19.45</div></div>
+    <div class="indicator-item"><div class="label">成交量</div><div class="value">33.8万手</div></div>
+    <div class="indicator-item"><div class="label">成交额</div><div class="value">6.21亿</div></div>
+    <div class="indicator-item"><div class="label">换手率</div><div class="value">2.03%</div></div>
+    <div class="indicator-item"><div class="label">量比</div><div class="value">1.15</div></div>
+    <div class="indicator-item"><div class="label">PE(TTM)</div><div class="value">28.47</div></div>
+    <div class="indicator-item"><div class="label">振幅</div><div class="value">8.89%</div></div>
+    <div class="indicator-item"><div class="label">5日涨幅</div><div class="value green">-6.05%</div></div>
+    <div class="indicator-item"><div class="label">YTD</div><div class="value green">-5.81%</div></div>
+  </div>
+</div>
+
+<!-- 📋 昨日预测验证 -->
+<div class="section-block">
+  <div class="section-title"><span class="icon">📋</span>午间预测验证</div>
+  <div class="verify-grid">
+    <div class="verify-item partial"><div class="v-icon">◆</div><div class="v-label">方向</div><div class="v-result">预测偏多→实收-5.76%</div></div>
+    <div class="verify-item partial"><div class="v-icon">◆</div><div class="v-label">价位</div><div class="v-result">预测18.50→实18.33</div></div>
+    <div class="verify-item partial"><div class="v-icon">◆</div><div class="v-label">逻辑</div><div class="v-result">V反有效但减持主导</div></div>
+    <div class="verify-item correct"><div class="v-icon">✓</div><div class="v-label">资金</div><div class="v-result">主力净入+1.44亿</div></div>
+  </div>
+  <div class="verify-score">综合评分: 3/5 | 方向◆ · 价位◆ · 逻辑◆ · 资金✓</div>
+  <div class="self-review" style="margin-top:8px">
+    <div class="sr-title">🧠 偏差分析</div>
+    <div class="sr-text">午间V反后给出偏多判断，但低估了实控人减持3.32%利空的持续压制。上午主力承接(+6398万)真实，下午继续承接至1.44亿，但中单抛压(-6337万)和散户跟风杀跌(-1.02亿)远超预期。典型"主力吸筹但市场情绪极度悲观"的矛盾格局。</div>
+  </div>
+</div>
+
+<!-- ③ 分时节点 -->
+<div class="section-block">
+  <div class="section-title"><span class="icon">⏱</span>全天分时关键节点 · 深V探底冲高回落</div>
+  <div class="timeline">
+    <div class="timeline-node"><div class="time">09:30 开盘</div><div class="desc">19.17 低开-1.44%</div><div class="detail">减持利空延续，竞价即承压</div></div>
+    <div class="timeline-node"><div class="time">09:36 急跌</div><div class="desc">跌至 18.60，早盘抛压集中释放</div><div class="detail">0930-0940累计成交额6985万，放量砸盘</div></div>
+    <div class="timeline-node"><div class="time">10:23 日低</div><div class="desc">17.90 触底，跌幅-7.97%</div><div class="detail">触及BOLL中轨(17.96)附近，主力开始承接</div></div>
+    <div class="timeline-node"><div class="time">11:15 上午收</div><div class="desc">18.50 V反回升，收18.39(-5.45%)</div><div class="detail">11:11-11:15急拉至18.50，V反幅度+3.35%</div></div>
+    <div class="timeline-node"><div class="time">13:15 日高</div><div class="desc">18.70 午后冲高，跌幅收窄至-3.86%</div><div class="detail">13:01-13:15放量拉升，但后继无力</div></div>
+    <div class="timeline-node"><div class="time">14:30 尾盘</div><div class="desc">18.44→18.33 持续回落</div><div class="detail">尾盘30分钟卖盘增加，收于MA5(19.34)下方</div></div>
+    <div class="timeline-node"><div class="time">15:00 收盘</div><div class="desc">18.33，全日 -5.76%</div><div class="detail">长下影+上影十字星形态，多空剧烈博弈</div></div>
+  </div>
+</div>
+
+<!-- ④ 资金真相 -->
+<div class="section-block">
+  <div class="section-title"><span class="icon">💰</span>今日资金真相 <span style="font-size:11px;color:#378add;font-weight:400">[tdx-已连接]</span></div>
+  <div class="fund-row"><span class="f-label">tdx主力净流入</span><span class="f-value in">+1.44亿</span></div>
+  <div class="fund-row"><span class="f-label">tdx含北向合计</span><span class="f-value out">-4359万</span></div>
+  <div class="fund-row"><span class="f-label">外盘/内盘</span><span class="f-value in">20.2万手 / 13.6万手</span></div>
+  <div class="fund-row"><span class="f-label">委比</span><span class="f-value out">-47.06%</span></div>
+  <div class="fund-row"><span class="f-label">超大单净流入</span><span class="f-value out">-3147万</span></div>
+  <div class="fund-row"><span class="f-label">中单净流入</span><span class="f-value out">-6337万</span></div>
+  <div class="fund-row"><span class="f-label">小单净流入</span><span class="f-value in">+1.02亿</span></div>
+  <div class="fund-row"><span class="f-label">主力5日累计</span><span class="f-value in">+1.43亿</span></div>
+  <div class="fund-row"><span class="f-label">主力20日累计</span><span class="f-value in">+3.13亿</span></div>
+  <div class="fund-row"><span class="f-label">融资余额/环比</span><span class="f-value">3.85亿 / -3.11%</span></div>
+  <div class="fund-row"><span class="f-label">融券余额/环比</span><span class="f-value">609万 / -1.14%</span></div>
+
+  <div class="warn-block">
+    <div class="w-title">⚡ 核心矛盾：主力吸筹 vs 市场情绪崩溃</div>
+    <div class="w-text">tdx主力净流入+1.44亿（外盘>内盘确认承接），但超大单净流出-3147万、中单-6337万、小单+1.02亿——典型"大单拆散、中单跑路、散户接盘"模式。20日主力+3.13亿持续吸筹，但减持利空压制股价导致散户恐慌出逃。</div>
+  </div>
+</div>
+
+<!-- ⑤ 个股和板块信息 -->
+<div class="section-block">
+  <div class="section-title"><span class="icon">📰</span>个股和板块重要信息</div>
+
+  <div style="font-size:13px;font-weight:600;color:#1d1d1f;margin-bottom:8px">📌 当日重要新闻</div>
+  <div class="news-item">
+    <span class="n-impact high">高影响</span>
+    <div class="n-title">新凤鸣大跌5% 实控人拟减持 <span class="n-date">06-11 09:38</span></div>
+  </div>
+  <div class="news-item">
+    <span class="n-impact mid">中影响</span>
+    <div class="n-title">新凤鸣6月10日被融资净卖出1235万元 <span class="n-date">06-11 09:30</span></div>
+  </div>
+  <div class="news-item">
+    <span class="n-impact mid">中影响</span>
+    <div class="n-title">国内硫磺价格突破万元大关 业内预判涨势或仍将延续 <span class="n-date">06-11 07:36</span></div>
+  </div>
+  <div class="news-item">
+    <span class="n-impact mid">中影响</span>
+    <div class="n-title">大炼化行业深度报告：潜龙在渊 蓄势腾飞（中邮证券） <span class="n-date">06-11</span></div>
+  </div>
+  <div class="news-item">
+    <span class="n-impact mid">中影响</span>
+    <div class="n-title">涤纶长丝老二新凤鸣实控人及五大核心高管同步披露减持计划 <span class="n-date">06-10</span></div>
+  </div>
+
+  <div style="font-size:13px;font-weight:600;color:#1d1d1f;margin:12px 0 8px">📊 机构评级</div>
+  <div style="font-size:13px;color:#86868b">1家机构覆盖 | 买入1家 | 目标价未出</div>
+
+  <div style="font-size:13px;font-weight:600;color:#1d1d1f;margin:12px 0 8px">🔗 板块联动对比</div>
+  <div class="sector-compare">
+    <div class="sector-item"><div class="s-name">新凤鸣</div><div class="s-pct green">-5.76%</div></div>
+    <div class="sector-item"><div class="s-name">上证指数</div><div class="s-pct green">-0.16%</div></div>
+    <div class="sector-item"><div class="s-name">深证成指</div><div class="s-pct green">-0.68%</div></div>
+  </div>
+  <div class="warn-block note">
+    <div class="w-title">📌 板块判断</div>
+    <div class="w-text">新凤鸣-5.76%远弱于大盘(上证-0.16%/深证-0.68%)，属于个股重大利空（实控人减持）驱动的独立下跌。化工化纤出口板块整体偏弱，但新凤鸣明显超跌。硫磺涨价利好被减持利空完全覆盖。</div>
+  </div>
+</div>
+
+<!-- ⑥ 三寿评分 -->
+<div class="section-block">
+  <div class="section-title"><span class="icon">📈</span>三寿股价预测评分 v2.5.1</div>
+  <div class="score-block">
+    <span class="s-total">48</span><span class="s-cat">震荡偏空</span>
+    <div style="margin-top:10px">
+      <div class="factor-row"><span class="f-name">技术面</span><div class="f-bar"><div class="f-fill" style="width:55%"></div></div><span class="f-score">55</span></div>
+      <div class="factor-row"><span class="f-name">资金面</span><div class="f-bar"><div class="f-fill" style="width:60%"></div></div><span class="f-score">60</span></div>
+      <div class="factor-row"><span class="f-name">消息面</span><div class="f-bar"><div class="f-fill" style="width:30%"></div></div><span class="f-score">30</span></div>
+      <div class="factor-row"><span class="f-name">量价面</span><div class="f-bar"><div class="f-fill" style="width:40%"></div></div><span class="f-score">40</span></div>
+      <div class="factor-row"><span class="f-name">筹码面</span><div class="f-bar"><div class="f-fill" style="width:55%"></div></div><span class="f-score">55</span></div>
+      <div class="factor-row"><span class="f-name">板块面</span><div class="f-bar"><div class="f-fill" style="width:40%"></div></div><span class="f-score">40</span></div>
+      <div class="factor-row"><span class="f-name">市场面</span><div class="f-bar"><div class="f-fill" style="width:45%"></div></div><span class="f-score">45</span></div>
+    </div>
+    <div style="font-size:11px;color:#86868b;margin-top:8px">加权: 55×25% + 60×25% + 30×20% + 40×15% + 55×5% + 40×5% + 45×5% = 48.0</div>
+  </div>
+  <div style="font-size:12px;color:#86868b;line-height:1.5">
+    <b>评分分析：</b>技术面MACD金叉延续但KDJ死叉形成（K60/D68/J45），价格跌破MA5(19.34)但仍在MA20(17.96)上方；资金面上tdx主力净流入+1.44亿承接真实，但大单拆散特征明显；消息面减持利空重压（-35分），短期情绪修复需要时间。筹码面盈利盘62%均成本17.73构成强支撑。综合48分，短期震荡偏空但下方空间有限。
+  </div>
+</div>
+
+<!-- ⑦ 操作建议 -->
+<div class="section-block">
+  <div class="section-title"><span class="icon">🎯</span>具体操作建议</div>
+  <div class="advice-item hold">
+    <div class="a-tag">当前持仓</div>
+    <div class="a-desc">浮亏-3.27%，不建议止损。主力20日+3.13亿持续吸筹，减持利空属情绪面冲击。持有观望，关注17.73-17.90区间能否企稳。</div>
+  </div>
+  <div class="advice-item buy">
+    <div class="a-tag">加仓条件</div>
+    <div class="a-desc">触发：缩量回踩MA20(17.96)不破 + 卖盘衰竭（量比<0.7）+ 减持公告明确暂缓 → 轻仓试多，目标19.00-19.50，止损17.50(-1.5%)。</div>
+  </div>
+  <div class="advice-item hold">
+    <div class="a-tag">观望条件</div>
+    <div class="a-desc">17.90-18.80区间震荡为大概率(BASE 55%)，不放量跌破17.90或不放量突破19.00均观望。晚间关注减持进展公告。</div>
+  </div>
+  <div class="advice-item sell">
+    <div class="a-tag">减仓条件</div>
+    <div class="a-desc">实控人确认启动减持且量比>1.5放量跌破17.90（BOLL中轨）→ 减半仓止损，目标17.00-17.50。</div>
+  </div>
+</div>
+
+<!-- ⑧ 关键价位 -->
+<div class="section-block">
+  <div class="section-title"><span class="icon">📊</span>关键价位</div>
+  <div class="level-grid">
+    <div class="level-card support">
+      <div class="lvl-name">🛡️ 强支撑</div>
+      <div class="lvl-price">17.90</div>
+      <div class="lvl-desc">今日最低 + 前期密集成交区</div>
+    </div>
+    <div class="level-card resistance">
+      <div class="lvl-name">⚔️ 压力位</div>
+      <div class="lvl-price">19.17</div>
+      <div class="lvl-desc">今日开盘价 + 5日均线附近</div>
+    </div>
+    <div class="level-card support">
+      <div class="lvl-name">🛡️ 筹码支撑</div>
+      <div class="lvl-price">17.73</div>
+      <div class="lvl-desc">筹码均成本(盈利盘62.7%)</div>
+    </div>
+    <div class="level-card resistance">
+      <div class="lvl-name">⚔️ 强压力</div>
+      <div class="lvl-price">19.63</div>
+      <div class="lvl-desc">今日最高 + 前期压力</div>
+    </div>
+    <div class="level-card support">
+      <div class="lvl-name">🛡️ MA60支撑</div>
+      <div class="lvl-price">17.51</div>
+      <div class="lvl-desc">MA60均线 + BOLL中轨附近</div>
+    </div>
+    <div class="level-card resistance">
+      <div class="lvl-name">⚔️ MA5压力</div>
+      <div class="lvl-price">19.34</div>
+      <div class="lvl-desc">MA5均线收回是企稳信号</div>
+    </div>
+    <div class="level-card support">
+      <div class="lvl-name">💼 持仓成本</div>
+      <div class="lvl-price">18.95</div>
+      <div class="lvl-desc">当前浮亏 -3.27%</div>
+    </div>
+    <div class="level-card resistance">
+      <div class="lvl-name">⚔️ BOLL上轨</div>
+      <div class="lvl-price">20.37</div>
+      <div class="lvl-desc">BOLL UPPER 强阻力</div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑨ 次日预判 -->
+<div class="section-block">
+  <div class="section-title"><span class="icon">🔮</span>次日走势预判</div>
+  <div class="score-block" style="background:#f5f5f7">
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="font-size:14px;font-weight:700;color:#1d1d1f">置信度 55/100</span>
+      <span style="font-size:11px;color:#86868b">低置信 · 减持不确定性极大</span>
+    </div>
+    <div style="font-size:12px;color:#86868b;margin-top:8px;line-height:1.5">
+      <b>● Base(50%):</b> 区间震荡 17.90-18.80，消化减持利空情绪<br>
+      <b>▲ Bull(20%):</b> 减持暂缓公告 + 大盘回暖 → 反弹至19.00-19.50<br>
+      <b>▼ Bear(30%):</b> 减持启动 + 跌破17.90 → 下探17.00-17.50<br>
+      <span style="color:#d85a30">⚠ 晚间减持进展公告可能改变格局，概率保留10%给新催化</span>
+    </div>
+  </div>
+</div>
+
+<!-- ⑩ 模型自评 & 预测准确度追踪 -->
+<div class="section-block">
+  <div class="section-title"><span class="icon">🧠</span>模型自评 & 预测准确度追踪</div>
+  <div class="self-review">
+    <div class="sr-title">累计预测: 11次 | 方向准确率: 73% | 综合准确率: 74%</div>
+    <div class="sr-text">
+      <b>本次复盘质量自评：</b><br>
+      数据源完整度: 9/10 (westock+tdx双源完整，板块数据略简)<br>
+      分析深度: 8/10 (资金矛盾已分析，减持利空权重恰当)<br>
+      操作建议: 8/10 (4条场景，含止损价位)<br>
+      <b>改进点:</b> 午间对减持利空持续压制力低估，盘中-7.97%探底后反弹至-3.86%又回落至-5.76%的尾盘走势说明市场仍在消化利空。次日须重点关注减持公告进展。
+    </div>
+  </div>
+</div>
+
+<!-- 底部风险提示 -->
+<div class="section-block">
+  <div class="risk-block">
+    <div class="r-title">⚠️ 重要风险提示</div>
+    <div class="r-item">实控人屈凤琪及五大核心高管同步披露减持3.32%计划，减持启动日不明确，随时可能引发新一轮抛压</div>
+    <div class="r-item">5日跌幅-6.05%，短期趋势转弱，KDJ死叉形成（K60<D68），技术面修复需要时间</div>
+    <div class="r-item">中单资金持续出逃（今日-6337万），说明机构/游资层面减持担忧未消</div>
+    <div class="r-item">大盘上证-0.16%窄幅整理，系统性风险不高但板块弱于大盘，化纤板块无明显催化剂</div>
+    <div class="r-item" style="color:#378add;margin-top:6px;font-weight:600">✅ tdx-已连接 · 资金面以tdx为准</div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
