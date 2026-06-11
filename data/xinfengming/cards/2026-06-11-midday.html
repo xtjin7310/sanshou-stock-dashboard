@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=680">
+<title>新凤鸣 - 午间复盘</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC",sans-serif;display:flex;justify-content:center;padding:20px}
+.card{width:680px;background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,0.08);overflow:hidden}
+.card-header{padding:20px 24px;border-bottom:1px solid #e5e5ea}
+.card-header .top-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.card-header .stock-name{font-size:22px;font-weight:700;color:#1d1d1f}
+.card-header .stock-code{font-size:14px;color:#86868b;margin-left:8px}
+.card-header .mode-tag{font-size:12px;padding:3px 10px;border-radius:12px;background:#f5f5f7;color:#86868b;font-weight:500}
+.card-header .price-row{display:flex;align-items:baseline;gap:12px;margin-top:4px}
+.card-header .price{font-size:36px;font-weight:700;color:#1d9e75}
+.card-header .change{font-size:18px;color:#1d9e75;font-weight:600}
+.card-header .date{font-size:13px;color:#86868b}
+.section-block{padding:16px 24px;border-bottom:1px solid #e5e5ea}
+.section-block:last-child{border-bottom:none}
+.section-title{font-size:14px;font-weight:600;color:#1d1d1f;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.section-title .icon{font-size:16px}
+.indicator-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.indicator-item{background:#f5f5f7;border-radius:10px;padding:10px 12px}
+.indicator-item .label{font-size:11px;color:#86868b;margin-bottom:4px}
+.indicator-item .value{font-size:16px;font-weight:600;color:#1d1d1f}
+.indicator-item .value.red{color:#d85a30}
+.indicator-item .value.green{color:#1d9e75}
+.indicator-item .value.blue{color:#378add}
+.timeline{position:relative;padding-left:20px}
+.timeline::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:3px;border-radius:2px;background:linear-gradient(180deg,#d85a30,#f5a623,#378add,#1d9e75,#d85a30)}
+.timeline-node{position:relative;margin-bottom:14px;padding-left:16px}
+.timeline-node::before{content:'';position:absolute;left:-16px;top:6px;width:11px;height:11px;border-radius:50%;background:#fff;border:2.5px solid #378add}
+.timeline-node:first-child::before{border-color:#d85a30}
+.timeline-node:last-child::before{border-color:#1d9e75}
+.timeline-node .time{font-size:12px;color:#86868b}
+.timeline-node .desc{font-size:14px;color:#1d1d1f;font-weight:500}
+.timeline-node .detail{font-size:12px;color:#86868b;margin-top:2px}
+.prediction-block{background:#f0f4ff;border-radius:12px;padding:16px;margin:8px 0}
+.prediction-block h4{font-size:14px;color:#378add;margin-bottom:8px}
+.prediction-block .scenario{margin:6px 0;font-size:13px;color:#1d1d1f}
+.prediction-block .scenario .prob{color:#86868b;font-size:11px}
+.level-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.level-card{border-radius:10px;padding:12px;background:#f5f5f7}
+.level-card.support{background:#f0f4ff}
+.level-card.resistance{background:#fef0f0}
+.level-card .lvl-name{font-size:12px;color:#86868b;margin-bottom:6px}
+.level-card .lvl-price{font-size:18px;font-weight:700}
+.level-card.support .lvl-price{color:#378add}
+.level-card.resistance .lvl-price{color:#d85a30}
+.level-card .lvl-desc{font-size:11px;color:#86868b;margin-top:2px}
+.score-section{background:#f8f8fa;border-radius:12px;padding:16px}
+.score-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.score-value{font-size:32px;font-weight:800}
+.score-value.weak-bear{color:#d85a30}
+.score-label{font-size:14px;color:#1d1d1f;font-weight:600}
+.score-desc{font-size:12px;color:#86868b}
+.factor-bar{margin:6px 0}
+.factor-bar .fname{font-size:12px;color:#1d1d1f;margin-bottom:3px;display:flex;justify-content:space-between}
+.factor-bar .fbar{height:6px;border-radius:3px;background:#e5e5ea;overflow:hidden}
+.factor-bar .ffill{height:100%;border-radius:3px}
+.risk-block{background:#fff8f0;border-radius:10px;padding:12px 16px;margin-top:8px}
+.risk-block .risk-title{font-size:13px;color:#d85a30;font-weight:600;margin-bottom:6px}
+.risk-block .risk-item{font-size:12px;color:#6e6e73;margin:3px 0;padding-left:12px;position:relative}
+.risk-block .risk-item::before{content:'•';position:absolute;left:0;color:#d85a30}
+tdx-note{display:block;font-size:11px;color:#86868b;text-align:center;padding:8px;background:#f5f5f7;border-radius:8px;margin-top:12px}
+.holding-badge{font-size:12px;padding:2px 8px;border-radius:10px;background:#fef0f0;color:#d85a30;margin-left:8px;font-weight:500}
+.fund-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.fund-item{display:flex;justify-content:space-between;padding:6px 10px;background:#f5f5f7;border-radius:8px;font-size:13px}
+.fund-item .f-green{color:#1d9e75}
+.fund-item .f-red{color:#d85a30}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="card-header">
+<div class="top-row">
+<div>
+<span class="stock-name">新凤鸣</span><span class="stock-code">sh603225</span>
+<span class="mode-tag">午间复盘</span>
+</div>
+<span class="mode-tag">上海主板 · 化纤</span>
+</div>
+<div class="price-row">
+<span class="price">18.39</span>
+<span class="change">-5.45%</span>
+<span class="holding-badge">持仓 18.947 浮亏-2.9%</span>
+</div>
+<div class="date">2026年6月11日 11:30 上午收盘 · 午间复盘</div>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">📊</span> 关键指标</div>
+<div class="indicator-grid">
+<div class="indicator-item"><div class="label">开盘</div><div class="value">19.17</div></div>
+<div class="indicator-item"><div class="label">最高</div><div class="value red">19.63</div></div>
+<div class="indicator-item"><div class="label">最低</div><div class="value blue">17.90</div></div>
+<div class="indicator-item"><div class="label">昨收</div><div class="value">19.45</div></div>
+<div class="indicator-item"><div class="label">成交量</div><div class="value">22.06万手</div></div>
+<div class="indicator-item"><div class="label">成交额</div><div class="value">4.04亿</div></div>
+<div class="indicator-item"><div class="label">换手率</div><div class="value">1.32%</div></div>
+<div class="indicator-item"><div class="label">量比</div><div class="value" style="color:#86868b">1.49</div></div>
+</div>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">⏱️</span> 上午分时关键节点</div>
+<div class="timeline">
+<div class="timeline-node"><div class="time">09:30 — 开盘</div><div class="desc">低开 19.17 (-1.44%)</div><div class="detail">对比昨收19.45，竞价弱势</div></div>
+<div class="timeline-node"><div class="time">09:54 — 盘中急跌</div><div class="desc">日低 17.90 (-7.92%)</div><div class="detail">半小时内跌幅-7.92%，恐慌性抛售</div></div>
+<div class="timeline-node"><div class="time">10:32 — 回升确认</div><div class="desc">反弹至 18.30</div><div class="detail">从日低反弹+2.2%，V反信号初步确认</div></div>
+<div class="timeline-node"><div class="time">11:11 — 尾盘急拉</div><div class="desc">突破至 18.50</div><div class="detail">11:11-11:16快速拉升，涨幅+0.61%</div></div>
+<div class="timeline-node"><div class="time">11:30 — 午间收盘</div><div class="desc">收 18.39 (-5.45%)</div><div class="detail">尾盘小幅回落0.12，V反后暂稳</div></div>
+</div>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">💰</span> 资金面分析 (tdx ProInfo)</div>
+<div class="fund-grid">
+<div class="fund-item"><span>主力净额 InOut</span><span class="f-green">+6,398万</span></div>
+<div class="fund-item"><span>含北向 InOutHB</span><span class="f-red">-2,707万</span></div>
+<div class="fund-item"><span>委比 Wtb</span><span class="f-red">-55.66%</span></div>
+<div class="fund-item"><span>外盘/内盘</span><span>12.61万 / 9.45万</span></div>
+<div class="fund-item"><span>5日主力净额</span><span class="f-green">+1.43亿</span></div>
+<div class="fund-item"><span>20日主力净额</span><span class="f-green">+3.13亿</span></div>
+<div class="fund-item"><span>20日涨幅</span><span class="f-green">+8.11%</span></div>
+<div class="fund-item"><span>年内涨幅</span><span class="f-red">-5.50%</span></div>
+</div>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">🔮</span> 下午走势预判</div>
+<p style="font-size:14px;color:#1d1d1f;line-height:1.7;margin-bottom:12px">
+<strong>走势复盘：</strong>上午走出经典<strong style="color:#378add">深V探底回升</strong>形态。开盘低开19.17后急速下挫至17.90(-7.92%)，恐慌情绪释放后买盘入场，V型反转持续到11:16高点18.51。外盘(12.61万)>内盘(9.45万)，主力InOut+6398万，显示有资金在低位吸筹。
+</p>
+<div class="prediction-block">
+<h4>下午场景预测 — 置信度: 60/100</h4>
+<div class="scenario">● <strong>基准场景 (55%)：</strong> 延续反弹，窄幅震荡 18.20-18.80 <span class="prob">V反形态+主力资金偏多</span></div>
+<div class="scenario">▲ <strong>偏多场景 (25%)：</strong> 若13:00放量突破19.17开盘价 → 挑战19.63上午高点 <span class="prob">触发：板块回暖+量比>1.5</span></div>
+<div class="scenario">▼ <strong>偏空场景 (20%)：</strong> 反弹失败跌破18.00 → 重新测试17.90支撑 <span class="prob">触发：量能萎缩+化纤板块继续走弱</span></div>
+</div>
+<p style="font-size:12px;color:#86868b;margin-top:8px">
+⚠️ 下午关注：化纤板块HYZAF -2.61%，板块弱势可能制约反弹高度。V反后30分钟内量能能否持续是关键。
+</p>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">📈</span> 三寿股价预测评分 v2.5.1</div>
+<div class="score-section">
+<div class="score-header">
+<div>
+<div class="score-value weak-bear">56</div>
+<div class="score-desc">震荡偏空 · 置信度 60/100</div>
+</div>
+<div class="score-label">V反反弹中，板块偏弱制约</div>
+</div>
+<div class="factor-bar"><div class="fname"><span>技术面</span><span>65</span></div><div class="fbar"><div class="ffill" style="width:65%;background:#378add"></div></div></div>
+<div class="factor-bar"><div class="fname"><span>资金面</span><span>55</span></div><div class="fbar"><div class="ffill" style="width:55%;background:#1d9e75"></div></div></div>
+<div class="factor-bar"><div class="fname"><span>量价关系</span><span>60</span></div><div class="fbar"><div class="ffill" style="width:60%;background:#378add"></div></div></div>
+<div class="factor-bar"><div class="fname"><span>板块强度</span><span>35</span></div><div class="fbar"><div class="ffill" style="width:35%;background:#d85a30"></div></div></div>
+<div class="factor-bar"><div class="fname"><span>消息面</span><span>50</span></div><div class="fbar"><div class="ffill" style="width:50%;background:#f5a623"></div></div></div>
+<div class="factor-bar"><div class="fname"><span>筹码结构</span><span>45</span></div><div class="fbar"><div class="ffill" style="width:45%;background:#86868b"></div></div></div>
+<div class="factor-bar"><div class="fname"><span>V反信号</span><span>70</span></div><div class="fbar"><div class="ffill" style="width:70%;background:#378add"></div></div></div>
+</div>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">🎯</span> 操作建议</div>
+<div class="prediction-block" style="background:#f8f8fa">
+<div class="scenario">● <strong>当前持仓：</strong>暂持观望。浮亏-2.9%，V反信号有效，不宜在反弹中割肉。跌破17.90止损</div>
+<div class="scenario">▲ <strong>加仓触发：</strong>下午放量站上19.17(开盘价)+板块回暖 → 轻仓试多，目标19.63，止损18.80</div>
+<div class="scenario">■ <strong>减仓触发：</strong>下午反弹无力跌破18.00 → 减仓1/3，保护本金</div>
+<div class="scenario">▼ <strong>坚决观望：</strong>缩量震荡在18.00-18.50区间，多看少动</div>
+</div>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">📊</span> 关键价位</div>
+<div class="level-grid">
+<div class="level-card support"><div class="lvl-name">强支撑</div><div class="lvl-price">17.90</div><div class="lvl-desc">上午日低点，V反起点</div></div>
+<div class="level-card resistance"><div class="lvl-name">第一压力</div><div class="lvl-price">19.17</div><div class="lvl-desc">开盘价，收复则转多</div></div>
+<div class="level-card support"><div class="lvl-name">持仓成本</div><div class="lvl-price">18.95</div><div class="lvl-desc">回本即压力，心理阻力位</div></div>
+<div class="level-card resistance"><div class="lvl-name">上午高点</div><div class="lvl-price">19.63</div><div class="lvl-desc">突破则确认反转</div></div>
+</div>
+</div>
+
+<div class="section-block">
+<div class="risk-block">
+<div class="risk-title">⚠️ 风险提示</div>
+<div class="risk-item">化纤板块整体弱势(HYZAF -2.61%)，板块下行可能拖累个股反弹</div>
+<div class="risk-item">量比1.49放量主要来自早盘抛售，V反过程中量能持续性待验证</div>
+<div class="risk-item">持仓成本18.95上方套牢盘较重，反弹空间受限</div>
+</div>
+</div>
+
+<tdx-note>✅ 数据源：通达信 tdx_quotes ProInfo · InOut +6,398万 | westock-data 辅助 · PE(TTM) 28.56</tdx-note>
+</div>
+</body>
+</html>

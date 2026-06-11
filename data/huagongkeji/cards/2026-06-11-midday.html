@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=680">
+<title>华工科技 - 午间复盘</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC",sans-serif;display:flex;justify-content:center;padding:20px}
+.card{width:680px;background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,0.08);overflow:hidden}
+.card-header{padding:20px 24px;border-bottom:1px solid #e5e5ea}
+.card-header .top-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.card-header .stock-name{font-size:22px;font-weight:700;color:#1d1d1f}
+.card-header .stock-code{font-size:14px;color:#86868b;margin-left:8px}
+.card-header .mode-tag{font-size:12px;padding:3px 10px;border-radius:12px;background:#f5f5f7;color:#86868b;font-weight:500}
+.card-header .price-row{display:flex;align-items:baseline;gap:12px;margin-top:4px}
+.card-header .price{font-size:36px;font-weight:700;color:#1d9e75}
+.card-header .change{font-size:18px;color:#1d9e75;font-weight:600}
+.card-header .date{font-size:13px;color:#86868b}
+.section-block{padding:16px 24px;border-bottom:1px solid #e5e5ea}
+.section-block:last-child{border-bottom:none}
+.section-title{font-size:14px;font-weight:600;color:#1d1d1f;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.section-title .icon{font-size:16px}
+.indicator-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.indicator-item{background:#f5f5f7;border-radius:10px;padding:10px 12px}
+.indicator-item .label{font-size:11px;color:#86868b;margin-bottom:4px}
+.indicator-item .value{font-size:16px;font-weight:600;color:#1d1d1f}
+.indicator-item .value.red{color:#d85a30}
+.indicator-item .value.green{color:#1d9e75}
+.indicator-item .value.blue{color:#378add}
+.timeline{position:relative;padding-left:20px}
+.timeline::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:3px;border-radius:2px;background:linear-gradient(180deg,#d85a30,#378add,#f5a623,#d85a30,#1d9e75)}
+.timeline-node{position:relative;margin-bottom:14px;padding-left:16px}
+.timeline-node::before{content:'';position:absolute;left:-16px;top:6px;width:11px;height:11px;border-radius:50%;background:#fff;border:2.5px solid #378add}
+.timeline-node:first-child::before{border-color:#d85a30}
+.timeline-node:nth-child(2)::before{border-color:#378add}
+.timeline-node:nth-child(4)::before{border-color:#d85a30}
+.timeline-node:last-child::before{border-color:#1d9e75}
+.timeline-node .time{font-size:12px;color:#86868b}
+.timeline-node .desc{font-size:14px;color:#1d1d1f;font-weight:500}
+.timeline-node .detail{font-size:12px;color:#86868b;margin-top:2px}
+.prediction-block{background:#f0f4ff;border-radius:12px;padding:16px;margin:8px 0}
+.prediction-block h4{font-size:14px;color:#378add;margin-bottom:8px}
+.prediction-block .scenario{margin:6px 0;font-size:13px;color:#1d1d1f}
+.prediction-block .scenario .prob{color:#86868b;font-size:11px}
+.level-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.level-card{border-radius:10px;padding:12px;background:#f5f5f7}
+.level-card.support{background:#f0f4ff}
+.level-card.resistance{background:#fef0f0}
+.level-card .lvl-name{font-size:12px;color:#86868b;margin-bottom:6px}
+.level-card .lvl-price{font-size:18px;font-weight:700}
+.level-card.support .lvl-price{color:#378add}
+.level-card.resistance .lvl-price{color:#d85a30}
+.level-card .lvl-desc{font-size:11px;color:#86868b;margin-top:2px}
+.score-section{background:#f8f8fa;border-radius:12px;padding:16px}
+.score-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.score-value{font-size:32px;font-weight:800;color:#d85a30}
+.score-label{font-size:14px;color:#1d1d1f;font-weight:600}
+.score-desc{font-size:12px;color:#86868b}
+.factor-bar{margin:6px 0}
+.factor-bar .fname{font-size:12px;color:#1d1d1f;margin-bottom:3px;display:flex;justify-content:space-between}
+.factor-bar .fbar{height:6px;border-radius:3px;background:#e5e5ea;overflow:hidden}
+.factor-bar .ffill{height:100%;border-radius:3px}
+.risk-block{background:#fff0f0;border-radius:10px;padding:12px 16px;margin-top:8px}
+.risk-block .risk-title{font-size:13px;color:#d85a30;font-weight:600;margin-bottom:6px}
+.risk-block .risk-item{font-size:12px;color:#6e6e73;margin:3px 0;padding-left:12px;position:relative}
+.risk-block .risk-item::before{content:'•';position:absolute;left:0;color:#d85a30}
+tdx-note{display:block;font-size:11px;color:#86868b;text-align:center;padding:8px;background:#f5f5f7;border-radius:8px;margin-top:12px}
+.holding-badge{font-size:12px;padding:2px 8px;border-radius:10px;background:#fef0f0;color:#d85a30;margin-left:8px;font-weight:500}
+.fund-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.fund-item{display:flex;justify-content:space-between;padding:6px 10px;background:#f5f5f7;border-radius:8px;font-size:13px}
+.fund-item .f-green{color:#1d9e75}
+.fund-item .f-red{color:#d85a30}
+.warn-box{background:#fff0f0;border:1px solid #ffd5d5;border-radius:10px;padding:12px;margin-top:8px}
+.warn-box .warn-title{font-size:13px;font-weight:700;color:#d85a30;margin-bottom:4px}
+.warn-box .warn-text{font-size:12px;color:#6e6e73}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="card-header">
+<div class="top-row">
+<div>
+<span class="stock-name">华工科技</span><span class="stock-code">sz000988</span>
+<span class="mode-tag">午间复盘</span>
+</div>
+<span class="mode-tag">深圳主板 · 电子</span>
+</div>
+<div class="price-row">
+<span class="price">148.60</span>
+<span class="change">-0.27%</span>
+<span class="holding-badge">持仓 154.237 浮亏-3.7%</span>
+</div>
+<div class="date">2026年6月11日 11:30 上午收盘 · 午间复盘</div>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">📊</span> 关键指标</div>
+<div class="indicator-grid">
+<div class="indicator-item"><div class="label">开盘</div><div class="value">148.01</div></div>
+<div class="indicator-item"><div class="label">最高</div><div class="value red">152.50</div></div>
+<div class="indicator-item"><div class="label">最低</div><div class="value blue">148.01</div></div>
+<div class="indicator-item"><div class="label">昨收</div><div class="value">149.00</div></div>
+<div class="indicator-item"><div class="label">成交量</div><div class="value">29.13万手</div></div>
+<div class="indicator-item"><div class="label">成交额</div><div class="value">43.88亿</div></div>
+<div class="indicator-item"><div class="label">换手率</div><div class="value">2.90%</div></div>
+<div class="indicator-item"><div class="label">量比</div><div class="value" style="color:#86868b">0.82</div></div>
+</div>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">⏱️</span> 上午分时关键节点</div>
+<div class="timeline">
+<div class="timeline-node"><div class="time">09:30 — 开盘</div><div class="desc">低开 148.01 (-0.66%)</div><div class="detail">温和低开，竞价弱势</div></div>
+<div class="timeline-node"><div class="time">09:49 — 急拉见顶</div><div class="desc">上午高点 152.50 (+2.35%)</div><div class="detail">20分钟拉升+3.0%，放量冲高</div></div>
+<div class="timeline-node"><div class="time">10:01 — 回落确认</div><div class="desc">跌破 149.90</div><div class="detail">冲高后30分钟内回落，上涨无力</div></div>
+<div class="timeline-node"><div class="time">11:18 — 跳水加速</div><div class="desc">骤跌至 148.61</div><div class="detail">尾盘抛压加剧，接近日低</div></div>
+<div class="timeline-node"><div class="time">11:30 — 午间收盘</div><div class="desc">收 148.60 (-0.27%)</div><div class="detail">接近开盘点，全天涨幅全部回吐</div></div>
+</div>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">💰</span> 资金面分析 (tdx ProInfo)</div>
+<div class="fund-grid">
+<div class="fund-item"><span>主力净额 InOut</span><span class="f-green">+983万</span></div>
+<div class="fund-item"><span>含北向 InOutHB</span><span class="f-red">-2.00亿</span></div>
+<div class="fund-item"><span>委比 Wtb</span><span class="f-green">+52.60%</span></div>
+<div class="fund-item"><span>外盘/内盘</span><span>14.85万 / 14.28万</span></div>
+<div class="fund-item"><span>5日主力净额</span><span class="f-red">-15.47亿</span></div>
+<div class="fund-item"><span>20日主力净额</span><span class="f-red">-106.07亿</span></div>
+<div class="fund-item"><span>20日涨幅</span><span class="f-green">+8.15%</span></div>
+<div class="fund-item"><span>年内涨幅</span><span class="f-green">+87.32%</span></div>
+</div>
+<div class="warn-box">
+<div class="warn-title">⚠️ 中长期资金面红灯</div>
+<div class="warn-text">20日主力累计净流出高达 -106.07亿，5日主力流出 -15.47亿。中长期资金持续撤离，反弹皆是减仓窗口。</div>
+</div>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">🔮</span> 下午走势预判</div>
+<p style="font-size:14px;color:#1d1d1f;line-height:1.7;margin-bottom:12px">
+<strong>走势复盘：</strong>上午走出<strong style="color:#d85a30">经典冲高回落（倒V反转）</strong>。开盘低开后急拉到152.50(+2.35%)，但买盘不济，随后持续回落直至午间。量比0.82缩量，且InOutHB含北向净流出-2.00亿，显示资金在上方积极派发。倒V形态+缩量=典型的弱市信号。
+</p>
+<div class="prediction-block">
+<h4>下午场景预测 — 置信度: 55/100</h4>
+<div class="scenario">● <strong>基准场景 (55%)：</strong> 弱势震荡 147.50-150.00 <span class="prob">缩量+主力流出，反弹无力</span></div>
+<div class="scenario">▲ <strong>偏多场景 (20%)：</strong> 下午开盘放量站上150 → 挑战152.50 <span class="prob">触发：电子板块回暖+量比回升>1.0</span></div>
+<div class="scenario">▼ <strong>偏空场景 (25%)：</strong> 跌破148.01开盘价 → 下探147.01(昨日低点) <span class="prob">触发：缩量阴跌+主力继续流出</span></div>
+</div>
+<p style="font-size:12px;color:#86868b;margin-top:8px">
+⚠️ 下午关注：20日主力流出-106亿是重大风险信号。反弹即减仓机会，不宜抄底。
+</p>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">📈</span> 三寿股价预测评分 v2.5.1</div>
+<div class="score-section">
+<div class="score-header">
+<div>
+<div class="score-value" style="color:#d85a30">37</div>
+<div class="score-desc">弱势偏空 · 置信度 55/100</div>
+</div>
+<div class="score-label">冲高回落+主力持续流出</div>
+</div>
+<div class="factor-bar"><div class="fname"><span>技术面</span><span>40</span></div><div class="fbar"><div class="ffill" style="width:40%;background:#d85a30"></div></div></div>
+<div class="factor-bar"><div class="fname"><span>资金面</span><span>30</span></div><div class="fbar"><div class="ffill" style="width:30%;background:#d85a30"></div></div></div>
+<div class="factor-bar"><div class="fname"><span>量价关系</span><span>35</span></div><div class="fbar"><div class="ffill" style="width:35%;background:#d85a30"></div></div></div>
+<div class="factor-bar"><div class="fname"><span>板块强度</span><span>35</span></div><div class="fbar"><div class="ffill" style="width:35%;background:#d85a30"></div></div></div>
+<div class="factor-bar"><div class="fname"><span>消息面</span><span>50</span></div><div class="fbar"><div class="ffill" style="width:50%;background:#f5a623"></div></div></div>
+<div class="factor-bar"><div class="fname"><span>筹码结构</span><span>40</span></div><div class="fbar"><div class="ffill" style="width:40%;background:#86868b"></div></div></div>
+<div class="factor-bar"><div class="fname"><span>反转信号</span><span>30</span></div><div class="fbar"><div class="ffill" style="width:30%;background:#d85a30"></div></div></div>
+</div>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">🎯</span> 操作建议</div>
+<div class="prediction-block" style="background:#f8f8fa">
+<div class="scenario">● <strong>当前持仓：</strong>浮亏-3.7%，但不建议加仓。20日主力流出-106亿背景下，每次反弹都是减仓窗口</div>
+<div class="scenario">■ <strong>减仓触发：</strong>下午若放量跌破148.00 → 减仓至300股，止损设在147.00</div>
+<div class="scenario">▲ <strong>加仓触发：</strong>需满足三大条件同时成立：放量站上152.50+电子板块翻红+主力资金转为净流入 → 概率<15%</div>
+<div class="scenario">▼ <strong>止损：</strong>若跌破147.01(昨日低点)→清仓止损，亏损-4.7%</div>
+</div>
+</div>
+
+<div class="section-block">
+<div class="section-title"><span class="icon">📊</span> 关键价位</div>
+<div class="level-grid">
+<div class="level-card support"><div class="lvl-name">日内支撑</div><div class="lvl-price">148.01</div><div class="lvl-desc">开盘价/日低，跌破则转空</div></div>
+<div class="level-card resistance"><div class="lvl-name">心理阻力</div><div class="lvl-price">150.00</div><div class="lvl-desc">整数关口，收复则企稳</div></div>
+<div class="level-card support"><div class="lvl-name">昨日低点</div><div class="lvl-price">147.01</div><div class="lvl-desc">6/10日低，关键止损位</div></div>
+<div class="level-card resistance"><div class="lvl-name">上午高点</div><div class="lvl-price">152.50</div><div class="lvl-desc">套牢盘密集区，突破难</div></div>
+</div>
+</div>
+
+<div class="section-block">
+<div class="risk-block">
+<div class="risk-title">⚠️ 风险提示</div>
+<div class="risk-item">20日主力累计净流出-106.07亿，中长期资金撤离趋势未改变</div>
+<div class="risk-item">缩量冲高回落是经典出货形态，下午大概率延续弱势</div>
+<div class="risk-item">电子板块HYZAF -2.37%，板块弱势加大下跌风险</div>
+<div class="risk-item">年内涨幅+87.32%已高，获利盘抛压随时释放</div>
+</div>
+</div>
+
+<tdx-note>✅ 数据源：通达信 tdx_quotes ProInfo · InOut +983万 / InOutHB -2.00亿 | westock-data 辅助 · PE(TTM) 87.93</tdx-note>
+</div>
+</body>
+</html>

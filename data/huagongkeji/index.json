@@ -670,10 +670,76 @@
       "card_html": "cards/2026-06-10-afternoon.html",
       "card_screenshot": "cards/2026-06-10-afternoon.png",
       "tdx_connected": true
+    },
+    {
+      "date": "2026-06-11",
+      "session": "morning",
+      "price": 148.6,
+      "prev_close": 149.0,
+      "change": -0.4,
+      "change_percent": -0.27,
+      "open": 148.01,
+      "high": 152.5,
+      "low": 148.01,
+      "volume": 291346,
+      "amount": 4387903936,
+      "turnover_rate": 2.9,
+      "volume_ratio": 0.82,
+      "fund_flow": {
+        "tdx_inout": 9828864,
+        "tdx_inout_hb": -200351616,
+        "tdx_wtb": 52.6,
+        "inside": 142811,
+        "outside": 148535,
+        "main_net_flow": -178140091,
+        "jumbo_net_flow": -159455193,
+        "mid_net_flow": 72029289,
+        "small_net_flow": 106110802,
+        "main_net_5d": -1547130165,
+        "main_net_20d": -10607357849,
+        "margin_balance": 11173741979,
+        "margin_dod": -0.28,
+        "short_balance": 21652233,
+        "short_dod": 0.81
+      },
+      "sanshou_score": 37,
+      "score_category": "弱势偏空",
+      "predictions": {
+        "base": {
+          "probability": 55,
+          "description": "弱势震荡",
+          "range": "147.50-150.00",
+          "close_estimate": 148.5
+        },
+        "bull": {
+          "probability": 20,
+          "trigger": "放量站上150+板块翻红",
+          "target": "150.00-152.50"
+        },
+        "bear": {
+          "probability": 25,
+          "trigger": "跌破148.01",
+          "target": "147.00-147.50"
+        }
+      },
+      "key_levels": {
+        "support": [
+          148.01,
+          147.01
+        ],
+        "resistance": [
+          150.0,
+          152.5
+        ]
+      },
+      "confidence": 55,
+      "morphology": "冲高回落（倒V反转）",
+      "afternoon_bias": "偏空（主力持续流出）",
+      "card_screenshot": "cards/2026-06-11-midday.png"
     }
   ],
   "accuracy": {
-    "total_predictions": 6,
+    "total_predictions": 7,
     "direction_accurate": 3,
     "direction_accuracy": 60.0,
     "composite_accuracy": 64.0
