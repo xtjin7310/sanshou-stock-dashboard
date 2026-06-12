@@ -703,7 +703,7 @@
       "change_percent": -5.76,
       "open": 19.17,
       "high": 19.63,
-      "low": 17.90,
+      "low": 17.9,
       "volume": 338065,
       "amount": 620944109,
       "turnover_rate": 2.03,
@@ -768,8 +768,18 @@
       },
       "confidence": 55,
       "key_levels": {
-        "support": [17.90, 17.73, 17.51, 17.00],
-        "resistance": [19.17, 19.63, 19.34, 20.37],
+        "support": [
+          17.9,
+          17.73,
+          17.51,
+          17.0
+        ],
+        "resistance": [
+          19.17,
+          19.63,
+          19.34,
+          20.37
+        ],
         "cost": 18.95
       },
       "midday_verification": {
@@ -788,10 +798,105 @@
       "card_html": "cards/2026-06-11-afternoon.html",
       "card_screenshot": "cards/2026-06-11-afternoon.png",
       "tdx_connected": true
+    },
+    {
+      "date": "2026-06-12",
+      "session": "afternoon",
+      "price": 20.16,
+      "prev_close": 18.33,
+      "change": 1.83,
+      "change_percent": 9.98,
+      "open": 18.84,
+      "high": 20.16,
+      "low": 18.4,
+      "volume": 274204,
+      "amount": 538109568,
+      "turnover_rate": 1.64,
+      "volume_ratio": 0.88,
+      "fund_flow": {
+        "tdx_inout": -49667520,
+        "tdx_inout_hb": 42801232,
+        "tdx_wtb": 100.0,
+        "inside": 139191,
+        "outside": 135013,
+        "main_net_flow": 41040546,
+        "jumbo_net_flow": 48358263,
+        "mid_net_flow": -34190711,
+        "small_net_flow": -6849835,
+        "main_net_5d": 118384009,
+        "main_net_20d": 283072455,
+        "margin_balance": 362868882,
+        "margin_dod": -5.76,
+        "short_balance": 5691465,
+        "short_dod": -6.63
+      },
+      "technical": {
+        "ma5": 19.308,
+        "ma10": 19.25,
+        "ma20": 18.117,
+        "ma60": 17.56,
+        "ma250": 16.295,
+        "macd_dif": 0.56,
+        "macd_dea": 0.396,
+        "macd_hist": 0.328,
+        "kdj_k": 64.643,
+        "kdj_d": 67.16,
+        "kdj_j": 59.608,
+        "boll_upper": 20.663,
+        "boll_mid": 18.117,
+        "boll_lower": 15.571,
+        "sar": 21.056,
+        "petm": 31.31,
+        "pe_static": 33.21,
+        "zaf20": 18.38,
+        "this_year": 3.6,
+        "chip_profit_rate": 87.65,
+        "chip_avg_cost": 17.54
+      },
+      "sanshou_score": 74,
+      "score_category": "震荡偏多",
+      "predictions": {
+        "base": {
+          "probability": 45,
+          "description": "涨停次日高开震荡，消化获利盘",
+          "range": "19.50-20.50",
+          "close_estimate": 20.0
+        },
+        "bull": {
+          "probability": 35,
+          "trigger": "产销率催化持续+板块回暖+封板资金持续",
+          "target": "21.00-21.46"
+        },
+        "bear": {
+          "probability": 20,
+          "trigger": "涨停板打开+主力获利了结+减持公告",
+          "target": "19.00-19.30"
+        }
+      },
+      "confidence": 65,
+      "key_levels": {
+        "support": [
+          19.31,
+          19.25,
+          18.95,
+          18.12
+        ],
+        "resistance": [
+          20.66,
+          21.06,
+          21.46,
+          22.77
+        ],
+        "cost": 18.95
+      },
+      "midday_verification": null,
+      "card_html": "cards/2026-06-12-afternoon.html",
+      "card_screenshot": "cards/2026-06-12-afternoon.png",
+      "tdx_connected": true
     }
   ],
   "accuracy": {
-    "total_predictions": 11,
+    "total_predictions": 12,
     "direction_accurate": 6,
     "direction_partial": 1,
     "direction_accuracy": 59.1,
